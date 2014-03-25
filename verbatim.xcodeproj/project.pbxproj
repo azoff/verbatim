@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76B1E1F0268E4FEBB2372A8B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8372FAD07D0C458C82C25578 /* libPods.a */; };
 		C9194CD318E1591D00057B66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD218E1591D00057B66 /* Foundation.framework */; };
 		C9194CD518E1591D00057B66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD418E1591D00057B66 /* CoreGraphics.framework */; };
 		C9194CD718E1591D00057B66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD618E1591D00057B66 /* UIKit.framework */; };
@@ -19,6 +20,14 @@
 		C9194CEE18E1591E00057B66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD618E1591D00057B66 /* UIKit.framework */; };
 		C9194CF618E1591E00057B66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9194CF418E1591E00057B66 /* InfoPlist.strings */; };
 		C9194CF818E1591E00057B66 /* verbatimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CF718E1591E00057B66 /* verbatimTests.m */; };
+		C9194D0218E1593A00057B66 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0118E1593900057B66 /* AudioToolbox.framework */; };
+		C9194D0418E1594100057B66 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0318E1594100057B66 /* AVFoundation.framework */; };
+		C9194D0918E15A6400057B66 /* CPCaptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194D0718E15A6400057B66 /* CPCaptionScreen.m */; };
+		C9194D0A18E15A6400057B66 /* CPCaptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */; };
+		C9194D1018E15A8B00057B66 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */; };
+		C9194D1118E15A8B00057B66 /* AcousticModelSpanish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */; };
+		C9194D1218E15A8B00057B66 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0E18E15A8B00057B66 /* OpenEars.framework */; };
+		C9194D1318E15A8B00057B66 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0F18E15A8B00057B66 /* Slt.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8372FAD07D0C458C82C25578 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9194CCF18E1591D00057B66 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9194CD218E1591D00057B66 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9194CD418E1591D00057B66 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +58,16 @@
 		C9194CF318E1591E00057B66 /* verbatimTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatimTests-Info.plist"; sourceTree = "<group>"; };
 		C9194CF518E1591E00057B66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9194CF718E1591E00057B66 /* verbatimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = verbatimTests.m; sourceTree = "<group>"; };
+		C9194D0118E1593900057B66 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C9194D0318E1594100057B66 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C9194D0618E15A6400057B66 /* CPCaptionScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCaptionScreen.h; sourceTree = "<group>"; };
+		C9194D0718E15A6400057B66 /* CPCaptionScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCaptionScreen.m; sourceTree = "<group>"; };
+		C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPCaptionScreen.xib; sourceTree = "<group>"; };
+		C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelSpanish.bundle; sourceTree = "<group>"; };
+		C9194D0E18E15A8B00057B66 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		C9194D0F18E15A8B00057B66 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,9 +75,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9194D1218E15A8B00057B66 /* OpenEars.framework in Frameworks */,
+				C9194D0418E1594100057B66 /* AVFoundation.framework in Frameworks */,
+				C9194D0218E1593A00057B66 /* AudioToolbox.framework in Frameworks */,
 				C9194CD518E1591D00057B66 /* CoreGraphics.framework in Frameworks */,
+				C9194D1318E15A8B00057B66 /* Slt.framework in Frameworks */,
 				C9194CD718E1591D00057B66 /* UIKit.framework in Frameworks */,
 				C9194CD318E1591D00057B66 /* Foundation.framework in Frameworks */,
+				76B1E1F0268E4FEBB2372A8B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +106,7 @@
 				C9194CF118E1591E00057B66 /* verbatimTests */,
 				C9194CD118E1591D00057B66 /* Frameworks */,
 				C9194CD018E1591D00057B66 /* Products */,
+				F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,10 +122,14 @@
 		C9194CD118E1591D00057B66 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9194D0B18E15A8B00057B66 /* OpenEars */,
+				C9194D0318E1594100057B66 /* AVFoundation.framework */,
+				C9194D0118E1593900057B66 /* AudioToolbox.framework */,
 				C9194CD218E1591D00057B66 /* Foundation.framework */,
 				C9194CD418E1591D00057B66 /* CoreGraphics.framework */,
 				C9194CD618E1591D00057B66 /* UIKit.framework */,
 				C9194CEB18E1591E00057B66 /* XCTest.framework */,
+				8372FAD07D0C458C82C25578 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +137,7 @@
 		C9194CD818E1591D00057B66 /* verbatim */ = {
 			isa = PBXGroup;
 			children = (
+				C9194D0518E15A6400057B66 /* screens */,
 				C9194CE118E1591D00057B66 /* VBAppDelegate.h */,
 				C9194CE218E1591D00057B66 /* VBAppDelegate.m */,
 				C9194CE418E1591D00057B66 /* Images.xcassets */,
@@ -144,6 +175,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C9194D0518E15A6400057B66 /* screens */ = {
+			isa = PBXGroup;
+			children = (
+				C9194D0618E15A6400057B66 /* CPCaptionScreen.h */,
+				C9194D0718E15A6400057B66 /* CPCaptionScreen.m */,
+				C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */,
+			);
+			path = screens;
+			sourceTree = "<group>";
+		};
+		C9194D0B18E15A8B00057B66 /* OpenEars */ = {
+			isa = PBXGroup;
+			children = (
+				C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */,
+				C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */,
+				C9194D0E18E15A8B00057B66 /* OpenEars.framework */,
+				C9194D0F18E15A8B00057B66 /* Slt.framework */,
+			);
+			name = OpenEars;
+			path = Frameworks/OpenEars;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +204,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9194CFB18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatim" */;
 			buildPhases = (
+				BE11B073C3D4441B851E74B7 /* Check Pods Manifest.lock */,
 				C9194CCB18E1591D00057B66 /* Sources */,
 				C9194CCC18E1591D00057B66 /* Frameworks */,
 				C9194CCD18E1591D00057B66 /* Resources */,
+				52C042636C4E4F1E96ABEAA6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -221,6 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9194CDD18E1591D00057B66 /* InfoPlist.strings in Resources */,
+				C9194D1118E15A8B00057B66 /* AcousticModelSpanish.bundle in Resources */,
+				C9194D1018E15A8B00057B66 /* AcousticModelEnglish.bundle in Resources */,
+				C9194D0A18E15A6400057B66 /* CPCaptionScreen.xib in Resources */,
 				C9194CE518E1591D00057B66 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,12 +293,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		52C042636C4E4F1E96ABEAA6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE11B073C3D4441B851E74B7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C9194CCB18E1591D00057B66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C9194CE318E1591D00057B66 /* VBAppDelegate.m in Sources */,
+				C9194D0918E15A6400057B66 /* CPCaptionScreen.m in Sources */,
 				C9194CDF18E1591D00057B66 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,9 +447,14 @@
 		};
 		C9194CFC18E1591E00057B66 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/OpenEars",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
@@ -368,9 +465,14 @@
 		};
 		C9194CFD18E1591E00057B66 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/OpenEars",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
@@ -438,6 +540,7 @@
 				C9194CFD18E1591E00057B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9194CFE18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatimTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +549,7 @@
 				C9194D0018E1591E00057B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
