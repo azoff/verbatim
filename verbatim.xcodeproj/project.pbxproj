@@ -1,0 +1,453 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C9194CD318E1591D00057B66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD218E1591D00057B66 /* Foundation.framework */; };
+		C9194CD518E1591D00057B66 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD418E1591D00057B66 /* CoreGraphics.framework */; };
+		C9194CD718E1591D00057B66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD618E1591D00057B66 /* UIKit.framework */; };
+		C9194CDD18E1591D00057B66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9194CDB18E1591D00057B66 /* InfoPlist.strings */; };
+		C9194CDF18E1591D00057B66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CDE18E1591D00057B66 /* main.m */; };
+		C9194CE318E1591D00057B66 /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CE218E1591D00057B66 /* VBAppDelegate.m */; };
+		C9194CE518E1591D00057B66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9194CE418E1591D00057B66 /* Images.xcassets */; };
+		C9194CEC18E1591E00057B66 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CEB18E1591E00057B66 /* XCTest.framework */; };
+		C9194CED18E1591E00057B66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD218E1591D00057B66 /* Foundation.framework */; };
+		C9194CEE18E1591E00057B66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD618E1591D00057B66 /* UIKit.framework */; };
+		C9194CF618E1591E00057B66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9194CF418E1591E00057B66 /* InfoPlist.strings */; };
+		C9194CF818E1591E00057B66 /* verbatimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CF718E1591E00057B66 /* verbatimTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C9194CEF18E1591E00057B66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9194CC718E1591D00057B66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9194CCE18E1591D00057B66;
+			remoteInfo = verbatim;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C9194CCF18E1591D00057B66 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9194CD218E1591D00057B66 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C9194CD418E1591D00057B66 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C9194CD618E1591D00057B66 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C9194CDA18E1591D00057B66 /* verbatim-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatim-Info.plist"; sourceTree = "<group>"; };
+		C9194CDC18E1591D00057B66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9194CDE18E1591D00057B66 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C9194CE018E1591D00057B66 /* verbatim-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verbatim-Prefix.pch"; sourceTree = "<group>"; };
+		C9194CE118E1591D00057B66 /* VBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VBAppDelegate.h; sourceTree = "<group>"; };
+		C9194CE218E1591D00057B66 /* VBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBAppDelegate.m; sourceTree = "<group>"; };
+		C9194CE418E1591D00057B66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C9194CEA18E1591E00057B66 /* verbatimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = verbatimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9194CEB18E1591E00057B66 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C9194CF318E1591E00057B66 /* verbatimTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatimTests-Info.plist"; sourceTree = "<group>"; };
+		C9194CF518E1591E00057B66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C9194CF718E1591E00057B66 /* verbatimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = verbatimTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C9194CCC18E1591D00057B66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CD518E1591D00057B66 /* CoreGraphics.framework in Frameworks */,
+				C9194CD718E1591D00057B66 /* UIKit.framework in Frameworks */,
+				C9194CD318E1591D00057B66 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9194CE718E1591E00057B66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CEC18E1591E00057B66 /* XCTest.framework in Frameworks */,
+				C9194CEE18E1591E00057B66 /* UIKit.framework in Frameworks */,
+				C9194CED18E1591E00057B66 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9194CC618E1591D00057B66 = {
+			isa = PBXGroup;
+			children = (
+				C9194CD818E1591D00057B66 /* verbatim */,
+				C9194CF118E1591E00057B66 /* verbatimTests */,
+				C9194CD118E1591D00057B66 /* Frameworks */,
+				C9194CD018E1591D00057B66 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C9194CD018E1591D00057B66 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CCF18E1591D00057B66 /* verbatim.app */,
+				C9194CEA18E1591E00057B66 /* verbatimTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9194CD118E1591D00057B66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CD218E1591D00057B66 /* Foundation.framework */,
+				C9194CD418E1591D00057B66 /* CoreGraphics.framework */,
+				C9194CD618E1591D00057B66 /* UIKit.framework */,
+				C9194CEB18E1591E00057B66 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9194CD818E1591D00057B66 /* verbatim */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CE118E1591D00057B66 /* VBAppDelegate.h */,
+				C9194CE218E1591D00057B66 /* VBAppDelegate.m */,
+				C9194CE418E1591D00057B66 /* Images.xcassets */,
+				C9194CD918E1591D00057B66 /* Supporting Files */,
+			);
+			path = verbatim;
+			sourceTree = "<group>";
+		};
+		C9194CD918E1591D00057B66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CDA18E1591D00057B66 /* verbatim-Info.plist */,
+				C9194CDB18E1591D00057B66 /* InfoPlist.strings */,
+				C9194CDE18E1591D00057B66 /* main.m */,
+				C9194CE018E1591D00057B66 /* verbatim-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9194CF118E1591E00057B66 /* verbatimTests */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CF718E1591E00057B66 /* verbatimTests.m */,
+				C9194CF218E1591E00057B66 /* Supporting Files */,
+			);
+			path = verbatimTests;
+			sourceTree = "<group>";
+		};
+		C9194CF218E1591E00057B66 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9194CF318E1591E00057B66 /* verbatimTests-Info.plist */,
+				C9194CF418E1591E00057B66 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C9194CCE18E1591D00057B66 /* verbatim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9194CFB18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatim" */;
+			buildPhases = (
+				C9194CCB18E1591D00057B66 /* Sources */,
+				C9194CCC18E1591D00057B66 /* Frameworks */,
+				C9194CCD18E1591D00057B66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = verbatim;
+			productName = verbatim;
+			productReference = C9194CCF18E1591D00057B66 /* verbatim.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C9194CE918E1591E00057B66 /* verbatimTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9194CFE18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatimTests" */;
+			buildPhases = (
+				C9194CE618E1591E00057B66 /* Sources */,
+				C9194CE718E1591E00057B66 /* Frameworks */,
+				C9194CE818E1591E00057B66 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C9194CF018E1591E00057B66 /* PBXTargetDependency */,
+			);
+			name = verbatimTests;
+			productName = verbatimTests;
+			productReference = C9194CEA18E1591E00057B66 /* verbatimTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9194CC718E1591D00057B66 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = VB;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Verbatim;
+				TargetAttributes = {
+					C9194CE918E1591E00057B66 = {
+						TestTargetID = C9194CCE18E1591D00057B66;
+					};
+				};
+			};
+			buildConfigurationList = C9194CCA18E1591D00057B66 /* Build configuration list for PBXProject "verbatim" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9194CC618E1591D00057B66;
+			productRefGroup = C9194CD018E1591D00057B66 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9194CCE18E1591D00057B66 /* verbatim */,
+				C9194CE918E1591E00057B66 /* verbatimTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9194CCD18E1591D00057B66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CDD18E1591D00057B66 /* InfoPlist.strings in Resources */,
+				C9194CE518E1591D00057B66 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9194CE818E1591E00057B66 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CF618E1591E00057B66 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9194CCB18E1591D00057B66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CE318E1591D00057B66 /* VBAppDelegate.m in Sources */,
+				C9194CDF18E1591D00057B66 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9194CE618E1591E00057B66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9194CF818E1591E00057B66 /* verbatimTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9194CF018E1591E00057B66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9194CCE18E1591D00057B66 /* verbatim */;
+			targetProxy = C9194CEF18E1591E00057B66 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C9194CDB18E1591D00057B66 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9194CDC18E1591D00057B66 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C9194CF418E1591E00057B66 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9194CF518E1591E00057B66 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C9194CF918E1591E00057B66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C9194CFA18E1591E00057B66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C9194CFC18E1591E00057B66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C9194CFD18E1591E00057B66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C9194CFF18E1591E00057B66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/verbatim.app/verbatim";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		C9194D0018E1591E00057B66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/verbatim.app/verbatim";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C9194CCA18E1591D00057B66 /* Build configuration list for PBXProject "verbatim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9194CF918E1591E00057B66 /* Debug */,
+				C9194CFA18E1591E00057B66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9194CFB18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9194CFC18E1591E00057B66 /* Debug */,
+				C9194CFD18E1591E00057B66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C9194CFE18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatimTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9194CFF18E1591E00057B66 /* Debug */,
+				C9194D0018E1591E00057B66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9194CC718E1591D00057B66 /* Project object */;
+}
