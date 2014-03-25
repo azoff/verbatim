@@ -15,30 +15,20 @@
 		C9194CDF18E1591D00057B66 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CDE18E1591D00057B66 /* main.m */; };
 		C9194CE318E1591D00057B66 /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CE218E1591D00057B66 /* VBAppDelegate.m */; };
 		C9194CE518E1591D00057B66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9194CE418E1591D00057B66 /* Images.xcassets */; };
-		C9194CEC18E1591E00057B66 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CEB18E1591E00057B66 /* XCTest.framework */; };
-		C9194CED18E1591E00057B66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD218E1591D00057B66 /* Foundation.framework */; };
-		C9194CEE18E1591E00057B66 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194CD618E1591D00057B66 /* UIKit.framework */; };
-		C9194CF618E1591E00057B66 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9194CF418E1591E00057B66 /* InfoPlist.strings */; };
-		C9194CF818E1591E00057B66 /* verbatimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194CF718E1591E00057B66 /* verbatimTests.m */; };
 		C9194D0218E1593A00057B66 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0118E1593900057B66 /* AudioToolbox.framework */; };
 		C9194D0418E1594100057B66 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0318E1594100057B66 /* AVFoundation.framework */; };
-		C9194D0918E15A6400057B66 /* CPCaptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194D0718E15A6400057B66 /* CPCaptionScreen.m */; };
-		C9194D0A18E15A6400057B66 /* CPCaptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */; };
 		C9194D1018E15A8B00057B66 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */; };
 		C9194D1118E15A8B00057B66 /* AcousticModelSpanish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */; };
 		C9194D1218E15A8B00057B66 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0E18E15A8B00057B66 /* OpenEars.framework */; };
 		C9194D1318E15A8B00057B66 /* Slt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9194D0F18E15A8B00057B66 /* Slt.framework */; };
+		C9194D1C18E15F0D00057B66 /* VBCaptionScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C9194D1A18E15F0D00057B66 /* VBCaptionScreen.m */; };
+		C9194D1D18E15F0D00057B66 /* VBCaptionScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9194D1B18E15F0D00057B66 /* VBCaptionScreen.xib */; };
+		C9B34F7918E179C9008BE22E /* english.ngsl.dic in Resources */ = {isa = PBXBuildFile; fileRef = C9B34F7718E179C9008BE22E /* english.ngsl.dic */; };
+		C9B34F7A18E179C9008BE22E /* english.ngsl.DMP in Resources */ = {isa = PBXBuildFile; fileRef = C9B34F7818E179C9008BE22E /* english.ngsl.DMP */; };
+		C9B34F7C18E17AA3008BE22E /* openear.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B34F7B18E17AA3008BE22E /* openear.m */; };
+		C9B34F7E18E184A4008BE22E /* RapidEarsDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B34F7D18E184A4008BE22E /* RapidEarsDemo.framework */; };
+		C9B34F8018E18BF1008BE22E /* english.ngsl.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9B34F7F18E18BF1008BE22E /* english.ngsl.plist */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C9194CEF18E1591E00057B66 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C9194CC718E1591D00057B66 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C9194CCE18E1591D00057B66;
-			remoteInfo = verbatim;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8372FAD07D0C458C82C25578 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,20 +43,21 @@
 		C9194CE118E1591D00057B66 /* VBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VBAppDelegate.h; sourceTree = "<group>"; };
 		C9194CE218E1591D00057B66 /* VBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBAppDelegate.m; sourceTree = "<group>"; };
 		C9194CE418E1591D00057B66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C9194CEA18E1591E00057B66 /* verbatimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = verbatimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9194CEB18E1591E00057B66 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C9194CF318E1591E00057B66 /* verbatimTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatimTests-Info.plist"; sourceTree = "<group>"; };
-		C9194CF518E1591E00057B66 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9194CF718E1591E00057B66 /* verbatimTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = verbatimTests.m; sourceTree = "<group>"; };
 		C9194D0118E1593900057B66 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C9194D0318E1594100057B66 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C9194D0618E15A6400057B66 /* CPCaptionScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPCaptionScreen.h; sourceTree = "<group>"; };
-		C9194D0718E15A6400057B66 /* CPCaptionScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPCaptionScreen.m; sourceTree = "<group>"; };
-		C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CPCaptionScreen.xib; sourceTree = "<group>"; };
 		C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
 		C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelSpanish.bundle; sourceTree = "<group>"; };
 		C9194D0E18E15A8B00057B66 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
 		C9194D0F18E15A8B00057B66 /* Slt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Slt.framework; sourceTree = "<group>"; };
+		C9194D1918E15F0D00057B66 /* VBCaptionScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBCaptionScreen.h; sourceTree = "<group>"; };
+		C9194D1A18E15F0D00057B66 /* VBCaptionScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBCaptionScreen.m; sourceTree = "<group>"; };
+		C9194D1B18E15F0D00057B66 /* VBCaptionScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBCaptionScreen.xib; sourceTree = "<group>"; };
+		C9B34F7718E179C9008BE22E /* english.ngsl.dic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.ngsl.dic; sourceTree = "<group>"; };
+		C9B34F7818E179C9008BE22E /* english.ngsl.DMP */ = {isa = PBXFileReference; lastKnownFileType = file; path = english.ngsl.DMP; sourceTree = "<group>"; };
+		C9B34F7B18E17AA3008BE22E /* openear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = openear.m; path = lang/openear.m; sourceTree = "<group>"; };
+		C9B34F7D18E184A4008BE22E /* RapidEarsDemo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RapidEarsDemo.framework; sourceTree = "<group>"; };
+		C9B34F7F18E18BF1008BE22E /* english.ngsl.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = english.ngsl.plist; sourceTree = "<group>"; };
 		F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,20 +70,11 @@
 				C9194D0418E1594100057B66 /* AVFoundation.framework in Frameworks */,
 				C9194D0218E1593A00057B66 /* AudioToolbox.framework in Frameworks */,
 				C9194CD518E1591D00057B66 /* CoreGraphics.framework in Frameworks */,
+				C9B34F7E18E184A4008BE22E /* RapidEarsDemo.framework in Frameworks */,
 				C9194D1318E15A8B00057B66 /* Slt.framework in Frameworks */,
 				C9194CD718E1591D00057B66 /* UIKit.framework in Frameworks */,
 				C9194CD318E1591D00057B66 /* Foundation.framework in Frameworks */,
 				76B1E1F0268E4FEBB2372A8B /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9194CE718E1591E00057B66 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C9194CEC18E1591E00057B66 /* XCTest.framework in Frameworks */,
-				C9194CEE18E1591E00057B66 /* UIKit.framework in Frameworks */,
-				C9194CED18E1591E00057B66 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +85,6 @@
 			isa = PBXGroup;
 			children = (
 				C9194CD818E1591D00057B66 /* verbatim */,
-				C9194CF118E1591E00057B66 /* verbatimTests */,
 				C9194CD118E1591D00057B66 /* Frameworks */,
 				C9194CD018E1591D00057B66 /* Products */,
 				F6C3EDD0377D48B69AA62423 /* Pods.xcconfig */,
@@ -114,7 +95,6 @@
 			isa = PBXGroup;
 			children = (
 				C9194CCF18E1591D00057B66 /* verbatim.app */,
-				C9194CEA18E1591E00057B66 /* verbatimTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -149,28 +129,12 @@
 		C9194CD918E1591D00057B66 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C9B34F7618E179C9008BE22E /* lang */,
 				C9194CDA18E1591D00057B66 /* verbatim-Info.plist */,
 				C9194CDB18E1591D00057B66 /* InfoPlist.strings */,
 				C9194CDE18E1591D00057B66 /* main.m */,
 				C9194CE018E1591D00057B66 /* verbatim-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C9194CF118E1591E00057B66 /* verbatimTests */ = {
-			isa = PBXGroup;
-			children = (
-				C9194CF718E1591E00057B66 /* verbatimTests.m */,
-				C9194CF218E1591E00057B66 /* Supporting Files */,
-			);
-			path = verbatimTests;
-			sourceTree = "<group>";
-		};
-		C9194CF218E1591E00057B66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C9194CF318E1591E00057B66 /* verbatimTests-Info.plist */,
-				C9194CF418E1591E00057B66 /* InfoPlist.strings */,
+				C9B34F7B18E17AA3008BE22E /* openear.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -178,9 +142,9 @@
 		C9194D0518E15A6400057B66 /* screens */ = {
 			isa = PBXGroup;
 			children = (
-				C9194D0618E15A6400057B66 /* CPCaptionScreen.h */,
-				C9194D0718E15A6400057B66 /* CPCaptionScreen.m */,
-				C9194D0818E15A6400057B66 /* CPCaptionScreen.xib */,
+				C9194D1918E15F0D00057B66 /* VBCaptionScreen.h */,
+				C9194D1A18E15F0D00057B66 /* VBCaptionScreen.m */,
+				C9194D1B18E15F0D00057B66 /* VBCaptionScreen.xib */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -188,6 +152,7 @@
 		C9194D0B18E15A8B00057B66 /* OpenEars */ = {
 			isa = PBXGroup;
 			children = (
+				C9B34F7D18E184A4008BE22E /* RapidEarsDemo.framework */,
 				C9194D0C18E15A8B00057B66 /* AcousticModelEnglish.bundle */,
 				C9194D0D18E15A8B00057B66 /* AcousticModelSpanish.bundle */,
 				C9194D0E18E15A8B00057B66 /* OpenEars.framework */,
@@ -195,6 +160,16 @@
 			);
 			name = OpenEars;
 			path = Frameworks/OpenEars;
+			sourceTree = "<group>";
+		};
+		C9B34F7618E179C9008BE22E /* lang */ = {
+			isa = PBXGroup;
+			children = (
+				C9B34F7718E179C9008BE22E /* english.ngsl.dic */,
+				C9B34F7818E179C9008BE22E /* english.ngsl.DMP */,
+				C9B34F7F18E18BF1008BE22E /* english.ngsl.plist */,
+			);
+			path = lang;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,24 +194,6 @@
 			productReference = C9194CCF18E1591D00057B66 /* verbatim.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C9194CE918E1591E00057B66 /* verbatimTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C9194CFE18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatimTests" */;
-			buildPhases = (
-				C9194CE618E1591E00057B66 /* Sources */,
-				C9194CE718E1591E00057B66 /* Frameworks */,
-				C9194CE818E1591E00057B66 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C9194CF018E1591E00057B66 /* PBXTargetDependency */,
-			);
-			name = verbatimTests;
-			productName = verbatimTests;
-			productReference = C9194CEA18E1591E00057B66 /* verbatimTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -246,11 +203,6 @@
 				CLASSPREFIX = VB;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Verbatim;
-				TargetAttributes = {
-					C9194CE918E1591E00057B66 = {
-						TestTargetID = C9194CCE18E1591D00057B66;
-					};
-				};
 			};
 			buildConfigurationList = C9194CCA18E1591D00057B66 /* Build configuration list for PBXProject "verbatim" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -265,7 +217,6 @@
 			projectRoot = "";
 			targets = (
 				C9194CCE18E1591D00057B66 /* verbatim */,
-				C9194CE918E1591E00057B66 /* verbatimTests */,
 			);
 		};
 /* End PBXProject section */
@@ -275,19 +226,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B34F8018E18BF1008BE22E /* english.ngsl.plist in Resources */,
 				C9194CDD18E1591D00057B66 /* InfoPlist.strings in Resources */,
+				C9B34F7A18E179C9008BE22E /* english.ngsl.DMP in Resources */,
 				C9194D1118E15A8B00057B66 /* AcousticModelSpanish.bundle in Resources */,
+				C9194D1D18E15F0D00057B66 /* VBCaptionScreen.xib in Resources */,
 				C9194D1018E15A8B00057B66 /* AcousticModelEnglish.bundle in Resources */,
-				C9194D0A18E15A6400057B66 /* CPCaptionScreen.xib in Resources */,
+				C9B34F7918E179C9008BE22E /* english.ngsl.dic in Resources */,
 				C9194CE518E1591D00057B66 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C9194CE818E1591E00057B66 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C9194CF618E1591E00057B66 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,42 +278,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9194CE318E1591D00057B66 /* VBAppDelegate.m in Sources */,
-				C9194D0918E15A6400057B66 /* CPCaptionScreen.m in Sources */,
+				C9194D1C18E15F0D00057B66 /* VBCaptionScreen.m in Sources */,
+				C9B34F7C18E17AA3008BE22E /* openear.m in Sources */,
 				C9194CDF18E1591D00057B66 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C9194CE618E1591E00057B66 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C9194CF818E1591E00057B66 /* verbatimTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C9194CF018E1591E00057B66 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C9194CCE18E1591D00057B66 /* verbatim */;
-			targetProxy = C9194CEF18E1591E00057B66 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C9194CDB18E1591D00057B66 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C9194CDC18E1591D00057B66 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C9194CF418E1591E00057B66 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C9194CF518E1591E00057B66 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -409,6 +332,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -440,6 +364,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -451,12 +376,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"Frameworks/**",
 					"$(PROJECT_DIR)/Frameworks/OpenEars",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers\"/**";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -469,55 +398,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEPLOYMENT_POSTPROCESSING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"Frameworks/**",
 					"$(PROJECT_DIR)/Frameworks/OpenEars",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
+				HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/Headers\"/**";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		C9194CFF18E1591E00057B66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/verbatim.app/verbatim";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		C9194D0018E1591E00057B66 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/verbatim.app/verbatim";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
-				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -538,15 +431,6 @@
 			buildConfigurations = (
 				C9194CFC18E1591E00057B66 /* Debug */,
 				C9194CFD18E1591E00057B66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C9194CFE18E1591E00057B66 /* Build configuration list for PBXNativeTarget "verbatimTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C9194CFF18E1591E00057B66 /* Debug */,
-				C9194D0018E1591E00057B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
