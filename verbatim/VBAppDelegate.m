@@ -7,7 +7,7 @@
 //
 
 #import "VBAppDelegate.h"
-#import "VBCaptionScreen.h"
+#import "VBCaptionController.h"
 
 @implementation VBAppDelegate
 
@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    self.window.rootViewController = [VBCaptionScreen screen];
+    self.window.rootViewController = [VBCaptionController controller];
     return YES;
 }
 
