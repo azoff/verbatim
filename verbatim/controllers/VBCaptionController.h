@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VBSpeechKit.h"
 
-@interface VBCaptionController : UIViewController<SpeechKitDelegate>
+@interface VBCaptionController : UIViewController<SpeechKitDelegate,SKRecognizerDelegate>
 
 + (instancetype)controller;
 
