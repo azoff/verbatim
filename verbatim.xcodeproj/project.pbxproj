@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
+		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
+		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
+		C90F1E2C18ED486200F7503A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2B18ED486200F7503A /* libz.dylib */; };
+		C90F1E2E18ED486B00F7503A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2D18ED486B00F7503A /* MobileCoreServices.framework */; };
+		C90F1E3018ED487400F7503A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2F18ED487400F7503A /* QuartzCore.framework */; };
+		C90F1E3218ED487E00F7503A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E3118ED487E00F7503A /* StoreKit.framework */; };
+		C90F1E3518ED49A900F7503A /* VBParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3418ED49A900F7503A /* VBParse.m */; };
+		C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3818ED58E000F7503A /* VBWindow.m */; };
+		C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3B18ED59F000F7503A /* VBColor.m */; };
+		C90F1E3F18ED623000F7503A /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3E18ED623000F7503A /* VBUser.m */; };
+		C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BF86718ED63DE00E2CCE7 /* VBVenue.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
 		C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
@@ -29,6 +40,22 @@
 /* Begin PBXFileReference section */
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
+		C90F1E2918ED485700F7503A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C90F1E2B18ED486200F7503A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		C90F1E2D18ED486B00F7503A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C90F1E2F18ED487400F7503A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C90F1E3118ED487E00F7503A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		C90F1E3318ED49A900F7503A /* VBParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBParse.h; sourceTree = "<group>"; };
+		C90F1E3418ED49A900F7503A /* VBParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBParse.m; sourceTree = "<group>"; };
+		C90F1E3718ED58E000F7503A /* VBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBWindow.h; path = views/VBWindow.h; sourceTree = "<group>"; };
+		C90F1E3818ED58E000F7503A /* VBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBWindow.m; path = views/VBWindow.m; sourceTree = "<group>"; };
+		C90F1E3A18ED59F000F7503A /* VBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBColor.h; path = views/VBColor.h; sourceTree = "<group>"; };
+		C90F1E3B18ED59F000F7503A /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBColor.m; path = views/VBColor.m; sourceTree = "<group>"; };
+		C90F1E3D18ED623000F7503A /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
+		C90F1E3E18ED623000F7503A /* VBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBUser.m; path = models/VBUser.m; sourceTree = "<group>"; };
+		C94BF86618ED63DE00E2CCE7 /* VBVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenue.h; path = models/VBVenue.h; sourceTree = "<group>"; };
+		C94BF86718ED63DE00E2CCE7 /* VBVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenue.m; path = models/VBVenue.m; sourceTree = "<group>"; };
 		C9671B4218EA1BF0003E8450 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9671B4518EA1BF0003E8450 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -59,12 +86,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C90F1E3218ED487E00F7503A /* StoreKit.framework in Frameworks */,
+				C90F1E3018ED487400F7503A /* QuartzCore.framework in Frameworks */,
+				C90F1E2E18ED486B00F7503A /* MobileCoreServices.framework in Frameworks */,
+				C90F1E2C18ED486200F7503A /* libz.dylib in Frameworks */,
+				C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */,
 				C9671B7F18EA1CB1003E8450 /* SpeechKit.framework in Frameworks */,
 				C9671B7D18EA1C63003E8450 /* SystemConfiguration.framework in Frameworks */,
 				C9671B7B18EA1C59003E8450 /* Security.framework in Frameworks */,
 				C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */,
 				C9671B7918EA1C44003E8450 /* CFNetwork.framework in Frameworks */,
 				C9671B7718EA1C1A003E8450 /* AVFoundation.framework in Frameworks */,
+				C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */,
 				C9671B7518EA1C12003E8450 /* AudioToolbox.framework in Frameworks */,
 				C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */,
 				C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */,
@@ -75,6 +108,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C90F1E2618ED462700F7503A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				C90F1E3D18ED623000F7503A /* VBUser.h */,
+				C90F1E3E18ED623000F7503A /* VBUser.m */,
+				C94BF86618ED63DE00E2CCE7 /* VBVenue.h */,
+				C94BF86718ED63DE00E2CCE7 /* VBVenue.m */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
+		C90F1E3618ED587000F7503A /* views */ = {
+			isa = PBXGroup;
+			children = (
+				C90F1E3718ED58E000F7503A /* VBWindow.h */,
+				C90F1E3818ED58E000F7503A /* VBWindow.m */,
+				C90F1E3A18ED59F000F7503A /* VBColor.h */,
+				C90F1E3B18ED59F000F7503A /* VBColor.m */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
 		C9671B3918EA1BF0003E8450 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +151,12 @@
 		C9671B4418EA1BF0003E8450 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C90F1E2B18ED486200F7503A /* libz.dylib */,
+				C90F1E3118ED487E00F7503A /* StoreKit.framework */,
+				C90F1E2F18ED487400F7503A /* QuartzCore.framework */,
+				C90F1E2D18ED486B00F7503A /* MobileCoreServices.framework */,
+				C90F1E2918ED485700F7503A /* CoreLocation.framework */,
+				C90F1E2718ED483B00F7503A /* Parse.framework */,
 				C9671B7E18EA1CB1003E8450 /* SpeechKit.framework */,
 				C9671B7C18EA1C63003E8450 /* SystemConfiguration.framework */,
 				C9671B7A18EA1C59003E8450 /* Security.framework */,
@@ -114,6 +175,8 @@
 		C9671B4B18EA1BF0003E8450 /* verbatim */ = {
 			isa = PBXGroup;
 			children = (
+				C90F1E3618ED587000F7503A /* views */,
+				C90F1E2618ED462700F7503A /* models */,
 				C9671B8A18EA1E2F003E8450 /* controllers */,
 				C9671B8E18EA1E2F003E8450 /* core */,
 				C9671B5418EA1BF0003E8450 /* VBAppDelegate.h */,
@@ -150,6 +213,8 @@
 			children = (
 				C9671B8F18EA1E2F003E8450 /* VBSpeechKit.h */,
 				C9671B9018EA1E2F003E8450 /* VBSpeechKit.m */,
+				C90F1E3318ED49A900F7503A /* VBParse.h */,
+				C90F1E3418ED49A900F7503A /* VBParse.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -254,9 +319,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */,
 				C9671B9318EA1E2F003E8450 /* VBSpeechKit.m in Sources */,
+				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
+				C90F1E3F18ED623000F7503A /* VBUser.m in Sources */,
+				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
+				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +428,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -376,6 +456,16 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatim/verbatim-Prefix.pch";
 				INFOPLIST_FILE = "verbatim/verbatim-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

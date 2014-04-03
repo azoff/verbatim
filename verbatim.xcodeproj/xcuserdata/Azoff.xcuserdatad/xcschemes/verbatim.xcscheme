@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9671B5C18EA1BF0003E8450"
+               BlueprintIdentifier = "C94BF86C18ED6A5700E2CCE7"
                BuildableName = "verbatimTests.xctest"
                BlueprintName = "verbatimTests"
                ReferencedContainer = "container:verbatim.xcodeproj">
