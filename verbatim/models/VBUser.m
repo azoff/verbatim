@@ -15,45 +15,25 @@
     return [super currentUser];
 }
 
--(NSString *)foursquareID
+@dynamic foursquareID;
+@dynamic venue;
+@dynamic source;
+@dynamic name;
+
+-(BOOL)isAnonymous
 {
-    return self[@"foursquare_id"];
+    return [PFAnonymousUtils isLinkedWithUser:self];
 }
 
--(void)setFoursquareID:(NSString *)foursquareID
-{
-    self[@"foursquare_id"] = foursquareID;
-}
-
--(VBVenue *)venue
-{
-    return self[@"venue"];
-}
-
--(void)setVenue:(VBVenue *)venue
+-(void)checkInToVenue:(VBVenue *)venue
+          withSuccess:(void(^)(BOOL))success
+           andFailure:(void(^)(NSError *))failure
 {
     self[@"venue"] = venue;
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) failure(error);
+        else success(succeeded);
+    }];
 }
-
-- (VBUser *)source
-{
-    return self[@"source"];
-}
-
--(void)setSource:(VBUser *)source
-{
-    self[@"source"] = source;
-}
-
--(NSString *)name
-{
-    return self[@"name"];
-}
-
--(void)setName:(NSString *)name
-{
-    self[@"name"] = name;
-}
-
 
 @end

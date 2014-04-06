@@ -6,14 +6,18 @@
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
-#import <Parse/Parse.h>
-
 @interface VBUser : PFUser
 
-@property (nonatomic, weak) NSString * foursquareID; // for reference
-@property (nonatomic, weak) VBVenue  * venue;        // checked-in venue, could be nil
-@property (nonatomic, weak) VBUser   * source;       // input source, defaults to self
-@property (nonatomic, weak) NSString * name;         // from foursquare
+@property (nonatomic) NSString * foursquareID;    // for reference
+@property (nonatomic, readonly) VBVenue  * venue; // checked-in venue, could be nil
+@property (nonatomic) VBUser   * source;          // input source, defaults to self
+@property (nonatomic) NSString * name;            // from foursquare
+
+-(void)checkInToVenue:(VBVenue *)venue
+          withSuccess:(void(^)(BOOL))success
+           andFailure:(void(^)(NSError *))failure;
+
+-(BOOL)isAnonymous;
 
 +(instancetype)currentUser;
 
