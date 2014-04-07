@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		015DA9C618F1974100E90BB9 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
 		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
@@ -55,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		015DA9C418F1974100E90BB9 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
+		015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 				C9671B9018EA1E2F003E8450 /* VBSpeechKit.m */,
 				C90F1E3318ED49A900F7503A /* VBParse.h */,
 				C90F1E3418ED49A900F7503A /* VBParse.m */,
+				015DA9C418F1974100E90BB9 /* VBInputSourceManager.h */,
+				015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
+				015DA9C618F1974100E90BB9 /* VBInputSourceManager.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 			);

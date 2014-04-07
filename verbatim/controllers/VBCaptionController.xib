@@ -6,7 +6,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBCaptionController">
             <connections>
-                <outlet property="captionLabel" destination="Mb0-wa-bWo" id="EP6-zL-RwV"/>
+                <outlet property="cameraView" destination="Mh2-pV-pfO" id="c3u-jg-UMQ"/>
+                <outlet property="captionLabel" destination="HhB-VD-WDU" id="ZjB-y0-zhw"/>
+                <outlet property="captionsLabel" destination="U0r-iE-D4C" id="9oG-nc-pX8"/>
+                <outlet property="panGestureRecognizer" destination="DXt-c1-K3u" id="eZ7-BB-922"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,36 +18,58 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ga9-2o-l3u">
-                    <rect key="frame" x="0.0" y="408" width="320" height="160"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listening...." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="Mb0-wa-bWo">
-                            <rect key="frame" x="20" y="20" width="280" height="120"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="Mb0-wa-bWo" firstAttribute="top" secondItem="ga9-2o-l3u" secondAttribute="top" constant="20" id="9j0-u9-UFL"/>
-                        <constraint firstAttribute="bottom" secondItem="Mb0-wa-bWo" secondAttribute="bottom" constant="20" id="PvG-pD-T5a"/>
-                        <constraint firstAttribute="trailing" secondItem="Mb0-wa-bWo" secondAttribute="trailing" constant="20" id="d0Z-ow-LLB"/>
-                        <constraint firstItem="Mb0-wa-bWo" firstAttribute="leading" secondItem="ga9-2o-l3u" secondAttribute="leading" constant="20" id="mpQ-dM-0H7"/>
-                        <constraint firstAttribute="height" constant="160" id="uVs-ne-FMK"/>
-                    </constraints>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mh2-pV-pfO" userLabel="CameraView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...my career derailed miserably ..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="HhB-VD-WDU">
+                    <rect key="frame" x="10" y="526" width="300" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="U0r-iE-D4C" userLabel="CaptionsLabel">
+                    <rect key="frame" x="20" y="426" width="280" height="92"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <attributedString key="attributedText">
+                        <fragment content="This is the history of captions that should just scroll up. The text can actually be quite long.">
+                            <attributes>
+                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.270588249" green="0.84313732389999996" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
+            <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="ga9-2o-l3u" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Yw4-L5-nFT"/>
-                <constraint firstAttribute="trailing" secondItem="ga9-2o-l3u" secondAttribute="trailing" id="iwR-d4-2fb"/>
-                <constraint firstAttribute="bottom" secondItem="ga9-2o-l3u" secondAttribute="bottom" id="pxe-Xp-l01"/>
+                <constraint firstAttribute="trailing" secondItem="Mh2-pV-pfO" secondAttribute="trailing" id="1w1-1N-UVt"/>
+                <constraint firstItem="Mh2-pV-pfO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3FU-Kf-KZf"/>
+                <constraint firstAttribute="bottom" secondItem="Mh2-pV-pfO" secondAttribute="bottom" id="A3O-ss-HCz"/>
+                <constraint firstItem="HhB-VD-WDU" firstAttribute="top" secondItem="U0r-iE-D4C" secondAttribute="bottom" constant="8" id="Gt7-uL-ucF"/>
+                <constraint firstItem="Mh2-pV-pfO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NDL-VG-thr"/>
+                <constraint firstItem="HhB-VD-WDU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="f3J-1t-gL1"/>
+                <constraint firstItem="U0r-iE-D4C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="hsq-jU-czT"/>
+                <constraint firstAttribute="trailing" secondItem="U0r-iE-D4C" secondAttribute="trailing" constant="20" id="qwh-vv-2Am"/>
+                <constraint firstAttribute="trailing" secondItem="HhB-VD-WDU" secondAttribute="trailing" constant="10" id="sd8-JI-Jig"/>
+                <constraint firstAttribute="bottom" secondItem="HhB-VD-WDU" secondAttribute="bottom" constant="20" id="zaE-XS-aNc"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="AgS-Ep-rUw"/>
+            </connections>
         </view>
+        <panGestureRecognizer minimumNumberOfTouches="1" id="DXt-c1-K3u">
+            <connections>
+                <action selector="onPan:" destination="-1" id="VbL-lh-Xl3"/>
+            </connections>
+        </panGestureRecognizer>
     </objects>
 </document>
