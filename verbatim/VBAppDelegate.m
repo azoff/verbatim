@@ -10,13 +10,18 @@
 #import "VBCaptionController.h"
 #import "VBParse.h"
 #import "VBWindow.h"
+#import "VBInputSourceManager.h"
 
 @implementation VBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
     [VBParse setupWithLaunchOptions:launchOptions];
     self.window = [VBWindow window];
+    
+    [[VBInputSourceManager manager] startListening];
+        
     return YES;
 }
 
