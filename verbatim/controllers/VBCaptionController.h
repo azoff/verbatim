@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VBSpeechKit.h"
 
-@interface VBCaptionController : UIViewController<SpeechKitDelegate>
+enum VBCaptionControllerPresentationModeType {
+    PM_CAPTION_FULLTEXT,
+    PM_CAPTION_CAMERA
+};
+typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresentationModeType;
+
+@interface VBCaptionController : UIViewController
 
 + (instancetype)controller;
+
+@property (strong,nonatomic) NSString *caption;
+@property (assign,nonatomic) VBCaptionControllerPresentationModeType presentationMode;
+
 
 @end
