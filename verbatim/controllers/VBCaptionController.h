@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VBSpeechKit.h"
 
-@interface VBCaptionController : UIViewController<SpeechKitDelegate>
+@interface VBCaptionController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 + (instancetype)controller;
+
+@property (strong,nonatomic) NSString *caption;
 
 @end
