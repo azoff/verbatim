@@ -17,7 +17,6 @@ NSString * const CLIENT_KEY     = @"Ltv2ItjS8XVGDbUBhpbMJbOPlQHO4gHG9RPOnn9w";
 {
     [VBUser registerSubclass];
     [VBVenue registerSubclass];
-    [VBUser enableAutomaticUser]; // always creates a user account, even if not logged in
     [Parse setApplicationId:APPLICATION_ID clientKey:CLIENT_KEY];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 }

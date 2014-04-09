@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface VBParse : NSObject
 

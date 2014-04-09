@@ -48,3 +48,15 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// AKLocationManager
+#define COCOAPODS_POD_AVAILABLE_AKLocationManager
+#define COCOAPODS_VERSION_MAJOR_AKLocationManager 1
+#define COCOAPODS_VERSION_MINOR_AKLocationManager 0
+#define COCOAPODS_VERSION_PATCH_AKLocationManager 3
+
+// Foursquare-API-v2
+#define COCOAPODS_POD_AVAILABLE_Foursquare_API_v2
+#define COCOAPODS_VERSION_MAJOR_Foursquare_API_v2 1
+#define COCOAPODS_VERSION_MINOR_Foursquare_API_v2 4
+#define COCOAPODS_VERSION_PATCH_Foursquare_API_v2 4
+

@@ -47,4 +47,14 @@
     }];
 }
 
++(instancetype)venueWithDictionary:(NSDictionary *)dictionary
+{
+    VBVenue *instance = [self object];
+    instance.name = dictionary[@"name"];
+    instance.foursquareID = dictionary[@"id"];
+    instance.address = dictionary[@"location"][@"address"];
+    instance.distance = dictionary[@"location"][@"distance"];
+    return instance;
+}
+
 @end

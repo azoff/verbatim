@@ -8,7 +8,6 @@
 
 #import "VBAppDelegate.h"
 #import "VBCaptionController.h"
-#import "VBParse.h"
 #import "VBWindow.h"
 #import "VBInputSourceManager.h"
 
@@ -16,13 +15,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    [VBFoursquare setup];
     [VBParse setupWithLaunchOptions:launchOptions];
     self.window = [VBWindow window];
     
     [[VBInputSourceManager manager] startListening];
         
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+                                       sourceApplication:(NSString *)sourceApplication
+                                              annotation:(id)annotation {
+    return [VBFoursquare handleURL:url];
 }
 
 @end

@@ -6,19 +6,16 @@
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
-@interface VBUser : PFUser
+#import "VBVenue.h"
 
-@property (nonatomic) NSString * foursquareID;    // for reference
-@property (nonatomic, readonly) VBVenue  * venue; // checked-in venue, could be nil
-@property (nonatomic) VBUser   * source;          // input source, defaults to self
-@property (nonatomic) NSString * name;            // from foursquare
+@interface VBUser : PFObject<PFSubclassing>
 
--(void)checkInToVenue:(VBVenue *)venue
-          withSuccess:(void(^)(BOOL))success
-           andFailure:(void(^)(NSError *))failure;
+@property (nonatomic) NSString * foursquareID; // for reference
+@property (nonatomic) VBVenue  * venue;        // checked-in venue, could be nil
+@property (nonatomic) VBUser   * source;       // input source, defaults to self
+@property (nonatomic) NSString * firstName;    // from foursquare
+@property (nonatomic) NSString * lastName;    // from foursquare
 
--(BOOL)isAnonymous;
-
-+(instancetype)currentUser;
++(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 
 @end

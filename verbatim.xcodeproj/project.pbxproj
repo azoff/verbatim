@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015DA9C618F1974100E90BB9 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
 		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
@@ -18,7 +17,6 @@
 		C90F1E3518ED49A900F7503A /* VBParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3418ED49A900F7503A /* VBParse.m */; };
 		C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3818ED58E000F7503A /* VBWindow.m */; };
 		C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3B18ED59F000F7503A /* VBColor.m */; };
-		C90F1E3F18ED623000F7503A /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3E18ED623000F7503A /* VBUser.m */; };
 		C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BF86718ED63DE00E2CCE7 /* VBVenue.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
@@ -40,9 +38,12 @@
 		C9B01B3D18F221CE0086E066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9B01B3E18F221CE0086E066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
 		C9B01B4418F221CE0086E066 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9B01B4218F221CE0086E066 /* InfoPlist.strings */; };
-		C9B01B4618F221CE0086E066 /* VBUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B4518F221CE0086E066 /* VBUserTests.m */; };
 		C9B01B4D18F223100086E066 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
-		C9B01B4F18F267F70086E066 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B01B4E18F267F70086E066 /* libPods.a */; };
+		C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5118F27DFA0086E066 /* VBFoursquare.m */; };
+		C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */; };
+		C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */; };
+		C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */; };
+		C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0B18F403C2009FFB55 /* VBUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,8 +57,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		015DA9C418F1974100E90BB9 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
-		015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
@@ -72,8 +71,6 @@
 		C90F1E3818ED58E000F7503A /* VBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBWindow.m; path = views/VBWindow.m; sourceTree = "<group>"; };
 		C90F1E3A18ED59F000F7503A /* VBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBColor.h; path = views/VBColor.h; sourceTree = "<group>"; };
 		C90F1E3B18ED59F000F7503A /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBColor.m; path = views/VBColor.m; sourceTree = "<group>"; };
-		C90F1E3D18ED623000F7503A /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
-		C90F1E3E18ED623000F7503A /* VBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBUser.m; path = models/VBUser.m; sourceTree = "<group>"; };
 		C94BF86618ED63DE00E2CCE7 /* VBVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenue.h; path = models/VBVenue.h; sourceTree = "<group>"; };
 		C94BF86718ED63DE00E2CCE7 /* VBVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenue.m; path = models/VBVenue.m; sourceTree = "<group>"; };
 		C9671B4218EA1BF0003E8450 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,9 +99,16 @@
 		C9B01B3B18F221CE0086E066 /* verbatimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = verbatimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B01B4118F221CE0086E066 /* verbatimTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatimTests-Info.plist"; sourceTree = "<group>"; };
 		C9B01B4318F221CE0086E066 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C9B01B4518F221CE0086E066 /* VBUserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBUserTests.m; sourceTree = "<group>"; };
 		C9B01B4718F221CE0086E066 /* verbatimTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verbatimTests-Prefix.pch"; sourceTree = "<group>"; };
-		C9B01B4E18F267F70086E066 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
+		C9B01B5018F27DFA0086E066 /* VBFoursquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFoursquare.h; sourceTree = "<group>"; };
+		C9B01B5118F27DFA0086E066 /* VBFoursquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFoursquare.m; sourceTree = "<group>"; };
+		C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFoursquareTests.m; sourceTree = "<group>"; };
+		C9B01B5A18F3C6690086E066 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
+		C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
+		C9C56D0718F3DF73009FFB55 /* XCTestCase+AsyncTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+AsyncTesting.h"; sourceTree = "<group>"; };
+		C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+AsyncTesting.m"; sourceTree = "<group>"; };
+		C9C56D0A18F403C2009FFB55 /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
+		C9C56D0B18F403C2009FFB55 /* VBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBUser.m; path = models/VBUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,7 +139,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B01B4F18F267F70086E066 /* libPods.a in Frameworks */,
 				C9B01B4D18F223100086E066 /* Parse.framework in Frameworks */,
 				C9B01B3C18F221CE0086E066 /* XCTest.framework in Frameworks */,
 				C9B01B3E18F221CE0086E066 /* UIKit.framework in Frameworks */,
@@ -149,8 +152,8 @@
 		C90F1E2618ED462700F7503A /* models */ = {
 			isa = PBXGroup;
 			children = (
-				C90F1E3D18ED623000F7503A /* VBUser.h */,
-				C90F1E3E18ED623000F7503A /* VBUser.m */,
+				C9C56D0A18F403C2009FFB55 /* VBUser.h */,
+				C9C56D0B18F403C2009FFB55 /* VBUser.m */,
 				C94BF86618ED63DE00E2CCE7 /* VBVenue.h */,
 				C94BF86718ED63DE00E2CCE7 /* VBVenue.m */,
 			);
@@ -191,7 +194,6 @@
 		C9671B4418EA1BF0003E8450 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C9B01B4E18F267F70086E066 /* libPods.a */,
 				C90F1E2B18ED486200F7503A /* libz.dylib */,
 				C90F1E3118ED487E00F7503A /* StoreKit.framework */,
 				C90F1E2F18ED487400F7503A /* QuartzCore.framework */,
@@ -252,12 +254,14 @@
 		C9671B8E18EA1E2F003E8450 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				C9B01B5A18F3C6690086E066 /* VBInputSourceManager.h */,
+				C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */,
 				C9671B8F18EA1E2F003E8450 /* VBSpeechKit.h */,
 				C9671B9018EA1E2F003E8450 /* VBSpeechKit.m */,
 				C90F1E3318ED49A900F7503A /* VBParse.h */,
 				C90F1E3418ED49A900F7503A /* VBParse.m */,
-				015DA9C418F1974100E90BB9 /* VBInputSourceManager.h */,
-				015DA9C518F1974100E90BB9 /* VBInputSourceManager.m */,
+				C9B01B5018F27DFA0086E066 /* VBFoursquare.h */,
+				C9B01B5118F27DFA0086E066 /* VBFoursquare.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -265,7 +269,7 @@
 		C9B01B3F18F221CE0086E066 /* verbatimTests */ = {
 			isa = PBXGroup;
 			children = (
-				C9B01B4518F221CE0086E066 /* VBUserTests.m */,
+				C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */,
 				C9B01B4018F221CE0086E066 /* Supporting Files */,
 			);
 			path = verbatimTests;
@@ -274,6 +278,8 @@
 		C9B01B4018F221CE0086E066 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C9C56D0718F3DF73009FFB55 /* XCTestCase+AsyncTesting.h */,
+				C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */,
 				C9B01B4118F221CE0086E066 /* verbatimTests-Info.plist */,
 				C9B01B4218F221CE0086E066 /* InfoPlist.strings */,
 				C9B01B4718F221CE0086E066 /* verbatimTests-Prefix.pch */,
@@ -415,14 +421,15 @@
 			files = (
 				C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */,
 				C9671B9318EA1E2F003E8450 /* VBSpeechKit.m in Sources */,
+				C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */,
 				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
-				C90F1E3F18ED623000F7503A /* VBUser.m in Sources */,
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
-				015DA9C618F1974100E90BB9 /* VBInputSourceManager.m in Sources */,
+				C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
+				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +437,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B01B4618F221CE0086E066 /* VBUserTests.m in Sources */,
+				C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */,
+				C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,10 +615,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -630,10 +635,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "verbatimTests/verbatimTests-Prefix.pch";
 				INFOPLIST_FILE = "verbatimTests/verbatimTests-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -668,6 +670,7 @@
 				C9B01B4B18F221CE0086E066 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

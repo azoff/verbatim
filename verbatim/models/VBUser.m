@@ -7,33 +7,29 @@
 //
 
 #import "VBUser.h"
+#import <Parse/PFObject+Subclass.h>
 
 @implementation VBUser
 
-+(instancetype)currentUser
++(NSString *)parseClassName
 {
-    return [super currentUser];
+    return @"User";
 }
 
 @dynamic foursquareID;
 @dynamic venue;
 @dynamic source;
-@dynamic name;
+@dynamic firstName;
+@dynamic lastName;
 
--(BOOL)isAnonymous
-{
-    return [PFAnonymousUtils isLinkedWithUser:self];
-}
 
--(void)checkInToVenue:(VBVenue *)venue
-          withSuccess:(void(^)(BOOL))success
-           andFailure:(void(^)(NSError *))failure
++(instancetype)userWithDictionary:(NSDictionary *)dictionary
 {
-    self[@"venue"] = venue;
-    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (error) failure(error);
-        else success(succeeded);
-    }];
+    VBUser *user = [self object];
+    user.foursquareID = dictionary[@"id"];
+    user.firstName = dictionary[@"firstName"];
+    user.lastName = dictionary[@"lastName"];
+    return user;
 }
 
 @end
