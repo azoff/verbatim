@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
 		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
@@ -57,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01634B1018F58CE1004AF981 /* VBPubSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPubSub.h; sourceTree = "<group>"; };
+		01634B1118F58CE1004AF981 /* VBPubSub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPubSub.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
@@ -262,6 +265,8 @@
 				C90F1E3418ED49A900F7503A /* VBParse.m */,
 				C9B01B5018F27DFA0086E066 /* VBFoursquare.h */,
 				C9B01B5118F27DFA0086E066 /* VBFoursquare.m */,
+				01634B1018F58CE1004AF981 /* VBPubSub.h */,
+				01634B1118F58CE1004AF981 /* VBPubSub.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
+				01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
 				C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,

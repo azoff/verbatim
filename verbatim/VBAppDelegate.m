@@ -10,6 +10,7 @@
 #import "VBCaptionController.h"
 #import "VBWindow.h"
 #import "VBInputSourceManager.h"
+#import "VBPubSub.h"
 
 @implementation VBAppDelegate
 
@@ -18,9 +19,9 @@
     [VBFoursquare setup];
     [VBParse setupWithLaunchOptions:launchOptions];
     self.window = [VBWindow window];
-    
+  
     [[VBInputSourceManager manager] startListening];
-        
+    
     return YES;
 }
 

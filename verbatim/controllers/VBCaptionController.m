@@ -104,16 +104,20 @@
     
     // subscribe to channel for debug listening
     [[NSNotificationCenter defaultCenter]
-     addObserverForName:VBInputSourceManagerDidFinishWithResultsNotification
+     addObserverForName:VBInputSourceManagerUserNewCaptionNotification
      object:nil
      queue:nil
      usingBlock:^(NSNotification *notification) {
-         NSLog(@"Caption controller received notification: %@",notification.userInfo[@"best"]);
-         self.caption = notification.userInfo[@"best"];
+         NSLog(@"Caption controller received notification: %@",notification.userInfo[@"caption"]);
+         self.caption = notification.userInfo[@"caption"];
      }];
     
     self.view.backgroundColor = [UIColor blackColor];
     self.presentationMode = PM_CAPTION_CAMERA;
+    
+    // listen to ourselves on startup
+    // TODO: as soon as user model is ready to get our current user, 
+    [[VBInputSourceManager manager] listenToUser:nil];
     
 }
 
