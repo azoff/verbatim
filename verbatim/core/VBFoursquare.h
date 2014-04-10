@@ -27,5 +27,8 @@ extern NSString * VBFoursquareEventDeauthorized;
 +(void)currentUserDetailsWithSuccess:(void(^)(VBUser*))success
                           andFailure:(void(^)(NSError*))failure;
 
++(void)checkInWithVenue:(VBVenue *)venue
+                success:(void(^)(VBVenue*))success
+                failure:(void(^)(NSError*))failure;
 
 @end

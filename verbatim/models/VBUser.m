@@ -11,21 +11,46 @@
 
 NSString* VBUserEventCurrentUserAdded   = @"VBUserEventCurrentUserAdded";
 NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
+NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
 
 VBUser* currentUser;
 
 @implementation VBUser
 
-+(NSString *)parseClassName
-{
-    return @"User";
-}
-
-@dynamic foursquareID;
 @dynamic venue;
 @dynamic source;
 @dynamic firstName;
 @dynamic lastName;
+
+-(void)checkInWithVenue:(VBVenue *)venue
+                success:(void(^)(VBUser*))success
+                failure:(void(^)(NSError*))failure;
+{
+    // validate user
+    if ([self.class.currentUser foursquareID] != self.foursquareID) {
+        id desc  = @{NSLocalizedDescriptionKey:@"Only current user may check in"};
+        id error = [NSError errorWithDomain:@"" code:0 userInfo:desc];
+        failure(error);
+    }
+    
+    // check in on foursquare
+    [VBFoursquare checkInWithVenue:venue success:^(VBVenue *venue) {
+        // create the venue on parse
+        [venue upsertWithSuccess:^(id venue) {
+            // save the venu to the user
+            self.venue = venue;
+            [self upsertWithSuccess:^(id user) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCheckedIn object:self userInfo:@{@"venue": venue}];
+                success(user);
+            } andFailure:failure];
+        } andFailure:failure];
+    } failure:failure];
+}
+
++(NSString *)parseClassName
+{
+    return @"User";
+}
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary
 {

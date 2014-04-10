@@ -34,4 +34,23 @@
     
 }
 
+- (void)testCheckIn
+{
+    [VBFoursquare venuesNearbyWithSuccess:^(NSArray *venues) {
+        NSUInteger index = arc4random() % [venues count];
+        VBVenue *venue = venues[index];
+        [VBUser.currentUser checkInWithVenue:venue success:^(VBUser *user) {
+            XCTAssertEqual(user.venue.foursquareID, venue.foursquareID);
+            [self notify:XCTAsyncTestCaseStatusSucceeded];
+        } failure:^(NSError *error) {
+            XCTFail(@"%@", error);
+            [self notify:XCTAsyncTestCaseStatusFailed];
+        }];
+    } andFailure:^(NSError *error) {
+        XCTFail(@"%@", error);
+        [self notify:XCTAsyncTestCaseStatusFailed];
+    }];
+    [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:30];
+}
+
 @end
