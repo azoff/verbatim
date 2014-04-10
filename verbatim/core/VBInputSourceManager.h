@@ -17,6 +17,7 @@ extern NSString *const VBInputSourceManagerUserNewCaptionNotification;
 
 - (void)startListening;
 
-- (void)listenToUser:(VBUser *)user;
+
+@property (nonatomic,strong) VBUser *listenToUser;
 
 @end
