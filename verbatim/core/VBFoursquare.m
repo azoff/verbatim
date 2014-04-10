@@ -7,8 +7,8 @@
 //
 
 #import "VBFoursquare.h"
-#import <Foursquare-API-v2/Foursquare2.h>
 #import <AKLocationManager/AKLocationManager.h>
+#import <Foursquare-API-v2/Foursquare2.h>
 
 NSString * VBFoursquareEventAuthorized   = @"VBFoursquareEventAuthorized";
 NSString * VBFoursquareEventDeauthorized = @"VBFoursquareEventDeauthorized";
@@ -21,28 +21,33 @@ NSString * const CALLBACK_URL  = @"verbatim://foursquare";
 
 +(void)setup
 {
-    [Foursquare2 setupFoursquareWithClientId:CLIENT_ID
-                                      secret:CLIENT_SECRET
-                                 callbackURL:CALLBACK_URL];
-}
-
-+(BOOL)handleURL:(NSURL *)url
-{
-    return [Foursquare2 handleURL:url];
-}
-
-+(BOOL)isAuthorized
-{
-    return [Foursquare2 isAuthorized];
+    static dispatch_once_t setupOnce;
+    dispatch_once(&setupOnce, ^{
+        [Foursquare2 setupFoursquareWithClientId:CLIENT_ID
+                                          secret:CLIENT_SECRET
+                                     callbackURL:CALLBACK_URL];
+    });
 }
 
 +(void)authorize
 {
     [Foursquare2 authorizeWithCallback:^(BOOL success, id result) {
-        if (success) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:VBFoursquareEventAuthorized object:self];
-        }
+        if (success) [self postAuthorizedNotification];
     }];
+}
+
++(void)postAuthorizedNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:VBFoursquareEventAuthorized object:self];
+}
+
++ (BOOL)handleURL:(NSURL *)url
+{
+    return [Foursquare2 handleURL:url];
+}
+
++(BOOL)isAuthorized {
+    return Foursquare2.isAuthorized;
 }
 
 +(void)deauthorize

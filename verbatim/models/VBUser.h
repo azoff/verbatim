@@ -8,6 +8,9 @@
 
 #import "VBVenue.h"
 
+extern NSString* VBUserEventCurrentUserAdded;
+extern NSString* VBUserEventCurrentUserRemoved;
+
 @interface VBUser : PFObject<PFSubclassing>
 
 @property (nonatomic) NSString * foursquareID; // for reference
@@ -17,5 +20,7 @@
 @property (nonatomic) NSString * lastName;    // from foursquare
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
++(void)setupCurrentUser;
++(instancetype)currentUser;
 
 @end

@@ -16,11 +16,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     [VBFoursquare setup];
     [VBParse setupWithLaunchOptions:launchOptions];
-    self.window = [VBWindow window];
-  
     [[VBInputSourceManager manager] startListening];
+    self.window = [VBWindow window];
     
     return YES;
 }

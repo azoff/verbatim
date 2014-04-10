@@ -7,7 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "VBFoursquare.h"
 #import "XCTestCase+AsyncTesting.h"
 
 @interface VBFoursquareTests : XCTestCase
