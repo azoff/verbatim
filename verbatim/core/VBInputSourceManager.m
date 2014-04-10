@@ -8,6 +8,7 @@
 
 #import "VBInputSourceManager.h"
 #import "VBSpeechKit.h"
+#import "VBPubSub.h"
 
 // The SKRecognizer will cycle through these stages
 enum RecordingStateTypes {
@@ -23,19 +24,36 @@ typedef enum RecordingStateTypes RecordingStateTypes;
 @property (strong,nonatomic) SKRecognizer *voice;
 @property (assign,nonatomic) RecordingStateTypes voiceRecordingState;
 
+@property (nonatomic,strong) VBPubSub *pubSub;
+
+@property (nonatomic,strong) VBUser *listeningToUser;
+
 @end
 
 @implementation VBInputSourceManager
 
-NSString *const VBInputSourceManagerDidFinishWithResultsNotification = @"VBInputSourceManagerDidFinishWithResultsNotification";
+NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSourceManagerUserNewCaptionNotification";
 
 + (instancetype)manager
 {
     static id _manager = nil;
     static dispatch_once_t _predicate;
-    dispatch_once(&_predicate, ^{ _manager = [[self alloc] init]; });
-    [VBSpeechKit setupWithDelegate:_manager];
+    dispatch_once(&_predicate, ^{
+        _manager = [[self alloc] init];
+        [VBSpeechKit setupWithDelegate:_manager];
+    });
+    
     return _manager;
+}
+
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        self.pubSub = [[VBPubSub alloc] init];
+    }
+    
+    return self;
 }
 
 - (void)startListening
@@ -56,6 +74,37 @@ NSString *const VBInputSourceManagerDidFinishWithResultsNotification = @"VBInput
         NSLog(@"APP BUG WARNING: this should only be called in an idle state.");
     }
     
+}
+
+-(NSString *)userChannelForUser:(VBUser *)user {
+    if (user) {
+        return [NSString stringWithFormat:@"User%@",user.foursquareID];
+    } else {
+        return @"UserAnon";
+    }
+}
+
+-(void)listenToUser:(VBUser *)user {
+    
+    NSLog(@"VBInputSourceManager:listenToUser:[%@]",user);
+    
+    if (user) {
+        [self.pubSub subscribeOnlyToChannel:[self userChannelForUser:user] usingBlock:^(NSDictionary *data) {
+            NSLog(@"got caption:[%@]",data[@"caption"]);
+            
+            // add user to the userInfo and send via notification center to any listeners in the app.
+            [data setValue:user forKey:@"user"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:data];
+        }];
+    } else {
+        [self.pubSub subscribeOnlyToChannel:@"UserAnon" usingBlock:^(NSDictionary *data) {
+            NSLog(@"got caption:[%@]",data[@"caption"]);
+            
+            // add user to the userInfo and send via notification center to any listeners in the app.
+            [data setValue:@{} forKey:@"user"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:data];
+        }];
+    }
 }
 
 #pragma mark SKRecognizerDelegate methods
@@ -86,9 +135,12 @@ NSString *const VBInputSourceManagerDidFinishWithResultsNotification = @"VBInput
         bestResult = [results firstResult];
     }
     
-    NSDictionary *userInfo = @{@"best":bestResult};
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerDidFinishWithResultsNotification object:self userInfo:userInfo];
+    // TODO: if we are listening to our own mic, we can push notifications directly here rather than waiting for polling result.
+    // NSDictionary *userInfo = @{@"caption":bestResult};
+    // [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:userInfo];
+
+    // TODO: for now, we are just going to publish to the Anon channel until we can get the current user
+    [self.pubSub publishToChannel:@"UserAnon" Data:@{@"caption":bestResult}];
     
     // For some reason we can't just run the listener again immediately.
     // I suspect we have to wait until the object is destroyed/disconnected on the listening server

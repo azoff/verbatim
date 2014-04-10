@@ -11,10 +11,12 @@
 @interface VBInputSourceManager : NSObject
 
 // notifications you can subscribe to
-extern NSString *const VBInputSourceManagerDidFinishWithResultsNotification;
+extern NSString *const VBInputSourceManagerUserNewCaptionNotification;
 
 + (instancetype)manager;
 
 - (void)startListening;
+
+- (void)listenToUser:(VBUser *)user;
 
 @end
