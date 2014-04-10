@@ -44,6 +44,7 @@
 		C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */; };
 		C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */; };
 		C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC303F18F648E30065EDA8 /* VBUserTests.m */; };
+		C9BC304318F68EFB0065EDA8 /* VBFoursquareObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */; };
 		C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */; };
 		C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0B18F403C2009FFB55 /* VBUser.m */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,8 @@
 		C9B01B5A18F3C6690086E066 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
 		C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
 		C9BC303F18F648E30065EDA8 /* VBUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBUserTests.m; sourceTree = "<group>"; };
+		C9BC304118F68EFB0065EDA8 /* VBFoursquareObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFoursquareObject.h; sourceTree = "<group>"; };
+		C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFoursquareObject.m; sourceTree = "<group>"; };
 		C9C56D0718F3DF73009FFB55 /* XCTestCase+AsyncTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+AsyncTesting.h"; sourceTree = "<group>"; };
 		C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+AsyncTesting.m"; sourceTree = "<group>"; };
 		C9C56D0A18F403C2009FFB55 /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				C9C56D0B18F403C2009FFB55 /* VBUser.m */,
 				C94BF86618ED63DE00E2CCE7 /* VBVenue.h */,
 				C94BF86718ED63DE00E2CCE7 /* VBVenue.m */,
+				C9BC304118F68EFB0065EDA8 /* VBFoursquareObject.h */,
+				C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -429,6 +434,7 @@
 			files = (
 				C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */,
 				C9671B9318EA1E2F003E8450 /* VBSpeechKit.m in Sources */,
+				C9BC304318F68EFB0065EDA8 /* VBFoursquareObject.m in Sources */,
 				C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */,
 				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,

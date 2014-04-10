@@ -7,13 +7,14 @@
 //
 
 #import "VBVenue.h"
+#import "VBFoursquareObject.h"
 
 extern NSString* VBUserEventCurrentUserAdded;
 extern NSString* VBUserEventCurrentUserRemoved;
+extern NSString* VBUserEventCheckedIn;
 
-@interface VBUser : PFObject<PFSubclassing>
+@interface VBUser : VBFoursquareObject<PFSubclassing>
 
-@property (nonatomic) NSString * foursquareID; // for reference
 @property (nonatomic) VBVenue  * venue;        // checked-in venue, could be nil
 @property (nonatomic) VBUser   * source;       // input source, defaults to self
 @property (nonatomic) NSString * firstName;    // from foursquare
@@ -22,5 +23,9 @@ extern NSString* VBUserEventCurrentUserRemoved;
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 +(void)setupCurrentUser;
 +(instancetype)currentUser;
+
+-(void)checkInWithVenue:(VBVenue *)venue
+                success:(void(^)(VBUser*))success
+                failure:(void(^)(NSError*))failure;
 
 @end

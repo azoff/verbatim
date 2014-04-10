@@ -58,6 +58,16 @@ NSString * const CALLBACK_URL  = @"verbatim://foursquare";
     }
 }
 
++(void)checkInWithVenue:(VBVenue *)venue
+                success:(void(^)(VBVenue*))success
+                failure:(void(^)(NSError*))failure
+{
+    [Foursquare2 checkinAddAtVenue:venue.foursquareID shout:nil callback:^(BOOL successful, id result){
+        if (successful) success(venue);
+        else failure(result);
+    }];
+}
+
 +(void)venuesNearbyWithSuccess:(void(^)(NSArray*))success
                     andFailure:(void(^)(NSError*))failure
 {
