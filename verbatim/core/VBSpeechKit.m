@@ -19,11 +19,14 @@ BOOL         const SPEECHKIT_SSL    = NO;
 
 +(void)setupWithDelegate:(id<SpeechKitDelegate>)delegate
 {
-    [SpeechKit setupWithID:SPEECHKIT_APP_ID
-                      host:SPEECHKIT_HOST
-                      port:SPEECHKIT_PORT
-                    useSSL:SPEECHKIT_SSL
-                  delegate:delegate];
+    static dispatch_once_t setupOnce;
+    dispatch_once(&setupOnce, ^{
+        [SpeechKit setupWithID:SPEECHKIT_APP_ID
+                          host:SPEECHKIT_HOST
+                          port:SPEECHKIT_PORT
+                        useSSL:SPEECHKIT_SSL
+                      delegate:delegate];
+    });
 }
 
 @end

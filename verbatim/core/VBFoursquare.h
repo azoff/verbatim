@@ -14,11 +14,12 @@ extern NSString * VBFoursquareEventDeauthorized;
 @interface VBFoursquare : NSObject
 
 +(void)setup;
-+(BOOL)handleURL:(NSURL*)url;
 
-+(BOOL)isAuthorized;
 +(void)authorize;
 +(void)deauthorize;
+
++(BOOL)isAuthorized;
++ (BOOL)handleURL:(NSURL *)url;
 
 +(void)venuesNearbyWithSuccess:(void(^)(NSArray*))success
                     andFailure:(void(^)(NSError*))failure;

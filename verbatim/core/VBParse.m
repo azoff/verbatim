@@ -15,10 +15,14 @@ NSString * const CLIENT_KEY     = @"Ltv2ItjS8XVGDbUBhpbMJbOPlQHO4gHG9RPOnn9w";
 
 +(void)setupWithLaunchOptions:(NSDictionary*)launchOptions
 {
-    [VBUser registerSubclass];
-    [VBVenue registerSubclass];
-    [Parse setApplicationId:APPLICATION_ID clientKey:CLIENT_KEY];
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    static dispatch_once_t setupOnce;
+    dispatch_once(&setupOnce, ^{
+        [VBUser registerSubclass];
+        [VBVenue registerSubclass];
+        [VBUser setupCurrentUser];
+        [Parse setApplicationId:APPLICATION_ID clientKey:CLIENT_KEY];
+        [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    });
 }
 
 @end

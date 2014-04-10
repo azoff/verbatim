@@ -43,6 +43,7 @@
 		C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5118F27DFA0086E066 /* VBFoursquare.m */; };
 		C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */; };
 		C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */; };
+		C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC303F18F648E30065EDA8 /* VBUserTests.m */; };
 		C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */; };
 		C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0B18F403C2009FFB55 /* VBUser.m */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFoursquareTests.m; sourceTree = "<group>"; };
 		C9B01B5A18F3C6690086E066 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
 		C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
+		C9BC303F18F648E30065EDA8 /* VBUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBUserTests.m; sourceTree = "<group>"; };
 		C9C56D0718F3DF73009FFB55 /* XCTestCase+AsyncTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+AsyncTesting.h"; sourceTree = "<group>"; };
 		C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+AsyncTesting.m"; sourceTree = "<group>"; };
 		C9C56D0A18F403C2009FFB55 /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			children = (
 				C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */,
 				C9B01B4018F221CE0086E066 /* Supporting Files */,
+				C9BC303F18F648E30065EDA8 /* VBUserTests.m */,
 			);
 			path = verbatimTests;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */,
 				C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */,
 				C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */,
 			);
