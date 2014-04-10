@@ -115,10 +115,6 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.presentationMode = PM_CAPTION_CAMERA;
     
-    // listen to ourselves on startup
-    // TODO: as soon as user model is ready to get our current user, 
-    [[VBInputSourceManager manager] listenToUser:nil];
-    
 }
 
 -(void)setPresentationMode:(VBCaptionControllerPresentationModeType)presentationMode

@@ -26,8 +26,6 @@ typedef enum RecordingStateTypes RecordingStateTypes;
 
 @property (nonatomic,strong) VBPubSub *pubSub;
 
-@property (nonatomic,strong) VBUser *listeningToUser;
-
 @end
 
 @implementation VBInputSourceManager
@@ -51,6 +49,7 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
     
     if (self) {
         self.pubSub = [[VBPubSub alloc] init];
+        self.listenToUser = nil;
     }
     
     return self;
@@ -84,27 +83,50 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
     }
 }
 
+-(BOOL)isSubscribedToOwnMicInput {
+    
+    // a user is subscribed to their own mic input if:
+    // 1) the user is not listening to any other user
+    // 2) the user is logged in and listening to their own user id
+    
+    VBUser *currentUser = [VBUser currentUser];
+    
+    if (!self.listenToUser) {
+        return YES;
+    }
+    else if ([currentUser.foursquareID isEqualToString:self.listenToUser.foursquareID]) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+
+}
+
 -(void)listenToUser:(VBUser *)user {
     
     NSLog(@"VBInputSourceManager:listenToUser:[%@]",user);
     
-    if (user) {
+    _listenToUser = user;
+    
+    if ([self isSubscribedToOwnMicInput]) {
+        [self.pubSub unsubscribeFromAllChannels];
+    }
+    else {
         [self.pubSub subscribeOnlyToChannel:[self userChannelForUser:user] usingBlock:^(NSDictionary *data) {
             NSLog(@"got caption:[%@]",data[@"caption"]);
+            [self postNotificationWithCaption:data[@"caption"] fromUser:user];
             
-            // add user to the userInfo and send via notification center to any listeners in the app.
-            [data setValue:user forKey:@"user"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:data];
-        }];
-    } else {
-        [self.pubSub subscribeOnlyToChannel:@"UserAnon" usingBlock:^(NSDictionary *data) {
-            NSLog(@"got caption:[%@]",data[@"caption"]);
-            
-            // add user to the userInfo and send via notification center to any listeners in the app.
-            [data setValue:@{} forKey:@"user"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:data];
         }];
     }
+}
+
+-(void)postNotificationWithCaption:(NSString *)caption fromUser:(VBUser *)user {
+    NSDictionary *userInfo = @{
+                               @"user":user,
+                               @"caption":caption
+                              };
+    [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:userInfo];
 }
 
 #pragma mark SKRecognizerDelegate methods
@@ -135,12 +157,15 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
         bestResult = [results firstResult];
     }
     
-    // TODO: if we are listening to our own mic, we can push notifications directly here rather than waiting for polling result.
-    // NSDictionary *userInfo = @{@"caption":bestResult};
-    // [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:userInfo];
-
-    // TODO: for now, we are just going to publish to the Anon channel until we can get the current user
-    [self.pubSub publishToChannel:@"UserAnon" Data:@{@"caption":bestResult}];
+    // if we are listening to ourselves, post notification immediately after processing.
+    if ([self isSubscribedToOwnMicInput]) {
+        [self postNotificationWithCaption:bestResult fromUser:[VBUser currentUser]];
+    }
+    
+    // if we are checked in, publish to our own user channel
+    if ([VBUser currentUser]) {
+        [self.pubSub publishToChannel:[self userChannelForUser:[VBUser currentUser]] Data:@{@"caption":bestResult}];
+    }
     
     // For some reason we can't just run the listener again immediately.
     // I suspect we have to wait until the object is destroyed/disconnected on the listening server
