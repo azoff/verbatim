@@ -33,9 +33,9 @@
 @interface VBNavigationController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *titleBarButtons;
-- (IBAction)selectSource:(id)sender;
-- (IBAction)checkIn:(id)sender;
-- (IBAction)translateOptions:(id)sender;
+- (IBAction)selectSource:(UIButton *)sender;
+- (IBAction)checkIn:(UIButton *)sender;
+- (IBAction)translateOptions:(UIButton *)sender;
 
 @end
 
@@ -55,7 +55,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     for (UIButton *barButton in _titleBarButtons) {
-        barButton.imageView.image = [barButton.imageView.image imageWithColor:[UIColor whiteColor]];
+        UIImage *imageForBasicState = [barButton.imageView.image imageWithColor:[UIColor whiteColor]];
+        UIImage *imageForSelectedState = [barButton.imageView.image imageWithColor:[UIColor greenColor]];
+        [barButton setImage:imageForBasicState forState:UIControlStateNormal];
+        [barButton setImage:imageForSelectedState forState:UIControlStateSelected];
     }
     
 }
@@ -66,11 +69,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)selectSource:(id)sender {
+- (IBAction)selectSource:(UIButton *)sender {
+    [sender setSelected:!sender.selected];
 }
-- (IBAction)checkIn:(id)sender {
+- (IBAction)checkIn:(UIButton *)sender {
+    [sender setSelected:!sender.selected];
 }
 
-- (IBAction)translateOptions:(id)sender {
+- (IBAction)translateOptions:(UIButton *)sender {
+    [sender setSelected:!sender.selected];
+}
+
+- (IBAction)u:(UIButton *)sender {
 }
 @end
