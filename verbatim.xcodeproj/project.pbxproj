@@ -10,6 +10,13 @@
 		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
 		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
+		9540B3A618FB19DE0031DF82 /* VBTranslationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */; };
+		9540B3A718FB19DE0031DF82 /* VBTranslationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */; };
+		9540B3A918FB19DE0031DF82 /* VBCheckinTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */; };
+		95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */; };
+		959B974718F3A30800F36182 /* VBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959B974518F3A30800F36182 /* VBNavigationController.m */; };
+		959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 959B974618F3A30800F36182 /* VBNavigationController.xib */; };
+		95C75A1818FB22B100838D68 /* VBSourcesTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C75A1718FB22B100838D68 /* VBSourcesTitleView.m */; };
 		95C75A1C18FB43AD00838D68 /* VBWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C75A1A18FB43AD00838D68 /* VBWelcomeController.m */; };
 		95C75A1D18FB43AD00838D68 /* VBWelcomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C75A1B18FB43AD00838D68 /* VBWelcomeController.xib */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
@@ -21,6 +28,9 @@
 		C90F1E3518ED49A900F7503A /* VBParse.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3418ED49A900F7503A /* VBParse.m */; };
 		C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3818ED58E000F7503A /* VBWindow.m */; };
 		C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3B18ED59F000F7503A /* VBColor.m */; };
+		C920BBA818FC53780034BE44 /* VBFoursquareObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C920BBA718FC53780034BE44 /* VBFoursquareObject.m */; };
+		C920BBAA18FC53A00034BE44 /* VBSourcesTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C920BBA918FC53A00034BE44 /* VBSourcesTitleView.xib */; };
+		C920BBAC18FC53E30034BE44 /* VBCheckinTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C920BBAB18FC53E30034BE44 /* VBCheckinTitleView.xib */; };
 		C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BF86718ED63DE00E2CCE7 /* VBVenue.m */; };
 		C957DFF318F9F9F1000E95CA /* VBVenueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C957DFF218F9F9F1000E95CA /* VBVenueTest.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
@@ -48,7 +58,6 @@
 		C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */; };
 		C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */; };
 		C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC303F18F648E30065EDA8 /* VBUserTests.m */; };
-		C9BC304318F68EFB0065EDA8 /* VBFoursquareObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */; };
 		C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */; };
 		C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C56D0B18F403C2009FFB55 /* VBUser.m */; };
 /* End PBXBuildFile section */
@@ -70,6 +79,19 @@
 		018F0A3118F9E41500C0BBAF /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		9540B39E18FB19DE0031DF82 /* VBTranslationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBTranslationTitleView.h; path = views/VBTranslationTitleView.h; sourceTree = "<group>"; };
+		9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBTranslationTitleView.m; path = views/VBTranslationTitleView.m; sourceTree = "<group>"; };
+		9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBTranslationTitleView.xib; path = views/VBTranslationTitleView.xib; sourceTree = "<group>"; };
+		9540B3A118FB19DE0031DF82 /* VBMenuNavigationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBMenuNavigationState.h; path = views/VBMenuNavigationState.h; sourceTree = "<group>"; };
+		9540B3A318FB19DE0031DF82 /* VBCheckinTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBCheckinTitleView.h; path = views/VBCheckinTitleView.h; sourceTree = "<group>"; };
+		9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBCheckinTitleView.m; path = views/VBCheckinTitleView.m; sourceTree = "<group>"; };
+		95744E7B18FAE2F500E7644D /* UIImage+Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Overlay.h"; sourceTree = "<group>"; };
+		95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Overlay.m"; sourceTree = "<group>"; };
+		959B974418F3A30800F36182 /* VBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBNavigationController.h; sourceTree = "<group>"; };
+		959B974518F3A30800F36182 /* VBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBNavigationController.m; sourceTree = "<group>"; };
+		959B974618F3A30800F36182 /* VBNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBNavigationController.xib; sourceTree = "<group>"; };
+		95C75A1618FB22B100838D68 /* VBSourcesTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBSourcesTitleView.h; path = views/VBSourcesTitleView.h; sourceTree = "<group>"; };
+		95C75A1718FB22B100838D68 /* VBSourcesTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBSourcesTitleView.m; path = views/VBSourcesTitleView.m; sourceTree = "<group>"; };
 		95C75A1918FB43AD00838D68 /* VBWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBWelcomeController.h; sourceTree = "<group>"; };
 		95C75A1A18FB43AD00838D68 /* VBWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBWelcomeController.m; sourceTree = "<group>"; };
 		95C75A1B18FB43AD00838D68 /* VBWelcomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBWelcomeController.xib; sourceTree = "<group>"; };
@@ -85,6 +107,10 @@
 		C90F1E3818ED58E000F7503A /* VBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBWindow.m; path = views/VBWindow.m; sourceTree = "<group>"; };
 		C90F1E3A18ED59F000F7503A /* VBColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBColor.h; path = views/VBColor.h; sourceTree = "<group>"; };
 		C90F1E3B18ED59F000F7503A /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBColor.m; path = views/VBColor.m; sourceTree = "<group>"; };
+		C920BBA618FC53780034BE44 /* VBFoursquareObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBFoursquareObject.h; path = models/VBFoursquareObject.h; sourceTree = "<group>"; };
+		C920BBA718FC53780034BE44 /* VBFoursquareObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBFoursquareObject.m; path = models/VBFoursquareObject.m; sourceTree = "<group>"; };
+		C920BBA918FC53A00034BE44 /* VBSourcesTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBSourcesTitleView.xib; path = views/VBSourcesTitleView.xib; sourceTree = "<group>"; };
+		C920BBAB18FC53E30034BE44 /* VBCheckinTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBCheckinTitleView.xib; path = views/VBCheckinTitleView.xib; sourceTree = "<group>"; };
 		C94BF86618ED63DE00E2CCE7 /* VBVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenue.h; path = models/VBVenue.h; sourceTree = "<group>"; };
 		C94BF86718ED63DE00E2CCE7 /* VBVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenue.m; path = models/VBVenue.m; sourceTree = "<group>"; };
 		C957DFF218F9F9F1000E95CA /* VBVenueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBVenueTest.m; sourceTree = "<group>"; };
@@ -121,8 +147,6 @@
 		C9B01B5A18F3C6690086E066 /* VBInputSourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceManager.h; sourceTree = "<group>"; };
 		C9B01B5B18F3C6690086E066 /* VBInputSourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceManager.m; sourceTree = "<group>"; };
 		C9BC303F18F648E30065EDA8 /* VBUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBUserTests.m; sourceTree = "<group>"; };
-		C9BC304118F68EFB0065EDA8 /* VBFoursquareObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFoursquareObject.h; sourceTree = "<group>"; };
-		C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFoursquareObject.m; sourceTree = "<group>"; };
 		C9C56D0718F3DF73009FFB55 /* XCTestCase+AsyncTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+AsyncTesting.h"; sourceTree = "<group>"; };
 		C9C56D0818F3DF73009FFB55 /* XCTestCase+AsyncTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+AsyncTesting.m"; sourceTree = "<group>"; };
 		C9C56D0A18F403C2009FFB55 /* VBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBUser.h; path = models/VBUser.h; sourceTree = "<group>"; };
@@ -170,12 +194,12 @@
 		C90F1E2618ED462700F7503A /* models */ = {
 			isa = PBXGroup;
 			children = (
+				C920BBA618FC53780034BE44 /* VBFoursquareObject.h */,
+				C920BBA718FC53780034BE44 /* VBFoursquareObject.m */,
 				C9C56D0A18F403C2009FFB55 /* VBUser.h */,
 				C9C56D0B18F403C2009FFB55 /* VBUser.m */,
 				C94BF86618ED63DE00E2CCE7 /* VBVenue.h */,
 				C94BF86718ED63DE00E2CCE7 /* VBVenue.m */,
-				C9BC304118F68EFB0065EDA8 /* VBFoursquareObject.h */,
-				C9BC304218F68EFB0065EDA8 /* VBFoursquareObject.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -183,10 +207,20 @@
 		C90F1E3618ED587000F7503A /* views */ = {
 			isa = PBXGroup;
 			children = (
+				C920BBAB18FC53E30034BE44 /* VBCheckinTitleView.xib */,
+				C920BBA918FC53A00034BE44 /* VBSourcesTitleView.xib */,
+				9540B39E18FB19DE0031DF82 /* VBTranslationTitleView.h */,
+				9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */,
+				9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */,
+				9540B3A118FB19DE0031DF82 /* VBMenuNavigationState.h */,
+				9540B3A318FB19DE0031DF82 /* VBCheckinTitleView.h */,
+				9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */,
 				C90F1E3718ED58E000F7503A /* VBWindow.h */,
 				C90F1E3818ED58E000F7503A /* VBWindow.m */,
 				C90F1E3A18ED59F000F7503A /* VBColor.h */,
 				C90F1E3B18ED59F000F7503A /* VBColor.m */,
+				95C75A1618FB22B100838D68 /* VBSourcesTitleView.h */,
+				95C75A1718FB22B100838D68 /* VBSourcesTitleView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -270,6 +304,9 @@
 				95C75A1918FB43AD00838D68 /* VBWelcomeController.h */,
 				95C75A1A18FB43AD00838D68 /* VBWelcomeController.m */,
 				95C75A1B18FB43AD00838D68 /* VBWelcomeController.xib */,
+				959B974418F3A30800F36182 /* VBNavigationController.h */,
+				959B974518F3A30800F36182 /* VBNavigationController.m */,
+				959B974618F3A30800F36182 /* VBNavigationController.xib */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -289,6 +326,8 @@
 				01634B1118F58CE1004AF981 /* VBPubSub.m */,
 				018F0A3018F9E41500C0BBAF /* VBHUD.h */,
 				018F0A3118F9E41500C0BBAF /* VBHUD.m */,
+				95744E7B18FAE2F500E7644D /* UIImage+Overlay.h */,
+				95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -394,10 +433,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C920BBAA18FC53A00034BE44 /* VBSourcesTitleView.xib in Resources */,
+				C920BBAC18FC53E30034BE44 /* VBCheckinTitleView.xib in Resources */,
+				9540B3A718FB19DE0031DF82 /* VBTranslationTitleView.xib in Resources */,
 				95C75A1D18FB43AD00838D68 /* VBWelcomeController.xib in Resources */,
 				C9671B5018EA1BF0003E8450 /* InfoPlist.strings in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
 				C9671B9218EA1E2F003E8450 /* VBCaptionController.xib in Resources */,
+				959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,19 +493,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */,
+				9540B3A918FB19DE0031DF82 /* VBCheckinTitleView.m in Sources */,
 				C9671B9318EA1E2F003E8450 /* VBSpeechKit.m in Sources */,
 				95C75A1C18FB43AD00838D68 /* VBWelcomeController.m in Sources */,
-				C9BC304318F68EFB0065EDA8 /* VBFoursquareObject.m in Sources */,
 				C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */,
 				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
+				C920BBA818FC53780034BE44 /* VBFoursquareObject.m in Sources */,
+				9540B3A618FB19DE0031DF82 /* VBTranslationTitleView.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
 				01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
 				C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */,
+				95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */,
+				95C75A1818FB22B100838D68 /* VBSourcesTitleView.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
+				959B974718F3A30800F36182 /* VBNavigationController.m in Sources */,
 				018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

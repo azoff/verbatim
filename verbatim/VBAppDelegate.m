@@ -22,6 +22,7 @@
     [VBParse setupWithLaunchOptions:launchOptions];
     [[VBInputSourceManager manager] startListening];
     self.window = [VBWindow window];
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
     VBWelcomeController *splashScreenWelcome = [[VBWelcomeController alloc]init];
     splashScreenWelcome.transitioningDelegate = splashScreenWelcome;
