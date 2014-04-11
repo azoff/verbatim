@@ -6,11 +6,16 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBNavigationController">
             <connections>
-                <outlet property="toolbar" destination="JOg-wW-X74" id="zRK-xc-cTN"/>
+                <outlet property="toolbar" destination="q74-gL-rG4" id="UV5-eb-wGF"/>
+                <outlet property="toolbarHeightConstraint" destination="lUQ-h4-nF6" id="D61-Ad-0AI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="titleBarButtons" destination="QYd-g5-2Dt" id="pZb-1t-N2c"/>
-                <outletCollection property="titleBarButtons" destination="0IZ-lh-MZU" id="HoP-Kg-McG"/>
-                <outletCollection property="titleBarButtons" destination="7Lx-bE-7c7" id="5Vt-tS-bVD"/>
+                <outletCollection property="titleBarButtons" destination="7EG-e1-Q1f" id="a9V-WG-7Zu"/>
+                <outletCollection property="titleBarButtons" destination="9hN-Ny-Nb9" id="5rJ-Yf-1Ih"/>
+                <outletCollection property="titleBarButtons" destination="7EG-e1-Q1f" id="3xH-uV-8yM"/>
+                <outletCollection property="titleBarButtons" destination="xal-i8-hMU" id="Fu2-1x-vxb"/>
+                <outletCollection property="buttonVerticalContraints" destination="MrM-HF-dpJ" id="Xgb-LP-imW"/>
+                <outletCollection property="buttonVerticalContraints" destination="Fzw-l6-6Jc" id="g7X-e8-x4F"/>
+                <outletCollection property="buttonVerticalContraints" destination="6U9-N8-9DQ" id="LBy-vV-V5f"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,56 +23,68 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOg-wW-X74">
-                    <rect key="frame" x="0.0" y="21" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q74-gL-rG4">
+                    <rect key="frame" x="0.0" y="45" width="320" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hN-Ny-Nb9">
+                            <rect key="frame" x="20" y="7" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="825-yo-id7"/>
+                                <constraint firstAttribute="height" constant="20" id="GC3-Xu-kbD"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="mic">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="selectSource:" destination="-1" eventType="touchUpInside" id="CJW-nw-TbA"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7EG-e1-Q1f">
+                            <rect key="frame" x="48" y="7" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="b7u-gH-3FS"/>
+                                <constraint firstAttribute="width" constant="20" id="nEM-Et-sEW"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="location">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="checkIn:" destination="-1" eventType="touchUpInside" id="6MD-zx-hzQ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xal-i8-hMU">
+                            <rect key="frame" x="76" y="7" width="20" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="8sI-u9-lfW"/>
+                                <constraint firstAttribute="height" constant="20" id="aQa-c6-l70"/>
+                            </constraints>
+                            <state key="normal" title="Button" image="caption">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="translateOptions:" destination="-1" eventType="touchUpInside" id="5MR-f8-NzT"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="width" constant="320" id="gyS-fb-T9P"/>
-                        <constraint firstAttribute="height" constant="44" id="hAc-xO-ePd"/>
+                        <constraint firstItem="xal-i8-hMU" firstAttribute="leading" secondItem="7EG-e1-Q1f" secondAttribute="trailing" constant="8" id="3CK-8M-O4M"/>
+                        <constraint firstAttribute="bottom" secondItem="9hN-Ny-Nb9" secondAttribute="bottom" constant="7" id="6U9-N8-9DQ"/>
+                        <constraint firstAttribute="bottom" secondItem="7EG-e1-Q1f" secondAttribute="bottom" constant="7" id="Fzw-l6-6Jc"/>
+                        <constraint firstAttribute="bottom" secondItem="xal-i8-hMU" secondAttribute="bottom" constant="7" id="MrM-HF-dpJ"/>
+                        <constraint firstItem="7EG-e1-Q1f" firstAttribute="leading" secondItem="9hN-Ny-Nb9" secondAttribute="trailing" constant="8" id="VHO-It-Mgj"/>
+                        <constraint firstAttribute="width" constant="320" id="ZGP-DB-oNL"/>
+                        <constraint firstItem="9hN-Ny-Nb9" firstAttribute="leading" secondItem="q74-gL-rG4" secondAttribute="leading" constant="20" id="fzA-rp-qzY"/>
+                        <constraint firstAttribute="height" constant="34" id="lUQ-h4-nF6"/>
                     </constraints>
-                    <items>
-                        <barButtonItem style="plain" id="XgB-oC-FNm">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QYd-g5-2Dt">
-                                <rect key="frame" x="16" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="mic">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectSource:" destination="-1" eventType="touchUpInside" id="3Iq-lv-83G"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem style="plain" id="ZlN-xt-dw6">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0IZ-lh-MZU">
-                                <rect key="frame" x="46" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="location">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="checkIn:" destination="-1" eventType="touchUpInside" id="JqJ-hH-RQq"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem style="plain" id="MAj-Kv-NfC">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Lx-bE-7c7">
-                                <rect key="frame" x="76" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button" image="caption">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="translateOptions:" destination="-1" eventType="touchUpInside" id="Ncj-sV-2BN"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </items>
-                </toolbar>
+                </view>
             </subviews>
             <constraints>
-                <constraint firstItem="JOg-wW-X74" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="21" id="1pP-gp-ZbG"/>
-                <constraint firstItem="JOg-wW-X74" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="d8G-gH-tWT"/>
+                <constraint firstItem="q74-gL-rG4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2W9-AI-guG"/>
+                <constraint firstItem="q74-gL-rG4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="45" id="PAS-SM-0Mp"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
