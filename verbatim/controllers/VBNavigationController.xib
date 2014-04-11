@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBNavigationController">
             <connections>
+                <outlet property="toolbar" destination="JOg-wW-X74" id="zRK-xc-cTN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="titleBarButtons" destination="QYd-g5-2Dt" id="pZb-1t-N2c"/>
                 <outletCollection property="titleBarButtons" destination="0IZ-lh-MZU" id="HoP-Kg-McG"/>

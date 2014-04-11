@@ -33,6 +33,7 @@
 @interface VBNavigationController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *titleBarButtons;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 - (IBAction)selectSource:(UIButton *)sender;
 - (IBAction)checkIn:(UIButton *)sender;
 - (IBAction)translateOptions:(UIButton *)sender;
@@ -69,17 +70,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) slideMenu :(BOOL)slideDown
+{
+    [UIView animateWithDuration:0.1 animations:^{
+        CGFloat targetHeight = _toolbar.frame.size.height;
+        if (slideDown) {
+            targetHeight = targetHeight * 2;
+        } else {
+            targetHeight = targetHeight / 2;
+        }
+        CGRect doubleFrame = CGRectMake(_toolbar.frame.origin.x, _toolbar.frame.origin.y, _toolbar.frame.size.width, targetHeight);
+        [_toolbar setFrame:doubleFrame];
+    }];
+}
+
 - (IBAction)selectSource:(UIButton *)sender {
     [sender setSelected:!sender.selected];
+    [self slideMenu:sender.selected];
 }
+
 - (IBAction)checkIn:(UIButton *)sender {
     [sender setSelected:!sender.selected];
+    [self slideMenu:sender.selected];
 }
 
 - (IBAction)translateOptions:(UIButton *)sender {
     [sender setSelected:!sender.selected];
+    [self slideMenu:sender.selected];
 }
 
-- (IBAction)u:(UIButton *)sender {
-}
 @end
