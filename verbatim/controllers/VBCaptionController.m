@@ -148,7 +148,8 @@
     self.captionLabel.text = caption;
     [self.captions addObject:caption];
     self.captionsLabel.text = [self.captionsLabel.text stringByAppendingString:[NSString stringWithFormat:@" %@",caption]];
-
+    
+    [VBHUD showWithText:caption hideAfterDelay:2];
 }
 
 - (void)didReceiveMemoryWarning
