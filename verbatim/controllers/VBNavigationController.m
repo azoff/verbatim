@@ -7,28 +7,7 @@
 //
 
 #import "VBNavigationController.h"
-
-@interface UIImage(Overlay)
-@end
-
-@implementation UIImage(Overlay)
-
-- (UIImage *)imageWithColor:(UIColor *)color1
-{
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, 0, self.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    CGContextSetBlendMode(context, kCGBlendModeNormal);
-    CGRect rect = CGRectMake(0, 0, self.size.width, self.size.height);
-    CGContextClipToMask(context, rect, self.CGImage);
-    [color1 setFill];
-    CGContextFillRect(context, rect);
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-@end
+#import "VBColor.h"
 
 @interface VBNavigationController ()
 
@@ -61,8 +40,8 @@
     // Do any additional setup after loading the view from its nib.
 
     for (UIButton *barButton in _titleBarButtons) {
-        UIImage *imageForBasicState = [barButton.imageView.image imageWithColor:[UIColor whiteColor]];
-        UIImage *imageForSelectedState = [barButton.imageView.image imageWithColor:[UIColor greenColor]];
+        UIImage *imageForBasicState = [barButton.imageView.image imageWithColor:[VBColor whiteColor]];
+        UIImage *imageForSelectedState = [barButton.imageView.image imageWithColor:[VBColor selectedColor]];
         [barButton setImage:imageForBasicState forState:UIControlStateNormal];
         [barButton setImage:imageForSelectedState forState:UIControlStateSelected];
     }
