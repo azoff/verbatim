@@ -19,6 +19,7 @@
 		C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3818ED58E000F7503A /* VBWindow.m */; };
 		C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3B18ED59F000F7503A /* VBColor.m */; };
 		C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BF86718ED63DE00E2CCE7 /* VBVenue.m */; };
+		C957DFF318F9F9F1000E95CA /* VBVenueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C957DFF218F9F9F1000E95CA /* VBVenueTest.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
 		C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
@@ -78,6 +79,7 @@
 		C90F1E3B18ED59F000F7503A /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBColor.m; path = views/VBColor.m; sourceTree = "<group>"; };
 		C94BF86618ED63DE00E2CCE7 /* VBVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenue.h; path = models/VBVenue.h; sourceTree = "<group>"; };
 		C94BF86718ED63DE00E2CCE7 /* VBVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenue.m; path = models/VBVenue.m; sourceTree = "<group>"; };
+		C957DFF218F9F9F1000E95CA /* VBVenueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBVenueTest.m; sourceTree = "<group>"; };
 		C9671B4218EA1BF0003E8450 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9671B4518EA1BF0003E8450 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -284,6 +286,7 @@
 				C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */,
 				C9B01B4018F221CE0086E066 /* Supporting Files */,
 				C9BC303F18F648E30065EDA8 /* VBUserTests.m */,
+				C957DFF218F9F9F1000E95CA /* VBVenueTest.m */,
 			);
 			path = verbatimTests;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */,
 				C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */,
 				C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */,
+				C957DFF318F9F9F1000E95CA /* VBVenueTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
