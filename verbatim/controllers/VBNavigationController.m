@@ -40,6 +40,8 @@
 
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *buttonVerticalContraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarTopConstraint;
+@property (weak, nonatomic) UIView *stateMenu;
 @end
 
 @implementation VBNavigationController
@@ -73,19 +75,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) slideMenu :(BOOL)slideDown
+- (void) doMenuWithAnimation :(void(^)(void))menuAnimation
 {
-    CGFloat targetHeight = _toolbarHeightConstraint.constant;
-    if (slideDown) {
-        targetHeight = targetHeight * 2;
-    } else {
-        targetHeight = targetHeight / 2;
-    }
     [UIView animateWithDuration:.5
                           delay:0
-                        options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseIn
+                        options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionTransitionCrossDissolve|UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         _toolbarHeightConstraint.constant = targetHeight;
+                         menuAnimation();
                          [_toolbar layoutIfNeeded];
                      }
                      completion:^(BOOL finished){
@@ -104,26 +100,103 @@
 }
 
 - (IBAction)selectSource:(UIButton *)sender {
-    BOOL anyOptionPreviouslySelected = [self isAnyOptionSelected];
     [sender setSelected:!sender.selected];
-    if ([self isAnyOptionSelected]  != anyOptionPreviouslySelected) {
-        [self slideMenu:sender.selected];
+    if (sender.selected) {
+        [self doMenuWithAnimation:^{
+            ;
+        }];
+    } else {
+        [self doMenuWithAnimation:^{
+            ;
+        }];
     }
 }
 
 - (IBAction)checkIn:(UIButton *)sender {
-    BOOL anyOptionPreviouslySelected = [self isAnyOptionSelected];
     [sender setSelected:!sender.selected];
-    if ([self isAnyOptionSelected]  != anyOptionPreviouslySelected) {
-        [self slideMenu:sender.selected];
+    if (sender.selected) {
+        [self doMenuWithAnimation:^{
+            ;
+        }];
+    } else {
+        [self doMenuWithAnimation:^{
+            ;
+        }];
     }
 }
 
 - (IBAction)translateOptions:(UIButton *)sender {
-    BOOL anyOptionPreviouslySelected = [self isAnyOptionSelected];
     [sender setSelected:!sender.selected];
-    if ([self isAnyOptionSelected] != anyOptionPreviouslySelected) {
-        [self slideMenu:sender.selected];
+    if (sender.selected) {
+        [self doMenuWithAnimation:^{
+
+            UINib *nib = [UINib nibWithNibName:@"TranslationTitleView" bundle:nil];
+            NSArray *objects = [nib instantiateWithOwner:self options:nil];
+            _stateMenu = objects[0];
+            [_stateMenu setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [self.view addSubview:_stateMenu];
+            
+            [self.view removeConstraint:_toolbarTopConstraint];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_stateMenu
+                                                                  attribute:NSLayoutAttributeHeight
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1
+                                                                   constant:86
+                                      ]];
+            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_stateMenu
+                                                                  attribute:NSLayoutAttributeWidth
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:nil
+                                                                  attribute:NSLayoutAttributeNotAnAttribute
+                                                                 multiplier:1
+                                                                   constant:320
+                                      ]];
+            //    [self.view addConstraints:[NSLayoutConstraint
+            //                              constraintsWithVisualFormat:@"V:|-45-[_stateMenu]"
+            //                              options:0
+            //                              metrics:nil
+            //                              views:NSDictionaryOfVariableBindings(_stateMenu)
+            //                              ]];
+            [self.view addConstraint:[NSLayoutConstraint
+                                      constraintWithItem:_stateMenu
+                                      attribute:NSLayoutAttributeTop
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                      attribute:NSLayoutAttributeLeading
+                                      multiplier:1
+                                      constant:10
+                                      ]];
+            
+            _toolbarTopConstraint = [NSLayoutConstraint
+                                     constraintWithItem:_toolbar
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                     toItem:_stateMenu
+                                     attribute:NSLayoutAttributeBottom
+                                     multiplier:1
+                                     constant:0
+                                     ];
+            [self.view addConstraint:_toolbarTopConstraint];
+            [_toolbar setHidden:YES];
+            [self.view layoutIfNeeded];
+        }];
+    } else {
+        [self doMenuWithAnimation:^{
+            [_stateMenu removeFromSuperview];
+            _toolbarTopConstraint = [NSLayoutConstraint constraintWithItem:_toolbar
+                                                                 attribute:NSLayoutAttributeTop
+                                                                 relatedBy:NSLayoutRelationEqual
+                                                                    toItem:self.view
+                                                                 attribute:NSLayoutAttributeLeading
+                                                                multiplier:1
+                                                                  constant:10
+                                     ];
+            [self.view addConstraint:_toolbarTopConstraint];
+            [_toolbar setHidden:NO];
+            [self.view layoutIfNeeded];
+        }];
     }
 }
 

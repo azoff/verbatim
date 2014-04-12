@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="toolbar" destination="q74-gL-rG4" id="UV5-eb-wGF"/>
                 <outlet property="toolbarHeightConstraint" destination="lUQ-h4-nF6" id="D61-Ad-0AI"/>
+                <outlet property="toolbarTopConstraint" destination="PAS-SM-0Mp" id="0zw-6w-FLe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="titleBarButtons" destination="7EG-e1-Q1f" id="a9V-WG-7Zu"/>
                 <outletCollection property="titleBarButtons" destination="9hN-Ny-Nb9" id="5rJ-Yf-1Ih"/>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q74-gL-rG4">
-                    <rect key="frame" x="0.0" y="45" width="320" height="34"/>
+                    <rect key="frame" x="0.0" y="10" width="320" height="34"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hN-Ny-Nb9">
@@ -84,9 +85,8 @@
             </subviews>
             <constraints>
                 <constraint firstItem="q74-gL-rG4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2W9-AI-guG"/>
-                <constraint firstItem="q74-gL-rG4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="45" id="PAS-SM-0Mp"/>
+                <constraint firstItem="q74-gL-rG4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="PAS-SM-0Mp"/>
             </constraints>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
