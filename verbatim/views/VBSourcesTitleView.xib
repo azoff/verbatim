@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="VBSourcesTitleView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -45,6 +45,7 @@
                     </constraints>
                 </imageView>
             </subviews>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="ada-SH-f0s" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="BaH-nX-Nsw"/>
                 <constraint firstItem="4Ta-cz-6h4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="Ity-rf-YKN"/>
@@ -55,7 +56,15 @@
                 <constraint firstAttribute="trailing" secondItem="4Ta-cz-6h4" secondAttribute="trailing" constant="5" id="gnV-a9-q0w"/>
                 <constraint firstItem="mHn-w5-mgw" firstAttribute="top" secondItem="ada-SH-f0s" secondAttribute="bottom" constant="8" id="grI-vJ-RQv"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="eGD-iL-44t" appends="YES" id="NfO-B0-bN0"/>
+            </connections>
         </view>
+        <tapGestureRecognizer id="eGD-iL-44t">
+            <connections>
+                <action selector="onSourcesTap:" destination="iN0-l3-epB" id="7qd-zS-2yh"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="location" width="600" height="600"/>

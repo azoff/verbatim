@@ -1,14 +1,14 @@
 //
-//  VBCheckinTitleView.m
+//  VBSourcesTitleView.m
 //  verbatim
 //
 //  Created by Chris Ahlering on 4/13/14.
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
-#import "VBCheckinTitleView.h"
+#import "VBSourcesTitleView.h"
 
-@implementation VBCheckinTitleView
+@implementation VBSourcesTitleView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -19,8 +19,7 @@
     return self;
 }
 
-
-- (IBAction)onCheckinTap:(UITapGestureRecognizer *)sender {
+- (IBAction)onSourcesTap:(UITapGestureRecognizer *)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(stateDidChange)]) {
         [_delegate stateDidChange];
     }

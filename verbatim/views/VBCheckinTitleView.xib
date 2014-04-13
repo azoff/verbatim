@@ -18,7 +18,15 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="kkw-JK-7kv" appends="YES" id="mWm-h3-cxq"/>
+            </connections>
         </view>
+        <tapGestureRecognizer id="kkw-JK-7kv">
+            <connections>
+                <action selector="onCheckinTap:" destination="iN0-l3-epB" id="V4C-eG-Moa"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
