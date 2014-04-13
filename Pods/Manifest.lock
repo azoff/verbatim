@@ -20,15 +20,18 @@ PODS:
     - AFNetworking/NSURLSession
   - AKLocationManager (1.0.3)
   - Foursquare-API-v2 (1.4.4)
+  - MBProgressHUD (0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - AKLocationManager (~> 1.0)
   - Foursquare-API-v2 (~> 1.4)
+  - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   AKLocationManager: c2c1c8eecd37c2b9193cb7803db999bcc518315c
   Foursquare-API-v2: cb5609c318903a4d80a58d7d476298362e889a9b
+  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
 
 COCOAPODS: 0.29.0

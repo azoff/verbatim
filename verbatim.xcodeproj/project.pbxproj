@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
+		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		959B974718F3A30800F36182 /* VBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959B974518F3A30800F36182 /* VBNavigationController.m */; };
 		959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 959B974618F3A30800F36182 /* VBNavigationController.xib */; };
@@ -21,6 +22,7 @@
 		C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3818ED58E000F7503A /* VBWindow.m */; };
 		C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C90F1E3B18ED59F000F7503A /* VBColor.m */; };
 		C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BF86718ED63DE00E2CCE7 /* VBVenue.m */; };
+		C957DFF318F9F9F1000E95CA /* VBVenueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C957DFF218F9F9F1000E95CA /* VBVenueTest.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
 		C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
@@ -64,6 +66,8 @@
 /* Begin PBXFileReference section */
 		01634B1018F58CE1004AF981 /* VBPubSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPubSub.h; sourceTree = "<group>"; };
 		01634B1118F58CE1004AF981 /* VBPubSub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPubSub.m; sourceTree = "<group>"; };
+		018F0A3018F9E41500C0BBAF /* VBHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBHUD.h; sourceTree = "<group>"; };
+		018F0A3118F9E41500C0BBAF /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		959B974418F3A30800F36182 /* VBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBNavigationController.h; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 		C90F1E3B18ED59F000F7503A /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBColor.m; path = views/VBColor.m; sourceTree = "<group>"; };
 		C94BF86618ED63DE00E2CCE7 /* VBVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenue.h; path = models/VBVenue.h; sourceTree = "<group>"; };
 		C94BF86718ED63DE00E2CCE7 /* VBVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenue.m; path = models/VBVenue.m; sourceTree = "<group>"; };
+		C957DFF218F9F9F1000E95CA /* VBVenueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBVenueTest.m; sourceTree = "<group>"; };
 		C9671B4218EA1BF0003E8450 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9671B4518EA1BF0003E8450 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -282,6 +287,8 @@
 				C9B01B5118F27DFA0086E066 /* VBFoursquare.m */,
 				01634B1018F58CE1004AF981 /* VBPubSub.h */,
 				01634B1118F58CE1004AF981 /* VBPubSub.m */,
+				018F0A3018F9E41500C0BBAF /* VBHUD.h */,
+				018F0A3118F9E41500C0BBAF /* VBHUD.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -292,6 +299,7 @@
 				C9B01B5718F286CB0086E066 /* VBFoursquareTests.m */,
 				C9B01B4018F221CE0086E066 /* Supporting Files */,
 				C9BC303F18F648E30065EDA8 /* VBUserTests.m */,
+				C957DFF218F9F9F1000E95CA /* VBVenueTest.m */,
 			);
 			path = verbatimTests;
 			sourceTree = "<group>";
@@ -454,6 +462,7 @@
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
+				018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */,
 				959B974718F3A30800F36182 /* VBNavigationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,6 +474,7 @@
 				C9BC304018F648E30065EDA8 /* VBUserTests.m in Sources */,
 				C9B01B5818F286CB0086E066 /* VBFoursquareTests.m in Sources */,
 				C9C56D0918F3DF73009FFB55 /* XCTestCase+AsyncTesting.m in Sources */,
+				C957DFF318F9F9F1000E95CA /* VBVenueTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

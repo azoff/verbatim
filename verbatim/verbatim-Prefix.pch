@@ -17,4 +17,5 @@
     #import "VBFoursquare.h"
     #import "VBVenue.h"
     #import "VBUser.h"
+    #import "VBHUD.h"
 #endif
