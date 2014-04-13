@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VBMenuNavigationState.h"
 
-@interface VBNavigationController : UIViewController
+@interface VBNavigationController : UIViewController <VBMenuNavigationState>
 
 @end

@@ -10,6 +10,7 @@
 #import "VBCaptionController.h"
 #import "VBColor.h"
 #import "UIImage+Overlay.h"
+#import "VBTranslationTitleView.h"
 
 @interface VBNavigationController ()
 
@@ -19,7 +20,10 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarTopConstraint;
 @property (weak, nonatomic) UIView *stateMenu;
+@property (weak, nonatomic) UIButton *stateButton;
 @property (strong, nonatomic) VBCaptionController *captionController;
+
+@property (weak, nonatomic) id<VBMenuNavigationState> menuState;
 
 - (IBAction)selectSource:(UIButton *)sender;
 - (IBAction)checkIn:(UIButton *)sender;
@@ -113,13 +117,17 @@
 }
 
 - (IBAction)translateOptions:(UIButton *)sender {
+    _stateButton = sender;
     [sender setSelected:!sender.selected];
     if (sender.selected) {
         [self doMenuWithAnimation:^{
 
-            UINib *nib = [UINib nibWithNibName:@"TranslationTitleView" bundle:nil];
+            UINib *nib = [UINib nibWithNibName:@"VBTranslationTitleView" bundle:nil];
             NSArray *objects = [nib instantiateWithOwner:self options:nil];
-            _stateMenu = objects[0];
+            VBTranslationTitleView *translateView = objects[0];
+            translateView.delegate = self;
+
+            _stateMenu = translateView;
             [_stateMenu setTranslatesAutoresizingMaskIntoConstraints:NO];
             [self.view addSubview:_stateMenu];
             
@@ -162,24 +170,33 @@
                                      ];
             [self.view addConstraint:_toolbarTopConstraint];
             [_toolbar setHidden:YES];
-            [self.view layoutIfNeeded];
-        }];
-    } else {
-        [self doMenuWithAnimation:^{
-            [_stateMenu removeFromSuperview];
-            _toolbarTopConstraint = [NSLayoutConstraint constraintWithItem:_toolbar
-                                                                 attribute:NSLayoutAttributeTop
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.view
-                                                                 attribute:NSLayoutAttributeLeading
-                                                                multiplier:1
-                                                                  constant:10
-                                     ];
-            [self.view addConstraint:_toolbarTopConstraint];
-            [_toolbar setHidden:NO];
+            [self.view bringSubviewToFront:_stateMenu];
             [self.view layoutIfNeeded];
         }];
     }
 }
+
+#pragma mark VBMenuNavigationState methods
+-(void)stateDidChange
+{
+    [_stateButton setSelected:NO];
+    [self doMenuWithAnimation:^{
+        
+        [_stateMenu removeFromSuperview];
+        _toolbarTopConstraint = [NSLayoutConstraint constraintWithItem:_toolbar
+                                                             attribute:NSLayoutAttributeTop
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:self.view
+                                                             attribute:NSLayoutAttributeLeading
+                                                            multiplier:1
+                                                              constant:10
+                                 ];
+        [self.view addConstraint:_toolbarTopConstraint];
+        [_toolbar setHidden:NO];
+        [self.view layoutIfNeeded];
+    }];
+    
+}
+
 
 @end

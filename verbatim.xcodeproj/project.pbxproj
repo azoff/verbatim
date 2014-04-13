@@ -10,9 +10,11 @@
 		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
 		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
-		9540B39118FB089F0031DF82 /* CheckinTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B38E18FB089E0031DF82 /* CheckinTitleView.xib */; };
 		9540B39218FB089F0031DF82 /* SourcesTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B38F18FB089E0031DF82 /* SourcesTitleView.xib */; };
-		9540B39318FB089F0031DF82 /* TranslationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B39018FB089F0031DF82 /* TranslationTitleView.xib */; };
+		9540B3A618FB19DE0031DF82 /* VBTranslationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */; };
+		9540B3A718FB19DE0031DF82 /* VBTranslationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */; };
+		9540B3A818FB19DE0031DF82 /* VBCheckinTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B3A218FB19DE0031DF82 /* VBCheckinTitleView.xib */; };
+		9540B3A918FB19DE0031DF82 /* VBCheckinTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */; };
 		95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */; };
 		959B974718F3A30800F36182 /* VBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959B974518F3A30800F36182 /* VBNavigationController.m */; };
 		959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 959B974618F3A30800F36182 /* VBNavigationController.xib */; };
@@ -74,9 +76,14 @@
 		018F0A3118F9E41500C0BBAF /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		9540B38E18FB089E0031DF82 /* CheckinTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CheckinTitleView.xib; path = views/CheckinTitleView.xib; sourceTree = "<group>"; };
 		9540B38F18FB089E0031DF82 /* SourcesTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SourcesTitleView.xib; path = views/SourcesTitleView.xib; sourceTree = "<group>"; };
-		9540B39018FB089F0031DF82 /* TranslationTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TranslationTitleView.xib; path = views/TranslationTitleView.xib; sourceTree = "<group>"; };
+		9540B39E18FB19DE0031DF82 /* VBTranslationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBTranslationTitleView.h; path = views/VBTranslationTitleView.h; sourceTree = "<group>"; };
+		9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBTranslationTitleView.m; path = views/VBTranslationTitleView.m; sourceTree = "<group>"; };
+		9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBTranslationTitleView.xib; path = views/VBTranslationTitleView.xib; sourceTree = "<group>"; };
+		9540B3A118FB19DE0031DF82 /* VBMenuNavigationState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBMenuNavigationState.h; path = views/VBMenuNavigationState.h; sourceTree = "<group>"; };
+		9540B3A218FB19DE0031DF82 /* VBCheckinTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBCheckinTitleView.xib; path = views/VBCheckinTitleView.xib; sourceTree = "<group>"; };
+		9540B3A318FB19DE0031DF82 /* VBCheckinTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBCheckinTitleView.h; path = views/VBCheckinTitleView.h; sourceTree = "<group>"; };
+		9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBCheckinTitleView.m; path = views/VBCheckinTitleView.m; sourceTree = "<group>"; };
 		95744E7B18FAE2F500E7644D /* UIImage+Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Overlay.h"; sourceTree = "<group>"; };
 		95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Overlay.m"; sourceTree = "<group>"; };
 		959B974418F3A30800F36182 /* VBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBNavigationController.h; sourceTree = "<group>"; };
@@ -192,9 +199,14 @@
 		C90F1E3618ED587000F7503A /* views */ = {
 			isa = PBXGroup;
 			children = (
-				9540B38E18FB089E0031DF82 /* CheckinTitleView.xib */,
+				9540B39E18FB19DE0031DF82 /* VBTranslationTitleView.h */,
+				9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */,
+				9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */,
+				9540B3A118FB19DE0031DF82 /* VBMenuNavigationState.h */,
+				9540B3A218FB19DE0031DF82 /* VBCheckinTitleView.xib */,
+				9540B3A318FB19DE0031DF82 /* VBCheckinTitleView.h */,
+				9540B3A418FB19DE0031DF82 /* VBCheckinTitleView.m */,
 				9540B38F18FB089E0031DF82 /* SourcesTitleView.xib */,
-				9540B39018FB089F0031DF82 /* TranslationTitleView.xib */,
 				C90F1E3718ED58E000F7503A /* VBWindow.h */,
 				C90F1E3818ED58E000F7503A /* VBWindow.m */,
 				C90F1E3A18ED59F000F7503A /* VBColor.h */,
@@ -408,12 +420,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9540B39118FB089F0031DF82 /* CheckinTitleView.xib in Resources */,
+				9540B3A718FB19DE0031DF82 /* VBTranslationTitleView.xib in Resources */,
 				C9671B5018EA1BF0003E8450 /* InfoPlist.strings in Resources */,
+				9540B3A818FB19DE0031DF82 /* VBCheckinTitleView.xib in Resources */,
 				9540B39218FB089F0031DF82 /* SourcesTitleView.xib in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
 				C9671B9218EA1E2F003E8450 /* VBCaptionController.xib in Resources */,
-				9540B39318FB089F0031DF82 /* TranslationTitleView.xib in Resources */,
 				959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,11 +479,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C94BF86818ED63DE00E2CCE7 /* VBVenue.m in Sources */,
+				9540B3A918FB19DE0031DF82 /* VBCheckinTitleView.m in Sources */,
 				C9671B9318EA1E2F003E8450 /* VBSpeechKit.m in Sources */,
 				C9BC304318F68EFB0065EDA8 /* VBFoursquareObject.m in Sources */,
 				C9B01B5218F27DFA0086E066 /* VBFoursquare.m in Sources */,
 				C90F1E3918ED58E000F7503A /* VBWindow.m in Sources */,
 				C90F1E3C18ED59F000F7503A /* VBColor.m in Sources */,
+				9540B3A618FB19DE0031DF82 /* VBTranslationTitleView.m in Sources */,
 				C9671B9118EA1E2F003E8450 /* VBCaptionController.m in Sources */,
 				01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
