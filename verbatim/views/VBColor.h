@@ -18,9 +18,3 @@
 
 @end
 
-
-//Adding UIImage category here since we use it to color images
-@interface UIImage(Overlay)
-- (UIImage *)imageWithColor:(UIColor *)color1;
-@end
-

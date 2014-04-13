@@ -10,6 +10,7 @@
 		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
 		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
+		95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */; };
 		959B974718F3A30800F36182 /* VBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959B974518F3A30800F36182 /* VBNavigationController.m */; };
 		959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 959B974618F3A30800F36182 /* VBNavigationController.xib */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
@@ -70,6 +71,8 @@
 		018F0A3118F9E41500C0BBAF /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		95744E7B18FAE2F500E7644D /* UIImage+Overlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Overlay.h"; sourceTree = "<group>"; };
+		95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Overlay.m"; sourceTree = "<group>"; };
 		959B974418F3A30800F36182 /* VBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBNavigationController.h; sourceTree = "<group>"; };
 		959B974518F3A30800F36182 /* VBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBNavigationController.m; sourceTree = "<group>"; };
 		959B974618F3A30800F36182 /* VBNavigationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBNavigationController.xib; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				01634B1118F58CE1004AF981 /* VBPubSub.m */,
 				018F0A3018F9E41500C0BBAF /* VBHUD.h */,
 				018F0A3118F9E41500C0BBAF /* VBHUD.m */,
+				95744E7B18FAE2F500E7644D /* UIImage+Overlay.h */,
+				95744E7C18FAE2F500E7644D /* UIImage+Overlay.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -459,6 +464,7 @@
 				01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */,
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
 				C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */,
+				95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
