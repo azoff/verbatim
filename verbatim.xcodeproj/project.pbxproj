@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		01634B1218F58CE1004AF981 /* VBPubSub.m in Sources */ = {isa = PBXBuildFile; fileRef = 01634B1118F58CE1004AF981 /* VBPubSub.m */; };
+<<<<<<< HEAD
 		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
+=======
+		018F0A3618FA04E300C0BBAF /* VBInputSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3418FA04E300C0BBAF /* VBInputSourceController.m */; };
+		018F0A3718FA04E300C0BBAF /* VBInputSourceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 018F0A3518FA04E300C0BBAF /* VBInputSourceController.xib */; };
+>>>>>>> c3922db... Created skeleton and test data for VBInputSourceController
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
 		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
@@ -64,8 +69,14 @@
 /* Begin PBXFileReference section */
 		01634B1018F58CE1004AF981 /* VBPubSub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBPubSub.h; sourceTree = "<group>"; };
 		01634B1118F58CE1004AF981 /* VBPubSub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBPubSub.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		018F0A3018F9E41500C0BBAF /* VBHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBHUD.h; sourceTree = "<group>"; };
 		018F0A3118F9E41500C0BBAF /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
+=======
+		018F0A3318FA04E300C0BBAF /* VBInputSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceController.h; sourceTree = "<group>"; };
+		018F0A3418FA04E300C0BBAF /* VBInputSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceController.m; sourceTree = "<group>"; };
+		018F0A3518FA04E300C0BBAF /* VBInputSourceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBInputSourceController.xib; sourceTree = "<group>"; };
+>>>>>>> c3922db... Created skeleton and test data for VBInputSourceController
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
@@ -262,6 +273,9 @@
 				C9671B8B18EA1E2F003E8450 /* VBCaptionController.h */,
 				C9671B8C18EA1E2F003E8450 /* VBCaptionController.m */,
 				C9671B8D18EA1E2F003E8450 /* VBCaptionController.xib */,
+				018F0A3318FA04E300C0BBAF /* VBInputSourceController.h */,
+				018F0A3418FA04E300C0BBAF /* VBInputSourceController.m */,
+				018F0A3518FA04E300C0BBAF /* VBInputSourceController.xib */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -387,6 +401,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9671B5018EA1BF0003E8450 /* InfoPlist.strings in Resources */,
+				018F0A3718FA04E300C0BBAF /* VBInputSourceController.xib in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
 				C9671B9218EA1E2F003E8450 /* VBCaptionController.xib in Resources */,
 			);
@@ -451,6 +466,7 @@
 				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
 				C9B01B5C18F3C6690086E066 /* VBInputSourceManager.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
+				018F0A3618FA04E300C0BBAF /* VBInputSourceController.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
 				018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */,
