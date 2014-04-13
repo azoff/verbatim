@@ -1,0 +1,25 @@
+---
+name:   index
+title:  Caption Editor
+layout: default
+---
+
+<div id="state-login" class="state">
+	<img class="connect-btn" src="img/connect-black@2x.png" alt="Connect To Foursquare" />
+</div>
+
+<div id="state-find-venue" class="state">
+	<form id="venue-form">
+		<label for="venue-search-field">Find a venue.</label>
+		<input type="search" id="venue-search-field" name="q" placeholder="Enter the venue name...">
+	</form>
+	<ul id="venue-results"></ul>
+</div>
+
+<div id="state-submit-caption" class="state">
+	<form id="caption-form">
+		<label for="caption-field">Enter your captions.</label>
+		<textarea id="caption-field" name="caption" placeholder="These captions will go directly to listeners..."></textarea>
+		<small id="status">Hit the [command] + [enter] keys to submit your caption to the event.</small>
+	</form>
+</div>

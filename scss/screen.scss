@@ -1,0 +1,232 @@
+@import "fonts";
+@import "normalize";
+@import "compass";
+
+$size-unit: 16px;
+$size-iphone-vertical-width: 320px;
+$size-ipad-vertical-width: 768px;
+$color-default: #EFEFEF;
+$color-highlight: white;
+$color-active: #8CC63F;
+$color-inactive: fade-out($color-active, 0.5);
+
+* {
+	@include box-sizing(border-box);
+	font-family: 'Open Sans', Sans;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-input-placeholder {
+	line-height: 1.4;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+	line-height: 1.4;
+}
+:-ms-input-placeholder {
+	line-height: 1.4;
+}
+
+html, body {
+	position: relative;
+	height: 100%;
+}
+
+html {
+	background: url('../img/binding_dark.png') repeat top left scroll black;
+}
+
+body {
+	line-height: 1;
+	font-size: $size-unit;
+	color: $color-default;
+	min-width: $size-iphone-vertical-width;
+	&.authenticated.ready.located {
+		min-height: 761px;
+	}
+}
+
+h1 {
+	color: $color-highlight;
+}
+
+a {
+	color: $color-active;
+}
+
+input, textarea {
+	color: #444;
+	width: 100%;
+	border: none 0;
+	outline: none 0;
+	padding: $size-unit/2;
+	display: block;
+	@include border-radius(5px)
+}
+
+input {
+	line-height: 1;
+}
+
+textarea {
+	line-height: 1.2;
+	resize: none;
+	@include opacity(1);
+	@include transition(opacity 500ms);
+	&:disabled {
+		@include opacity(0.3);
+	}
+}
+
+header {
+	padding: $size-unit;
+}
+
+footer {
+	bottom: 0;
+	width: 100%;
+	display: block;
+	position: absolute;
+	text-align: center;
+	padding: $size-unit;
+}
+
+#loader {
+	top: 50%;
+	left: -9999px;
+	@include opacity(0);
+	@include border-radius(10px);
+	@include transition(opacity 750ms, left 0s ease 750ms);
+	padding: $size-unit;
+	background-color: black;
+	position: absolute;
+	margin: -19px 0 0 -19px;
+	&.active {
+		left: 50%;
+		@include opacity(0.6);
+		@include transition(opacity 750ms);
+	}
+}
+
+#notification {
+	line-height: 0;
+	overflow: hidden;
+	padding: 0 $size-unit;
+	background-color: gray;
+	margin-top: 0;
+	@include transition(line-height 500ms, padding 500ms, background-color 500ms, margin-top 500ms);
+	&.open {
+		line-height: 1;
+		padding: $size-unit;
+		margin-top: $size-unit;
+	}
+	&.error {
+		background-color: darkred;
+		color: $color-default;
+	}
+	a {
+		text-decoration: underline;
+		color: white;
+		cursor: pointer;
+	}
+}
+
+.state {
+
+	overflow: hidden;
+
+	&, .authenticated.ready &#state-login {
+		height: 0;
+		@include opacity(0);
+		@include transition(opacity 750ms, height 0s ease 750ms);
+	}
+
+	.ready &#state-login,
+	.authenticated.ready.located.selected &#state-submit-caption,
+	.authenticated.ready.located &#state-find-venue {
+		height: auto;
+		@include opacity(1);
+		@include transition(opacity 750ms);
+	}
+
+}
+
+#state-login {
+	img {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -19px 0 0 -150px;
+		display: block;
+		cursor: pointer;
+		@include opacity(0.8);
+		@include transition(opacity 500ms);
+		&:hover {
+			@include opacity(1);
+		}
+	}
+}
+
+#state-find-venue {
+	margin: 0 auto;
+	width: 320px - (2*$size-unit);
+	label {
+		line-height: 2.2;
+	}
+}
+
+#venue-form {
+	height: 74px;
+	display: block;
+	overflow: hidden;
+	@include transition(height 500ms);
+	.authenticated.ready.located.selected & {
+		height: 0;
+	}
+}
+
+#caption-form {
+	margin: $size-unit;
+	textarea {
+		margin: $size-unit/2 0 $size-unit/4;
+		height: 6em;
+	}
+	small {
+		color: darken($color-default, 10%);
+		padding: 0 $size-unit/2;
+	}
+}
+
+#venue-results {
+	margin: 0;
+	padding: 0;
+	display: block;
+	list-style: none;
+	.no-result {
+		line-height: 36px;
+	}
+	.venue-result {
+		cursor: pointer;
+		background-color: $color-inactive;
+		height: 0;
+		padding: 0;
+		margin-top: 0;
+		overflow: hidden;
+		@include transition(background-color 300ms, height 500ms, padding 500ms, margin-top 500ms);
+		@include border-radius(5px);
+		&:hover {
+			background-color: $color-active;
+		}
+		&.visible {
+			padding: $size-unit/2;
+			margin-top: $size-unit/2;
+			height: 48px;
+		}
+		strong {
+			display: block;
+		}
+		span {
+			font-size: smaller;
+		}
+	}
+}

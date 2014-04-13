@@ -1,0 +1,13 @@
+source:      .
+destination: dist
+exclude:     [scss,README.md,Gemfile,config.rb,parse]
+
+relative_permalinks: false
+
+host: 0.0.0.0
+port: 4000
+
+markdown: kramdown
+safe: true
+lsi: false
+pygments: true

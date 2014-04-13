@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Verbatim": {
+            "applicationId": "Y3hSYuF2y9tzwgyaBGtu0IKSSLgNPyFX8QRaUo00", 
+            "masterKey": "y8phBIuTw9Ujg1ErRNN6pt84uYMKFep5yKIIn8CK"
+        }, 
+        "_default": {
+            "link": "Verbatim"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.18"
+    }
+}
