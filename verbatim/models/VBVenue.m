@@ -25,8 +25,21 @@
 -(PFQuery *)checkedInUsersQuery
 {
     PFQuery *query = [VBUser query];
-    [query whereKey:@"venue" equalTo:self];
+    
+    // straight lookup when using a hydrated venue
+    if (self.objectId != nil) {
+        [query whereKey:@"venue" equalTo:self];
+        
+        // otherwise use an outer join
+    } else {
+        PFQuery *venueQuery = [VBVenue query];
+        [venueQuery whereKey:@"foursquareID" equalTo:self.foursquareID];
+        [venueQuery setLimit:1];
+        [query whereKey:@"venue" matchesQuery:venueQuery];
+    }
+    
     return query;
+
 }
 
 -(void)checkedInUsersWithSuccess:(void (^)(NSArray*))success
@@ -38,13 +51,16 @@
     }];
 }
 
--(void)checkedInUserCountWithSuccess:(void (^)(int))success
-                          andFailure:(void (^)(NSError*))failure
+-(void)checkedInUserCountWithSuccess:(void(^)(int))success
+                          andFailure:(void(^)(NSError*))failure
 {
+    
+    // get the user count
     [[self checkedInUsersQuery] countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
-        if (!error) success(number);
-        else failure(error);
+        if (error) failure(error);
+        else success(number);
     }];
+    
 }
 
 +(instancetype)venueWithDictionary:(NSDictionary *)dictionary

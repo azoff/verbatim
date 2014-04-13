@@ -18,7 +18,6 @@ VBUser* currentUser;
 @implementation VBUser
 
 @dynamic venue;
-@dynamic source;
 @dynamic firstName;
 @dynamic lastName;
 
