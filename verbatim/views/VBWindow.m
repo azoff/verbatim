@@ -9,6 +9,7 @@
 #import "VBWindow.h"
 #import "VBColor.h"
 #import "VBCaptionController.h"
+#import "VBNavigationController.h"
 
 @implementation VBWindow
 
@@ -19,7 +20,7 @@
     if (self) {
         [self makeKeyAndVisible];
         self.backgroundColor = [VBColor backgroundColor];
-        self.rootViewController = [VBCaptionController controller];
+        self.rootViewController = [[VBNavigationController alloc]init];
     }
     return self;
 }
