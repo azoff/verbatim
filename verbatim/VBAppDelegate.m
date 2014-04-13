@@ -11,6 +11,7 @@
 #import "VBWindow.h"
 #import "VBInputSourceManager.h"
 #import "VBPubSub.h"
+#import "VBWelcomeController.h"
 
 @implementation VBAppDelegate
 
@@ -21,6 +22,10 @@
     [VBParse setupWithLaunchOptions:launchOptions];
     [[VBInputSourceManager manager] startListening];
     self.window = [VBWindow window];
+    
+    VBWelcomeController *splashScreenWelcome = [[VBWelcomeController alloc]init];
+    splashScreenWelcome.transitioningDelegate = splashScreenWelcome;
+    [self.window.rootViewController presentViewController:splashScreenWelcome animated:YES completion:nil];
     
     return YES;
 }
