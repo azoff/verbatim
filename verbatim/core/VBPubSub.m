@@ -58,8 +58,11 @@ NSTimeInterval const POLL_AGAIN_INTERVAL = 1.0;
                 self.polledAt = mostRecentObject.createdAt;
                 
                 for (PFObject *object in objects) {
-                    //NSLog(@"%@ %@", object.createdAt, object[@"data"]);
-                    self.callback(object[@"data"]);
+                    NSDictionary *data = object[@"data"];
+                    if (data != nil && data[@"@caption"] != nil) {
+                        //NSLog(@"%@ %@", object.createdAt, object[@"data"]);
+                        self.callback(data);
+                    }
                 }
             }
         } else {

@@ -116,16 +116,16 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
         [self.pubSub subscribeOnlyToChannel:[self userChannelForUser:user] usingBlock:^(NSDictionary *data) {
             NSLog(@"got caption:[%@]",data[@"caption"]);
             [self postNotificationWithCaption:data[@"caption"] fromUser:user];
-            
         }];
     }
 }
 
 -(void)postNotificationWithCaption:(NSString *)caption fromUser:(VBUser *)user {
-    NSDictionary *userInfo = @{
-                               @"user":user,
-                               @"caption":caption
-                              };
+    if (user == nil || caption == nil) {
+        NSLog(@"[WARNING] Invalid User or Caption sent to post notificaiton");
+        return;
+    }
+    NSDictionary *userInfo = @{@"user":user, @"caption":caption};
     [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:userInfo];
 }
 
