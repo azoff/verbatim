@@ -7,20 +7,24 @@
 //
 
 #import "VBNavigationController.h"
+#import "VBCaptionController.h"
 #import "VBColor.h"
+#import "UIImage+Overlay.h"
 
 @interface VBNavigationController ()
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *titleBarButtons;
 @property (weak, nonatomic) IBOutlet UIView *toolbar;
-- (IBAction)selectSource:(UIButton *)sender;
-- (IBAction)checkIn:(UIButton *)sender;
-- (IBAction)translateOptions:(UIButton *)sender;
-
 @property (strong, nonatomic) IBOutletCollection(NSLayoutConstraint) NSArray *buttonVerticalContraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolbarTopConstraint;
 @property (weak, nonatomic) UIView *stateMenu;
+@property (strong, nonatomic) VBCaptionController *captionController;
+
+- (IBAction)selectSource:(UIButton *)sender;
+- (IBAction)checkIn:(UIButton *)sender;
+- (IBAction)translateOptions:(UIButton *)sender;
+
 @end
 
 @implementation VBNavigationController
@@ -45,6 +49,10 @@
         [barButton setImage:imageForBasicState forState:UIControlStateNormal];
         [barButton setImage:imageForSelectedState forState:UIControlStateSelected];
     }
+    _captionController = [[VBCaptionController alloc]init];
+    [self addChildViewController:_captionController];
+    [self.view addSubview:_captionController.view];
+    [self.view bringSubviewToFront:_toolbar];
     
 }
 
@@ -132,12 +140,7 @@
                                                                  multiplier:1
                                                                    constant:320
                                       ]];
-            //    [self.view addConstraints:[NSLayoutConstraint
-            //                              constraintsWithVisualFormat:@"V:|-45-[_stateMenu]"
-            //                              options:0
-            //                              metrics:nil
-            //                              views:NSDictionaryOfVariableBindings(_stateMenu)
-            //                              ]];
+
             [self.view addConstraint:[NSLayoutConstraint
                                       constraintWithItem:_stateMenu
                                       attribute:NSLayoutAttributeTop

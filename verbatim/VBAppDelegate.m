@@ -21,6 +21,7 @@
     [VBParse setupWithLaunchOptions:launchOptions];
     [[VBInputSourceManager manager] startListening];
     self.window = [VBWindow window];
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
     return YES;
 }
