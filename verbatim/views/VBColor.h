@@ -14,5 +14,7 @@
 +(UIColor*)translucsentTextColor;
 +(UIColor*)opaqueTextColor;
 +(UIColor*)activeColor;
++(UIColor*)selectedColor;
 
 @end
+

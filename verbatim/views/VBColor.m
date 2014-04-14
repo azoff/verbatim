@@ -30,5 +30,9 @@
     return [super colorWithRed:134 green:195 blue:81 alpha:1];
 }
 
++(UIColor*)selectedColor
+{
+    return [super colorWithRed:0 green:255 blue:0 alpha:1];
+}
 
 @end
