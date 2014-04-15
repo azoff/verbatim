@@ -50,7 +50,6 @@ Parse.Cloud.define('send_caption', function(request, response){
 			canonical: true,
 			venue: venue
 		}).then(function(user){
-			console.log(user);
 			return publishUserCaption(user, caption).
 				then(response.success, response.error);
 		}, response.error)
