@@ -19,6 +19,7 @@ extern NSString* VBUserEventCheckedIn;
 @property (nonatomic) VBVenue  * venue;     // checked-in venue, could be nil
 @property (nonatomic) NSString * firstName; // from foursquare
 @property (nonatomic) NSString * lastName;  // from foursquare
+@property (nonatomic,getter=isCanonical) BOOL canonical;  // when coming from editor
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 +(void)setupCurrentUser;
