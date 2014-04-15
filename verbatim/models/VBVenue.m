@@ -13,7 +13,7 @@
 
 +(NSString *)parseClassName
 {
-    return @"Venue";
+    return NSStringFromClass(self.class);
 }
 
 @dynamic foursquareID;

@@ -24,6 +24,11 @@ NSTimeInterval const POLL_AGAIN_INTERVAL = 1.0;
 
 @implementation VBPubSub
 
++(NSString *)parseClassName
+{
+    return NSStringFromClass(self.class);
+}
+
 -(void)subscribeOnlyToChannel:(NSString *)channel usingBlock:(void (^)(NSDictionary *))callback {
     NSLog(@"subscribing to channel %@",channel);
     self.subscribedChannel = channel;
@@ -43,7 +48,7 @@ NSTimeInterval const POLL_AGAIN_INTERVAL = 1.0;
     }
     
     NSLog(@"Polling data");
-    PFQuery *query = [PFQuery queryWithClassName:@"PubSub"];
+    PFQuery *query = [PFQuery queryWithClassName:[self.class parseClassName]];
     [query whereKey:@"channel" equalTo:self.subscribedChannel];
     [query orderByDescending:@"createdAt"];
     [query whereKey:@"createdAt" greaterThan:self.polledAt];
@@ -80,7 +85,7 @@ NSTimeInterval const POLL_AGAIN_INTERVAL = 1.0;
     
     NSDictionary *channelEntry = @{@"channel":channel,@"data":data};
     
-    PFObject *channelData = [PFObject objectWithClassName:@"PubSub" dictionary:channelEntry];
+    PFObject *channelData = [PFObject objectWithClassName:[self.class parseClassName] dictionary:channelEntry];
     [channelData saveInBackground];
 }
 

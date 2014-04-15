@@ -20,6 +20,7 @@ VBUser* currentUser;
 @dynamic venue;
 @dynamic firstName;
 @dynamic lastName;
+@dynamic canonical;
 
 -(void)checkInWithVenue:(VBVenue *)venue
                 success:(void(^)(VBUser*))success
@@ -48,7 +49,7 @@ VBUser* currentUser;
 
 +(NSString *)parseClassName
 {
-    return @"User";
+    return NSStringFromClass(self.class);
 }
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary
