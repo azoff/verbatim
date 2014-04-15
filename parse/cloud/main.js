@@ -25,7 +25,7 @@ function findOrCreateFoursquareObject(classname, properties) {
 
 function publishUserCaption(user, caption) {
 	return createObject("VBPubSub", {
-		channel: "User"+user.foursquareID,
+		channel: "User"+user.get('foursquareID'),
 		data: { caption: caption }
 	});
 }
