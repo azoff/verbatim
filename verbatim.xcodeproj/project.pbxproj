@@ -11,6 +11,8 @@
 		018F0A3218F9E41500C0BBAF /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3118F9E41500C0BBAF /* VBHUD.m */; };
 		018F0A3B18FAE3C200C0BBAF /* VBCheckinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3918FAE3C200C0BBAF /* VBCheckinController.m */; };
 		018F0A3C18FAE3C200C0BBAF /* VBCheckinController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 018F0A3A18FAE3C200C0BBAF /* VBCheckinController.xib */; };
+		018F0A4018FDA3F000C0BBAF /* VBInputSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 018F0A3E18FDA3F000C0BBAF /* VBInputSourceController.m */; };
+		018F0A4118FDA3F000C0BBAF /* VBInputSourceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 018F0A3F18FDA3F000C0BBAF /* VBInputSourceController.xib */; };
 		53DF4636A7E241D1AAB12B80 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		9540B3A618FB19DE0031DF82 /* VBTranslationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9540B39F18FB19DE0031DF82 /* VBTranslationTitleView.m */; };
 		9540B3A718FB19DE0031DF82 /* VBTranslationTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9540B3A018FB19DE0031DF82 /* VBTranslationTitleView.xib */; };
@@ -82,6 +84,9 @@
 		018F0A3818FAE3C200C0BBAF /* VBCheckinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBCheckinController.h; sourceTree = "<group>"; };
 		018F0A3918FAE3C200C0BBAF /* VBCheckinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBCheckinController.m; sourceTree = "<group>"; };
 		018F0A3A18FAE3C200C0BBAF /* VBCheckinController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBCheckinController.xib; sourceTree = "<group>"; };
+		018F0A3D18FDA3F000C0BBAF /* VBInputSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceController.h; sourceTree = "<group>"; };
+		018F0A3E18FDA3F000C0BBAF /* VBInputSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceController.m; sourceTree = "<group>"; };
+		018F0A3F18FDA3F000C0BBAF /* VBInputSourceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBInputSourceController.xib; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		9540B39E18FB19DE0031DF82 /* VBTranslationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBTranslationTitleView.h; path = views/VBTranslationTitleView.h; sourceTree = "<group>"; };
@@ -315,6 +320,9 @@
 				959B974418F3A30800F36182 /* VBNavigationController.h */,
 				959B974518F3A30800F36182 /* VBNavigationController.m */,
 				959B974618F3A30800F36182 /* VBNavigationController.xib */,
+				018F0A3D18FDA3F000C0BBAF /* VBInputSourceController.h */,
+				018F0A3E18FDA3F000C0BBAF /* VBInputSourceController.m */,
+				018F0A3F18FDA3F000C0BBAF /* VBInputSourceController.xib */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -448,6 +456,7 @@
 				C9671B5018EA1BF0003E8450 /* InfoPlist.strings in Resources */,
 				018F0A3C18FAE3C200C0BBAF /* VBCheckinController.xib in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
+				018F0A4118FDA3F000C0BBAF /* VBInputSourceController.xib in Resources */,
 				C9671B9218EA1E2F003E8450 /* VBCaptionController.xib in Resources */,
 				959B974818F3A30800F36182 /* VBNavigationController.xib in Resources */,
 			);
@@ -518,6 +527,7 @@
 				95744E7D18FAE2F500E7644D /* UIImage+Overlay.m in Sources */,
 				95C75A1818FB22B100838D68 /* VBSourcesTitleView.m in Sources */,
 				C90F1E3518ED49A900F7503A /* VBParse.m in Sources */,
+				018F0A4018FDA3F000C0BBAF /* VBInputSourceController.m in Sources */,
 				C9671B5218EA1BF0003E8450 /* main.m in Sources */,
 				C9C56D0C18F403C2009FFB55 /* VBUser.m in Sources */,
 				959B974718F3A30800F36182 /* VBNavigationController.m in Sources */,
