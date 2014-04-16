@@ -47,6 +47,21 @@ VBUser* currentUser;
     } failure:failure];
 }
 
+-(void)checkOutWithSuccess:(void (^)(VBUser *))success
+                andFailure:(void (^)(NSError *))failure
+{
+    if (!self.venue && !self.canonical) {
+        success(self);
+        return;
+    }
+    self.venue = nil;
+    self.canonical = false;
+    [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) success(self);
+        else failure(error);
+    }];
+}
+
 +(NSString *)parseClassName
 {
     return NSStringFromClass(self.class);
@@ -83,18 +98,20 @@ VBUser* currentUser;
 +(void)updateCurrentUser
 {
     id center = [NSNotificationCenter defaultCenter];
+    id failure = ^(NSError *error) { [VBHUD showWithError:error]; };
     if (!VBFoursquare.isAuthorized) {
-        currentUser = nil;
-        [center postNotificationName:VBUserEventCurrentUserRemoved object:self];
-        return;
+        [currentUser checkOutWithSuccess:^(VBUser *user) {
+            currentUser = nil;
+            [center postNotificationName:VBUserEventCurrentUserRemoved object:self];
+        } andFailure:failure];
+    } else {
+        [VBFoursquare currentUserDetailsWithSuccess:^(VBUser *user) {
+            currentUser = user;
+            [user checkOutWithSuccess:^(VBUser *user) {
+                [center postNotificationName:VBUserEventCurrentUserAdded object:self];
+            } andFailure:failure];
+        } andFailure:failure];
     }
-    [VBFoursquare currentUserDetailsWithSuccess:^(VBUser *user) {
-        currentUser = user;
-        [center postNotificationName:VBUserEventCurrentUserAdded object:self];
-    } andFailure:^(NSError *error) {
-        //TODO: Use global error handler here
-        NSLog(@"%@", error);
-    }];
 }
 
 @end
