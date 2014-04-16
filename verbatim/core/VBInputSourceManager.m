@@ -23,8 +23,8 @@ typedef enum RecordingStateTypes RecordingStateTypes;
 
 @property (strong,nonatomic) SKRecognizer *voice;
 @property (assign,nonatomic) RecordingStateTypes voiceRecordingState;
-
 @property (nonatomic,strong) VBPubSub *pubSub;
+@property (nonatomic) VBUser *sourceUser;
 
 @end
 
@@ -46,13 +46,28 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
 
 - (id)init {
     self = [super init];
-    
     if (self) {
         self.pubSub = [[VBPubSub alloc] init];
-        self.listenToUser = nil;
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(inputSourceDidChange:)
+                                                     name:VBUserEventSourceChanged
+                                                   object:nil];
     }
-    
     return self;
+}
+
+- (void)inputSourceDidChange:(NSNotification *)notification
+{
+    self.sourceUser = notification.object;
+    if ([self isSubscribedToOwnMicInput]) {
+        [self.pubSub unsubscribeFromAllChannels];
+    } else {
+        NSString *channel = [self userChannelForUser:self.sourceUser];
+        [self.pubSub subscribeOnlyToChannel:channel usingBlock:^(NSDictionary *data) {
+            NSLog(@"got caption:[%@]",data[@"caption"]);
+            [self postNotificationWithCaption:data[@"caption"] fromUser:self.sourceUser];
+        }];
+    }
 }
 
 - (void)startListening
@@ -89,35 +104,14 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
     // 1) the user is not listening to any other user
     // 2) the user is logged in and listening to their own user id
     
-    VBUser *currentUser = [VBUser currentUser];
+    VBUser *currentUser = VBUser.currentUser;
     
-    if (!self.listenToUser) {
+    if (!self.sourceUser)
         return YES;
-    }
-    else if ([currentUser.foursquareID isEqualToString:self.listenToUser.foursquareID]) {
-        return YES;
-    }
-    else {
+    else if (currentUser)
+        return [currentUser.foursquareID isEqualToString:self.sourceUser.foursquareID];
+    else
         return NO;
-    }
-
-}
-
--(void)listenToUser:(VBUser *)user {
-    
-    NSLog(@"VBInputSourceManager:listenToUser:[%@]",user);
-    
-    _listenToUser = user;
-    
-    if ([self isSubscribedToOwnMicInput]) {
-        [self.pubSub unsubscribeFromAllChannels];
-    }
-    else {
-        [self.pubSub subscribeOnlyToChannel:[self userChannelForUser:user] usingBlock:^(NSDictionary *data) {
-            NSLog(@"got caption:[%@]",data[@"caption"]);
-            [self postNotificationWithCaption:data[@"caption"] fromUser:user];
-        }];
-    }
 }
 
 -(void)postNotificationWithCaption:(NSString *)caption fromUser:(VBUser *)user {

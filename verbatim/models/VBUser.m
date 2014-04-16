@@ -12,6 +12,7 @@
 NSString* VBUserEventCurrentUserAdded   = @"VBUserEventCurrentUserAdded";
 NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
+NSString* VBUserEventSourceChanged      = @"VBUserEventSourceChanged";
 
 VBUser* currentUser;
 
@@ -21,6 +22,26 @@ VBUser* currentUser;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic canonical;
+@dynamic source;
+
+-(void)setSource:(VBUser *)source
+{
+    id old = self.source;
+    self[@"source"] = source;
+    if (![source isEqual:old])
+        [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventSourceChanged object:self];
+}
+
+-(void)listenerCountWithSuccess:(void (^)(int))success
+                     andFailure:(void (^)(NSError*))failure
+{
+    PFQuery *query = [self.class query];
+    [query whereKey:@"source" equalTo:self];
+    return [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
+        if (error) failure(error);
+        else success(number);
+    }];
+}
 
 -(void)checkInWithVenue:(VBVenue *)venue
                 success:(void(^)(VBUser*))success
@@ -50,11 +71,12 @@ VBUser* currentUser;
 -(void)checkOutWithSuccess:(void (^)(VBUser *))success
                 andFailure:(void (^)(NSError *))failure
 {
-    if (!self.venue && !self.canonical) {
+    if (!self.venue && !self.canonical && !self.source) {
         success(self);
         return;
     }
-    self.venue = nil;
+    self.source    = nil;
+    self.venue     = nil;
     self.canonical = false;
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) success(self);
@@ -87,7 +109,7 @@ VBUser* currentUser;
     dispatch_once(&setupOnce, ^{
         if (VBFoursquare.isAuthorized)
             [self updateCurrentUser];
-        id center   = [NSNotificationCenter defaultCenter];
+        id center = [NSNotificationCenter defaultCenter];
         SEL selector = @selector(updateCurrentUser);
         NSArray *names = @[VBFoursquareEventAuthorized, VBFoursquareEventDeauthorized];
         for (NSString *name in names)
