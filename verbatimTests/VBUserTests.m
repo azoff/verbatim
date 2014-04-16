@@ -34,6 +34,29 @@
     
 }
 
+- (void)testSourceCount {
+    
+    VBUser *a = [VBUser object];
+    [a save];
+
+    VBUser *b = [VBUser object];
+    b.source = a;
+    [b save];
+    
+    [a listenerCountWithSuccess:^(int count) {
+        [a delete];
+        [b delete];
+        XCTAssertEqual(1, count);
+        [self notify:XCTAsyncTestCaseStatusSucceeded];
+    } andFailure:^(NSError *error) {
+        [a delete];
+        [b delete];
+        XCTFail(@"%@", error);
+        [self notify:XCTAsyncTestCaseStatusFailed];
+    }];
+    [self waitForStatus:XCTAsyncTestCaseStatusSucceeded timeout:10];
+}
+
 - (void)testCheckIn
 {
     [VBFoursquare venuesNearbyWithSuccess:^(NSArray *venues) {

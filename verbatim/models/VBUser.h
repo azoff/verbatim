@@ -13,13 +13,15 @@ extern NSString* VBUserEventSourceChanged;
 extern NSString* VBUserEventCurrentUserAdded;
 extern NSString* VBUserEventCurrentUserRemoved;
 extern NSString* VBUserEventCheckedIn;
+extern NSString* VBUserEventSourceChanged;
 
 @interface VBUser : VBFoursquareObject<PFSubclassing>
 
 @property (nonatomic) VBVenue  * venue;     // checked-in venue, could be nil
+@property (nonatomic) VBUser   * source;    // user source at checked-in venue, could be nil;
 @property (nonatomic) NSString * firstName; // from foursquare
 @property (nonatomic) NSString * lastName;  // from foursquare
-@property (nonatomic,getter=isCanonical) BOOL canonical;  // when coming from editor
+@property (nonatomic) BOOL canonical;  // when coming from editor
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 +(void)setupCurrentUser;
@@ -28,5 +30,11 @@ extern NSString* VBUserEventCheckedIn;
 -(void)checkInWithVenue:(VBVenue *)venue
                 success:(void(^)(VBUser*))success
                 failure:(void(^)(NSError*))failure;
+
+-(void)checkOutWithSuccess:(void (^)(VBUser *))success
+                andFailure:(void (^)(NSError *))failure;
+
+-(void)listenerCountWithSuccess:(void (^)(int))success
+                     andFailure:(void (^)(NSError*))failure;
 
 @end
