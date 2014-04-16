@@ -71,7 +71,7 @@
 
 	function submitCaption(caption) {
 		updateStatus('Submitting caption...');
-		captionField.prop('disabled', true);
+		captionField.val('');
 		var job = $.Deferred();
 		var params = { user: user, venue: selectedVenue, caption: caption };
 		Parse.Cloud.run('send_caption', params, {
@@ -88,7 +88,6 @@
 	}
 
 	function captionSent() {
-		captionField.val('');
 		updateStatus('Caption sent!');
 	}
 
