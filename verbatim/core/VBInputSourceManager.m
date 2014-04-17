@@ -30,7 +30,7 @@ typedef enum RecordingStateTypes RecordingStateTypes;
 
 @implementation VBInputSourceManager
 
-NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSourceManagerUserNewCaptionNotification";
+NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManagerUserNewCaptionNotification";
 
 + (instancetype)manager
 {
@@ -51,7 +51,7 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(inputSourceDidChange:)
                                                      name:VBUserEventSourceChanged
-                                                   object:nil];
+                                                   object:nil]; 
     }
     return self;
 }
@@ -120,7 +120,7 @@ NSString *const VBInputSourceManagerUserNewCaptionNotification = @"VBInputSource
         return;
     }
     NSDictionary *userInfo = @{@"user":user, @"caption":caption};
-    [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerUserNewCaptionNotification object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerEventCaptionReceived object:self userInfo:userInfo];
 }
 
 #pragma mark SKRecognizerDelegate methods
