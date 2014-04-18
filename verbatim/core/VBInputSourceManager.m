@@ -51,7 +51,7 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(inputSourceDidChange:)
                                                      name:VBUserEventSourceChanged
-                                                   object:nil]; 
+                                                   object:nil];
     }
     return self;
 }
@@ -171,7 +171,7 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
     // I suspect we have to wait until the object is destroyed/disconnected on the listening server
     // so adding a delay here seems to help kick it into the next connection (but the delay has not been tuned yet)
     [self performSelector:@selector(startListening) withObject:nil afterDelay:1];
-
+    
 }
 
 -(void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error suggestion:(NSString *)suggestion
