@@ -115,11 +115,17 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
 }
 
 -(void)postNotificationWithCaption:(NSString *)caption fromUser:(VBUser *)user {
-    if (user == nil || caption == nil) {
+    if (caption == nil) {
         NSLog(@"[WARNING] Invalid User or Caption sent to post notificaiton");
         return;
     }
-    NSDictionary *userInfo = @{@"user":user, @"caption":caption};
+    NSDictionary *userInfo;
+    if (user) {
+        userInfo = @{@"user":user, @"caption":caption};
+    }
+    else {
+        userInfo = @{@"caption":caption};
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:VBInputSourceManagerEventCaptionReceived object:self userInfo:userInfo];
 }
 
