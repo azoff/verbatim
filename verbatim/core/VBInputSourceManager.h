@@ -11,7 +11,7 @@
 @interface VBInputSourceManager : NSObject
 
 // notifications you can subscribe to
-extern NSString *const VBInputSourceManagerUserNewCaptionNotification;
+extern NSString *const VBInputSourceManagerEventCaptionReceived;
 
 + (instancetype)manager;
 

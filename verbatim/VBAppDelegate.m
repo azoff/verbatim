@@ -9,25 +9,16 @@
 #import "VBAppDelegate.h"
 #import "VBCaptionController.h"
 #import "VBWindow.h"
-#import "VBInputSourceManager.h"
 #import "VBPubSub.h"
-#import "VBWelcomeController.h"
 
 @implementation VBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
     [VBFoursquare setup];
     [VBParse setupWithLaunchOptions:launchOptions];
-    [[VBInputSourceManager manager] startListening];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window = [VBWindow window];
-    [[UIApplication sharedApplication]setStatusBarHidden:YES];
-    
-    VBWelcomeController *splashScreenWelcome = [[VBWelcomeController alloc]init];
-    splashScreenWelcome.transitioningDelegate = splashScreenWelcome;
-    [self.window.rootViewController presentViewController:splashScreenWelcome animated:YES completion:nil];
-    
     return YES;
 }
 
