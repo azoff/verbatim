@@ -21,6 +21,10 @@ enum VBCaptionControllerPresentationModeType {
 
 typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresentationModeType;
 
+CGFloat const VBCaptionControllerSwipeToSwitchDistance = 100.0f;
+CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
+
+
 @interface VBCaptionController ()
 
 @property (strong,nonatomic) NSString *caption;
@@ -32,8 +36,17 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
 @property (strong,nonatomic) NSMutableArray *captions;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *captionsLabelAnimatedOverlay;
+
+@property (weak, nonatomic) IBOutlet UIView *historyView;
+
+
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
+
+@property (strong,nonatomic) NSString *captionHistory;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
@@ -122,7 +135,12 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
 {
     [super viewDidLoad];
     
+    self.caption = @"";
+    
     [self setupCameraCaptureSession];
+    
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 12,
+                                        self.scrollView.frame.size.height);
     
     // subscribe to channel for debug listening
     [[NSNotificationCenter defaultCenter]
@@ -150,12 +168,16 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
     _presentationMode = presentationMode;
     
     if (self.presentationMode == PM_CAPTION_FULLTEXT) {
-        self.captionsLabel.layer.opacity = 1;
-        self.captionLabel.layer.opacity = 0;
         self.cameraView.layer.opacity = 0;
-        [self.cameraCaptureSession stopRunning];
+        self.captionLabel.layer.opacity = 0;
+        self.historyView.layer.opacity = 1;
+        
+        self.captionsLabelAnimatedOverlay.transform = CGAffineTransformIdentity;
+        self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-VBCaptionControllerTransitionDistance);
+        
+        //[self.cameraCaptureSession stopRunning];
     } else {
-        self.captionsLabel.layer.opacity = 0;
+        self.historyView.layer.opacity = 0;
         self.captionLabel.layer.opacity = 1;
         
         // give a shadow to the caption for readability.
@@ -166,8 +188,19 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
         
         self.cameraView.layer.opacity = 1;
         
-        [self.cameraCaptureSession startRunning];
+        self.captionLabel.transform = CGAffineTransformIdentity;
+        self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,-VBCaptionControllerTransitionDistance);
+        
+        //[self.cameraCaptureSession startRunning];
     }
+}
+
+-(NSString *)captionHistory
+{
+    if (!_captionHistory) {
+        _captionHistory = @"";
+    }
+    return _captionHistory;
 }
 
 -(void)setCaption:(NSString *)caption
@@ -175,9 +208,54 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
     _caption = caption;
     self.captionLabel.text = caption;
     [self.captions addObject:caption];
-    self.captionsLabel.text = [self.captionsLabel.text stringByAppendingString:[NSString stringWithFormat:@" %@",caption]];
     
-    [VBHUD showWithText:caption hideAfterDelay:2];
+    NSInteger previousLength=[self.captionHistory length];
+    NSInteger addToLength = [caption length]+1;
+    
+    self.captionHistory = [self.captionHistory stringByAppendingString:[NSString stringWithFormat:@"%@ ",caption]];
+    
+    NSInteger totalLength = [self.captionHistory length];
+    
+    //if (self.presentationMode == PM_CAPTION_FULLTEXT) {
+        
+        NSMutableAttributedString *display = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
+        NSMutableAttributedString *olddisplay = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
+        
+        UIColor *_green=[UIColor greenColor];
+        UIFont *font=[UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
+        
+        NSShadow *shadowDic=[[NSShadow alloc] init];
+        [shadowDic setShadowBlurRadius:5.0];
+        [shadowDic setShadowColor:[UIColor grayColor]];
+        [shadowDic setShadowOffset:CGSizeMake(0, 3)];
+        
+        [display addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, totalLength)];
+        [display addAttribute:NSForegroundColorAttributeName value:_green range:NSMakeRange(previousLength, addToLength)];
+        [display addAttribute:NSShadowAttributeName value:shadowDic range:NSMakeRange(previousLength,addToLength)];
+        [display addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(previousLength, addToLength)];
+        [display addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:NSMakeRange(0, previousLength)];
+    
+        [olddisplay addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, totalLength)];
+        [olddisplay addAttribute:NSForegroundColorAttributeName value:_green range:NSMakeRange(previousLength, addToLength)];
+        [olddisplay addAttribute:NSShadowAttributeName value:shadowDic range:NSMakeRange(previousLength,addToLength)];
+        [olddisplay addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:NSMakeRange(previousLength, addToLength)];
+        [olddisplay addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, previousLength)];
+    
+        self.captionsLabel.attributedText = olddisplay;
+        
+        // put text to animate to into the captions overlay text
+        //self.captionsLabelAnimatedOverlay.frame = self.captionsLabel.frame;
+        self.captionsLabelAnimatedOverlay.attributedText = display;
+        self.captionsLabelAnimatedOverlay.layer.opacity = 0;
+    
+        [UIView animateWithDuration:0.5 animations:^{
+            self.captionsLabelAnimatedOverlay.layer.opacity = 1;
+        } completion:^(BOOL finished) {
+            //self.captionsLabel.attributedText = display;
+        }];
+    //}
+    
+    //[VBHUD showWithText:caption hideAfterDelay:2];
 }
 
 - (void)didReceiveMemoryWarning
@@ -198,24 +276,46 @@ typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresenta
         // if we want to transition smoothly as we swipe, we can animate
         // the partial transitions here.
         CGFloat travelled = point.y - self.startPanPoint.y;
-        CGFloat dest_perc = MIN(1.0,0.0 + ABS(travelled/200.0));
+        CGFloat dest_perc = MIN(1.0,0.0 + ABS(travelled/VBCaptionControllerSwipeToSwitchDistance));
         NSLog(@"travelled: %f perc: %f",travelled,dest_perc);
+        
+        if (self.presentationMode == PM_CAPTION_CAMERA) {
+            if (travelled > 0) {
+                dest_perc = 0.0;
+            }
+            // fade the camera...
+            self.cameraView.layer.opacity = 1 - dest_perc;
+            self.captionLabel.layer.opacity = 1 - dest_perc;
+            self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-dest_perc * VBCaptionControllerTransitionDistance);
+            self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(1-dest_perc) * VBCaptionControllerTransitionDistance);
+            self.historyView.layer.opacity = dest_perc;
+        } else {
+            if (travelled < 0) {
+                dest_perc = 0.0;
+            }
+            self.cameraView.layer.opacity = dest_perc;
+            self.captionLabel.layer.opacity = dest_perc;
+            self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-(1-dest_perc) * VBCaptionControllerTransitionDistance);
+            self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(dest_perc) * VBCaptionControllerTransitionDistance);
+            
+            self.historyView.layer.opacity = 1 - dest_perc;
+        }
         
         //self.menuView.transform = CGAffineTransformMakeTranslation(point.x - self.startPanPoint.x, 0);
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
         
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             NSLog(@"animate transition to presentation mode");
             if (velocity.y<0) {
                 self.presentationMode = PM_CAPTION_FULLTEXT;
             } else {
                 self.presentationMode = PM_CAPTION_CAMERA;
             }
+
         } completion:^(BOOL finished) {
             NSLog(@"done");
         }];
-        
     }
 
 }
