@@ -8,6 +8,7 @@
 
 #import "VBNavigationController.h"
 #import "VBWelcomeController.h"
+#import "VBFont.h"
 
 @implementation VBNavigationController
 
@@ -46,6 +47,13 @@
     
     // transparent navigation controller background
     self.view.backgroundColor = [UIColor clearColor];
+    
+    // font style
+    [self.navigationBar setTitleTextAttributes:@{
+        NSFontAttributeName: [VBFont defaultFontWithSize:22],
+        NSForegroundColorAttributeName: [VBColor opaqueTextColor]
+    }];
+    
 }
 
 -(void)setRootViewController:(UIViewController*)controller animated:(BOOL)animated
