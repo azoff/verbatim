@@ -41,7 +41,9 @@
 }
 
 - (void)cancelButtonTapped {
-    [self.delegate webLogin:self didFinishWithError:nil];
+    id msg = @{NSLocalizedDescriptionKey: @"Authorization Aborted"};
+    id error = [NSError errorWithDomain:NSStringFromClass(self.class) code:0 userInfo:msg];
+    [self.delegate webLogin:self didFinishWithError:error];
 }
 
 - (BOOL)webView:(UIWebView *)webView

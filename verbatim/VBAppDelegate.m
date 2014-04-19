@@ -16,6 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [VBFoursquare setup];
+//  [VBFoursquare deauthorize]; // uncomment to test auth workflow
     [VBParse setupWithLaunchOptions:launchOptions];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     self.window = [VBWindow window];

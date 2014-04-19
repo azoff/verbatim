@@ -12,6 +12,8 @@
 
 NSString * VBFoursquareEventAuthorized   = @"VBFoursquareEventAuthorized";
 NSString * VBFoursquareEventDeauthorized = @"VBFoursquareEventDeauthorized";
+NSString * VBFoursquareEventAuthorizeError = @"VBFoursquareEventAuthorizeError";
+NSString * VBFoursquareAuthorizeErrorAttributeName = @"VBFoursquareAuthorizeError";
 
 NSString * const CLIENT_ID     = @"UOULYSQU10DNDEGTKFVZDP4WGDQUSTUMBJJIAYT33W1CCJAM";
 NSString * const CLIENT_SECRET = @"WMJUL3BUYEMGN4M4U045NUEZLCQAAFYAKW4RAZGLJGYY3L34";
@@ -32,13 +34,14 @@ NSString * const CALLBACK_URL  = @"verbatim://foursquare";
 +(void)authorize
 {
     [Foursquare2 authorizeWithCallback:^(BOOL success, id result) {
-        if (success) [self postAuthorizedNotification];
+        id center = [NSNotificationCenter defaultCenter];
+        if (success) {
+            [center postNotificationName:VBFoursquareEventAuthorized object:self];
+        } else {
+            id info = @{VBFoursquareAuthorizeErrorAttributeName: result};
+            [center postNotificationName:VBFoursquareEventAuthorizeError object:self userInfo:info];
+        }
     }];
-}
-
-+(void)postAuthorizedNotification
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:VBFoursquareEventAuthorized object:self];
 }
 
 + (BOOL)handleURL:(NSURL *)url
