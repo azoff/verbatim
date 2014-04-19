@@ -27,6 +27,8 @@ extern NSString* VBUserEventSourceChanged;
 +(void)setupCurrentUser;
 +(instancetype)currentUser;
 
+-(BOOL)isCheckedIn;
+
 -(void)checkInWithVenue:(VBVenue *)venue
                 success:(void(^)(VBUser*))success
                 failure:(void(^)(NSError*))failure;

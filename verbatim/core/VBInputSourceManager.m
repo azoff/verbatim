@@ -163,7 +163,7 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
     }
     
     // if we are checked in, publish to our own user channel
-    if ([VBUser currentUser]) {
+    if (VBUser.currentUser && VBUser.currentUser.isCheckedIn) {
         [self.pubSub publishToChannel:[self userChannelForUser:[VBUser currentUser]] Data:@{@"caption":bestResult}];
     }
     
