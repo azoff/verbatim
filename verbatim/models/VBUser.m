@@ -14,7 +14,7 @@ NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
 NSString* VBUserEventSourceChanged      = @"VBUserEventSourceChanged";
 
-VBUser* currentUser;
+static VBUser* currentUser;
 
 @implementation VBUser
 

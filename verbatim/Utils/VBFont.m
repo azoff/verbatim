@@ -14,7 +14,11 @@ NSString * const DEFAULT_FONT_FAMILY_NAME = @"NanumGothic";
 
 +(UIFont *)defaultFontWithSize:(CGFloat)size
 {
-    return [UIFont fontWithName:DEFAULT_FONT_FAMILY_NAME size:size];
+    UIFont *defaultFont = [UIFont fontWithName:DEFAULT_FONT_FAMILY_NAME size:size];
+    if (defaultFont == nil) {
+        defaultFont = [UIFont fontWithName:@"AppleSDGothicNeo-Thin" size:size];
+    }
+    return defaultFont;
 }
 
 @end
