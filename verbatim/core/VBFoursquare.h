@@ -10,6 +10,8 @@
 
 extern NSString * VBFoursquareEventAuthorized;
 extern NSString * VBFoursquareEventDeauthorized;
+extern NSString * VBFoursquareEventAuthorizeError;
+extern NSString * VBFoursquareAuthorizeErrorAttributeName;
 
 @interface VBFoursquare : NSObject
 

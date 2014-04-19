@@ -21,11 +21,6 @@
 
 @implementation VBCheckinController
 
-+(void)initialize
-{
-    if (![VBFoursquare isAuthorized])
-        [VBFoursquare authorize];
-}
 
 -(id)init
 {
@@ -100,11 +95,12 @@
     if ([VBFoursquare isAuthorized]) {
         [self fetchVenues];
     } else {
-        id observer = [[NSNotificationCenter defaultCenter] addObserverForName:VBFoursquareEventAuthorized
-                                                                        object:nil queue:nil usingBlock:^(NSNotification *note) {
-            [self fetchVenues];
-            [[NSNotificationCenter defaultCenter] removeObserver:observer];
-        }];
+        id center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(fetchVenues)
+                       name:VBFoursquareEventAuthorized object:nil];
+        [center addObserver:self selector:@selector(dismissController)
+                       name:VBFoursquareEventAuthorizeError object:nil];
+        [VBFoursquare authorize];
     }
     
 }
