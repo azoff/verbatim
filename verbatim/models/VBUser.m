@@ -32,6 +32,11 @@ VBUser* currentUser;
         [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventSourceChanged object:self];
 }
 
+-(BOOL)isCheckedIn
+{
+    return self.venue != nil;
+}
+
 -(void)listenerCountWithSuccess:(void (^)(int))success
                      andFailure:(void (^)(NSError*))failure
 {
