@@ -11,6 +11,7 @@
 #import "VBInputSourceController.h"
 #import "VBCheckinController.h"
 #import "VBBarButtonItem.h"
+#import "VBFont.h"
 #import <AVFoundation/AVFoundation.h>
 
 
@@ -221,8 +222,8 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
         NSMutableAttributedString *display = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
         NSMutableAttributedString *olddisplay = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
         
-        UIColor *_green=[UIColor greenColor];
-        UIFont *font=[UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
+        UIColor *_green =[UIColor greenColor];
+        UIFont *font = [VBFont defaultFontWithSize:16];
         
         NSShadow *shadowDic=[[NSShadow alloc] init];
         [shadowDic setShadowBlurRadius:5.0];
