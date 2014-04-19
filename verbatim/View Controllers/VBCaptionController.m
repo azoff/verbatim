@@ -83,6 +83,8 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
         // when in simulator just display a redColor (or maybe an image).
         self.cameraView.backgroundColor = [UIColor redColor];
         return NO;
+    } else {
+        self.cameraView.backgroundColor = [UIColor clearColor];
     }
     //You could check for front or back camera here, but for simplicity just grab the first device
     AVCaptureDevice *device = [possibleDevices objectAtIndex:0];

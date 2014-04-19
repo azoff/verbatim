@@ -155,10 +155,21 @@
     
     // get venue selected
     VBVenue *selectedVenue = [self.venues objectAtIndex:indexPath.row];
+    PFQuery *venueQuery = [VBVenue query];
+    //Compare the selected venue, which is created from the Foursquare response, to our known venues
+    // so as not to create duplicates in Parse
+    [venueQuery whereKey:@"foursquareID" equalTo:selectedVenue.foursquareID];
+    NSArray *venues = [venueQuery findObjects];
+    if (venues.count > 0) {
+        selectedVenue = [venues firstObject];
+    }
     NSLog(@"Selected venue: %@",selectedVenue);
     
-    // TODO: push the selected venue onto the VBInputSourceController and display
-    // or possibly just update navigation controller and have select input as a 2nd option.
+    [[VBUser currentUser] checkInWithVenue:selectedVenue success:^(VBUser *user) {
+        //TODO: update the view to show checked in counts, etc ;
+    } failure:^(NSError *error) {
+        [VBHUD showWithError:error];
+    }];
 }
 
 - (void)didReceiveMemoryWarning

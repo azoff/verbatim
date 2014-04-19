@@ -170,7 +170,7 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
     // For some reason we can't just run the listener again immediately.
     // I suspect we have to wait until the object is destroyed/disconnected on the listening server
     // so adding a delay here seems to help kick it into the next connection (but the delay has not been tuned yet)
-    [self performSelector:@selector(startListening) withObject:nil afterDelay:1];
+    [self performSelector:@selector(startListening) withObject:nil afterDelay:.1];
     
 }
 
