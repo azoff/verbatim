@@ -51,13 +51,16 @@
 
 - (void)startAddingViewController:(UIViewController *)controller
 {
-    controller.view.frame = self.container.bounds;
-    [self.container addSubview:controller.view];
+    if (self.controller)
+        [self.controller willMoveToParentViewController:nil];
     [self addChildViewController:controller];
+    controller.view.frame = self.container.bounds;
 }
 
 - (void)finishAddingViewController:(UIViewController *)controller
 {
+    if (self.controller)
+        [self.controller didMoveToParentViewController:nil];
     [controller didMoveToParentViewController:self];
     self.lastViewControllerClass = [self.controller class];
     self.controller = controller;
@@ -69,6 +72,7 @@
     [self startAddingViewController:controller];
     
     if (!self.controller) {
+        [self.container addSubview:controller.view];
         [self finishAddingViewController:controller];
         return;
     }
@@ -83,7 +87,6 @@
                                 controller.view.alpha = 1.0;
                             }
                             completion:^(BOOL finished) {
-                                [self.controller removeFromParentViewController];
                                 [self finishAddingViewController:controller];
                             }];
     

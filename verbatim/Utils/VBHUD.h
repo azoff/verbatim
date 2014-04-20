@@ -12,6 +12,11 @@
 
 + (instancetype)instance;
 
++ (void)showIndeterminateProgress;
++ (void)showIndeterminateProgressWithText:(NSString *)text;
+
++ (void)showDoneWithText:(NSString *)text hideAfterDelay:(NSTimeInterval)delay;
+
 // showWithText and convenience functions
 +(void)showWithText:(NSString *)text hideAfterDelay:(NSTimeInterval)delay;
 +(void)showWithText:(NSString *)text;
@@ -19,8 +24,5 @@
 +(void)showWithError:(NSError*)error;
 
 +(void)hide;
-
-// left from Azoff's initial implementation
-+(NSError *)errorWithDomain:(NSString *)domain code:(NSInteger)code description:(NSString *)description;
 
 @end

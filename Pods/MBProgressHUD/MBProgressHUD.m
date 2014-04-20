@@ -450,7 +450,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	label.textAlignment = MBLabelAlignmentCenter;
 	label.opaque = NO;
 	label.backgroundColor = [UIColor clearColor];
-	label.textColor = [UIColor whiteColor];
+	label.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
 	label.font = self.labelFont;
 	label.text = self.labelText;
 	[self addSubview:label];

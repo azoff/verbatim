@@ -7,12 +7,13 @@
 //
 
 #import "VBHUD.h"
+#import "VBFont.h"
 #import "MBProgressHUD.h"
+#import "UIImage+Overlay.h"
 
 @interface VBHUD()
 
 @property (nonatomic, strong) MBProgressHUD *hud;
-
 
 @end
 
@@ -32,18 +33,47 @@
 - (MBProgressHUD *)hud {
     if (!_hud) {
         _hud = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        _hud.labelFont = [VBFont defaultFontWithSize:17];
     }
     return _hud;
 }
 
-+(void)showWithText:(NSString *)text hideAfterDelay:(NSTimeInterval)delay {
++ (void)showIndeterminateProgress
+{
+    [self showIndeterminateProgressWithText:nil];
+}
+
++ (void)showIndeterminateProgressWithText:(NSString *)text
+{
+    MBProgressHUD *hud = [VBHUD instance].hud;
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = text;
+    [hud show:YES];
+}
+
++ (void)showDoneWithText:(NSString *)text hideAfterDelay:(NSTimeInterval)delay
+{
+    MBProgressHUD *hud = [VBHUD instance].hud;
+    hud.mode = MBProgressHUDModeCustomView;
+    UIImage *done = [[UIImage imageNamed:@"checkmark"] imageByApplyingOverlayColor:[VBColor translucsentTextColor]];
+    UIImageView *image = [[UIImageView alloc] initWithImage:done];
+    image.frame = CGRectMake(0, 0, 24, 24);
+    hud.customView = image;
+    hud.labelText = text;
+    [hud show:YES];
+    if (delay>0)
+        [self hideAfterDelay:delay];
+}
+
++(void)showWithText:(NSString *)text hideAfterDelay:(NSTimeInterval)delay
+{
+    if (text == nil || text.length <= 0) return;
     MBProgressHUD *hud = [VBHUD instance].hud;
     hud.mode = MBProgressHUDModeText;
     hud.labelText = text;
     [hud show:YES];
-    if (delay>0) {
-        [hud hide:YES afterDelay:delay];
-    }
+    if (delay>0)
+        [self hideAfterDelay:delay];
 }
 
 +(void)showWithText:(NSString *)text
@@ -53,18 +83,16 @@
 
 +(void)showWithError:(NSError*)error
 {
-    [VBHUD showWithText:error.localizedDescription];
+    [VBHUD showWithText:error.localizedDescription hideAfterDelay:5];
 }
 
 +(void)hide {
-    MBProgressHUD *hud = [VBHUD instance].hud;
-    [hud hide:YES];
+    [self hideAfterDelay:0];
 }
 
-+(NSError *)errorWithDomain:(NSString *)domain code:(NSInteger)code description:(NSString *)description
-{
-    NSDictionary *userInfo = @{NSLocalizedDescriptionKey: description};
-    return [NSError errorWithDomain:domain code:code userInfo:userInfo];
++(void)hideAfterDelay:(NSTimeInterval)delay {
+    [[VBHUD instance].hud hide:YES afterDelay:delay];
 }
+
 
 @end
