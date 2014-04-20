@@ -10,7 +10,6 @@
 #import "VBInputSourceManager.h"
 #import "VBInputSourceController.h"
 #import "VBCheckinController.h"
-#import "VBBarButtonItem.h"
 #import "VBFont.h"
 #import <AVFoundation/AVFoundation.h>
 
@@ -116,22 +115,6 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     return _captions;
 }
 
--(void)setupNavigationBar
-{
-    [super setupNavigationBar];
-    self.navigationItem.leftBarButtonItem = [VBBarButtonItem micButtonWithTarget:self action:@selector(gotoSourcesController)];
-}
-
--(void)gotoCheckinController
-{
-    [self.vbNavigationController pushViewController:[VBCheckinController controller] animated:NO];
-}
-
--(void)gotoSourcesController
-{
-    [self.vbNavigationController pushViewController:[VBInputSourceController controller] animated:NO];
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -161,7 +144,6 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setupNavigationBar];
 }
 
 -(void)setPresentationMode:(VBCaptionControllerPresentationModeType)presentationMode

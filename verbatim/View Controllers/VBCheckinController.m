@@ -7,7 +7,7 @@
 //
 
 #import "VBCheckinController.h"
-#import "VBBarButtonItem.h"
+#import "VBButton.h"
 #import <AKLocationManager/AKLocationManager.h>
 
 
@@ -105,24 +105,14 @@
     
 }
 
-
--(void)setupNavigationBar
+- (void)dismissController
 {
-    [super setupNavigationBar];
-    self.edgesForExtendedLayout = YES;
-    [self.vbNavigationController navigationBarShowBackground:YES];
-    self.navigationItem.rightBarButtonItem = [VBBarButtonItem micButtonWithTarget:self action:@selector(dismissController)];
-}
-
--(void)dismissController
-{
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.rootController renderLastViewController];
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setupNavigationBar];
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
