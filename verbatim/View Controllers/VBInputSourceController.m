@@ -118,7 +118,15 @@
 - (void)setup
 {
     VBUser *currentUser = [VBUser currentUser];
-    self.tableView.hidden = currentUser && currentUser.venue;
+    if (currentUser) {
+        if (currentUser.venue) {
+            self.tableView.hidden = NO;
+        } else {
+            [self gotoCheckinController];
+        }
+    } else {
+        self.tableView.hidden = YES;
+    }
     self.loginView.hidden = !self.tableView.hidden;
     if (!self.tableView.hidden)
         [self fetchUsersFromVenue:currentUser.venue];
