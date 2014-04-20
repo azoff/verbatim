@@ -7,91 +7,40 @@
 //
 
 #import "VBCheckinController.h"
-#import "VBBarButtonItem.h"
-#import <AKLocationManager/AKLocationManager.h>
+#import "VBButton.h"
+#import "VBVenueDataSource.h"
+#import "VBVenueTableViewCell.h"
+#import "VBVenueDelegate.h"
 
-
-@interface VBCheckinController () <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+@interface VBCheckinController () <VBVenueSubDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (strong,nonatomic) NSArray *venues; // of VBVenue
+@property (nonatomic) VBVenueDataSource *venueDataSource;
+@property (nonatomic) VBVenueDelegate *venueDelegate;
 
 @end
 
 @implementation VBCheckinController
 
-
--(id)init
-{
-    self = [super init];
-    if (self) {
-        self.title = @"Select Venue";
-    }
-    return self;
-}
-
 - (void)fetchVenues
 {
-    if (![AKLocationManager canLocate]) {
-        // prompt for location info...
-        NSLog(@"Cannot locate...display request for location");
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Enable Location"
-                              message:@"Turn on your location"
-                              delegate:self
-                              cancelButtonTitle:@"Cancel"
-                              otherButtonTitles:@"OK", nil];
-        [alert show];
-        return;
-    }
-    
-    [AKLocationManager startLocatingWithUpdateBlock:^(CLLocation *location){
-        // location acquired
-        NSLog(@"VBCheckinController:location (%f,%f)",location.coordinate.latitude,location.coordinate.longitude);
-        
-        [AKLocationManager stopLocating]; // we're done once we have a location.
-        
-        [VBFoursquare venuesNearbyWithSuccess:^(NSArray *venues) {
-            self.venues = venues;
+    [VBHUD showIndeterminateProgressWithText:@"Searching Nearby Venues..."];
+    [self.venueDataSource reloadWithError:^(NSError *error) {
+        if (error) {
+            [VBHUD showWithError:error];
+            [self dismissController];
+        } else {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.tableView.alpha = 1.0;
+            }];
+            [VBHUD hide];
             [self.tableView reloadData];
-        } andFailure:^(NSError *error) {
-            [VBHUD showWithError:error];
-        }];
-        
-    }
-    failedBlock:^(NSError *error){
-        //[VBHUD showWithError:error];
-        [AKLocationManager stopLocating];
-        
-        CLLocationCoordinate2D coordinate = [AKLocationManager mostRecentCoordinate]; // we're done once we have a location.
-        
-        if (!CLLocationCoordinate2DIsValid(coordinate)) {
-            NSLog(@"Location invalid");
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Location Invalid"
-                                  message:@"Invalid location:set your location!"
-                                  delegate:self
-                                  cancelButtonTitle:@"Cancel"
-                                  otherButtonTitles:@"OK", nil];
-            [alert show];
         }
-        else {
-            // show an unhandled error.
-            [VBHUD showWithError:error];
-        }
-        
     }];
-
 }
 
-- (void)viewDidLoad
+- (void)fetchVenuesIfAuthenticated
 {
-    [super viewDidLoad];
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
     if ([VBFoursquare isAuthorized]) {
         [self fetchVenues];
     } else {
@@ -102,69 +51,56 @@
                        name:VBFoursquareEventAuthorizeError object:nil];
         [VBFoursquare authorize];
     }
+}
+
+- (void)setupTableView
+{
+    // colors
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [VBColor separatorColor];
+    UIView *view = [UIView new]; view.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = view;
+    self.tableView.separatorColor = [VBColor separatorColor];
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.alpha = 0;
+
+    // data source
+    id name = @"VenueCell";
+    self.tableView.dataSource = self.venueDataSource = [VBVenueDataSource sourceWithCellReuseIdentifier:name];
+    [self.tableView registerNib:VBVenueTableViewCell.nib forCellReuseIdentifier:name];
     
+    // delegate
+    self.tableView.delegate = self.venueDelegate = [VBVenueDelegate delegateWithSubDelegate:self];
+
 }
 
-
--(void)setupNavigationBar
+-(void)didSelectVenue:(VBVenue *)venue
 {
-    [super setupNavigationBar];
-    self.edgesForExtendedLayout = YES;
-    [self.vbNavigationController navigationBarShowBackground:YES];
-    self.navigationItem.rightBarButtonItem = [VBBarButtonItem micButtonWithTarget:self action:@selector(dismissController)];
+    [VBHUD showIndeterminateProgressWithText:@"Hold On..."];
+    [[VBUser currentUser] checkInWithVenue:venue success:^(VBUser *user) {
+        [VBHUD showDoneWithText:@"Checked In!" hideAfterDelay:2];
+        [self dismissController];
+    } failure:^(NSError *error) {
+        [VBHUD showWithError:error];
+        [self dismissController];
+    }];
 }
 
--(void)dismissController
+-(UITableViewCell *)cellForHeightMeasurement
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    return [self .tableView dequeueReusableCellWithIdentifier:self.venueDataSource.cellReuseIdentifier];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:animated];
-    [self setupNavigationBar];
+    [super viewDidLoad];
+    [self setupTableView];
+    [self fetchVenuesIfAuthenticated];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    // if we submit "OK" on our alert view, let's go try fetchVenues again...
-    NSLog(@"Alert button pressed %d",buttonIndex);
-    if (buttonIndex == 1) {
-        [self fetchVenues];
-    }
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)dismissController
 {
-    return [self.venues count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VenueTestCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"VenueTestCell"];
-    }
-    VBVenue *venue = [self.venues objectAtIndex:indexPath.row];
-    cell.textLabel.text = venue.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"(%@ miles) %@",venue.distance, venue.address];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    // get venue selected
-    VBVenue *selectedVenue = [self.venues objectAtIndex:indexPath.row];
-    NSLog(@"Selected venue: %@",selectedVenue);
-    
-    // TODO: push the selected venue onto the VBInputSourceController and display
-    // or possibly just update navigation controller and have select input as a 2nd option.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.rootController renderLastViewController];
 }
 
 @end

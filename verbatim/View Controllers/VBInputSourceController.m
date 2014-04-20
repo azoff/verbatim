@@ -8,7 +8,7 @@
 
 #import "VBInputSourceController.h"
 #import "VBCheckinController.h"
-#import "VBBarButtonItem.h"
+#import "VBButton.h"
 
 @interface VBInputSourceController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -67,27 +67,9 @@
     [self setup];
 }
 
--(void)setupNavigationBar
-{
-    [super setupNavigationBar];
-    self.navigationItem.leftBarButtonItem = [VBBarButtonItem locationButtonWithTarget:self action:@selector(gotoCheckinController)];
-    self.navigationItem.rightBarButtonItem = [VBBarButtonItem captionButtonWithTarget:self action:@selector(dismissController)];
-}
-
--(void)dismissController
-{
-    [self.navigationController popViewControllerAnimated:NO];
-}
-
--(void)gotoCheckinController
-{
-    [self.vbNavigationController pushViewController:[VBCheckinController controller] animated:NO];
-}
-
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setupNavigationBar];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

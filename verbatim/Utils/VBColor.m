@@ -35,4 +35,9 @@
     return [super colorWithRed:0 green:0 blue:0 alpha:0.7];
 }
 
++(UIColor *)separatorColor
+{
+    return [super colorWithRed:0 green:0 blue:0 alpha:0.7];
+}
+
 @end

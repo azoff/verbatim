@@ -36,18 +36,23 @@
 		C95E2DAD18FFA89600BD365F /* VBCheckinController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95E2D8218FFA89600BD365F /* VBCheckinController.xib */; };
 		C95E2DAE18FFA89600BD365F /* VBInputSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D8418FFA89600BD365F /* VBInputSourceController.m */; };
 		C95E2DAF18FFA89600BD365F /* VBInputSourceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95E2D8518FFA89600BD365F /* VBInputSourceController.xib */; };
-		C95E2DB018FFA89600BD365F /* VBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D8718FFA89600BD365F /* VBNavigationController.m */; };
 		C95E2DB318FFA89600BD365F /* VBWelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D8C18FFA89600BD365F /* VBWelcomeController.m */; };
 		C95E2DB418FFA89600BD365F /* VBWelcomeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95E2D8D18FFA89600BD365F /* VBWelcomeController.xib */; };
 		C95E2DBB18FFA89700BD365F /* VBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D9A18FFA89600BD365F /* VBWindow.m */; };
 		C95E2DBE18FFB2CA00BD365F /* VBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2DBD18FFB2CA00BD365F /* VBViewController.m */; };
-		C95E2DCC18FFDB4000BD365F /* VBBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2DCB18FFDB4000BD365F /* VBBarButtonItem.m */; };
+		C95E2DCC18FFDB4000BD365F /* VBButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2DCB18FFDB4000BD365F /* VBButton.m */; };
 		C9635CE9190220E30020569C /* VBFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635CE8190220E30020569C /* VBFont.m */; };
 		C9635CEC190222CB0020569C /* VBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635CEB190222CB0020569C /* VBLabel.m */; };
+		C9635CF61902F7FC0020569C /* VBRootController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635CF41902F7FC0020569C /* VBRootController.m */; };
+		C9635CF71902F7FC0020569C /* VBRootController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9635CF51902F7FC0020569C /* VBRootController.xib */; };
+		C9635CFB190387D80020569C /* VBVenueDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635CFA190387D80020569C /* VBVenueDataSource.m */; };
+		C9635CFF19038D5E0020569C /* VBVenueTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635CFD19038D5E0020569C /* VBVenueTableViewCell.m */; };
+		C9635D0019038D5E0020569C /* VBVenueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9635CFE19038D5E0020569C /* VBVenueTableViewCell.xib */; };
+		C9635D041904377A0020569C /* VBVenueDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635D031904377A0020569C /* VBVenueDelegate.m */; };
+		C9635D07190444720020569C /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635D06190444720020569C /* VBAppDelegate.m */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
 		C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
-		C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9671B5518EA1BF0003E8450 /* VBAppDelegate.m */; };
 		C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9671B5718EA1BF0003E8450 /* Images.xcassets */; };
 		C9671B7518EA1C12003E8450 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B7418EA1C12003E8450 /* AudioToolbox.framework */; };
 		C9671B7718EA1C1A003E8450 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B7618EA1C1A003E8450 /* AVFoundation.framework */; };
@@ -124,8 +129,6 @@
 		C95E2D8318FFA89600BD365F /* VBInputSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBInputSourceController.h; sourceTree = "<group>"; };
 		C95E2D8418FFA89600BD365F /* VBInputSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBInputSourceController.m; sourceTree = "<group>"; };
 		C95E2D8518FFA89600BD365F /* VBInputSourceController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBInputSourceController.xib; sourceTree = "<group>"; };
-		C95E2D8618FFA89600BD365F /* VBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBNavigationController.h; sourceTree = "<group>"; };
-		C95E2D8718FFA89600BD365F /* VBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBNavigationController.m; sourceTree = "<group>"; };
 		C95E2D8B18FFA89600BD365F /* VBWelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBWelcomeController.h; sourceTree = "<group>"; };
 		C95E2D8C18FFA89600BD365F /* VBWelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBWelcomeController.m; sourceTree = "<group>"; };
 		C95E2D8D18FFA89600BD365F /* VBWelcomeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBWelcomeController.xib; sourceTree = "<group>"; };
@@ -133,20 +136,30 @@
 		C95E2D9A18FFA89600BD365F /* VBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBWindow.m; sourceTree = "<group>"; };
 		C95E2DBC18FFB2CA00BD365F /* VBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBViewController.h; sourceTree = "<group>"; };
 		C95E2DBD18FFB2CA00BD365F /* VBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBViewController.m; sourceTree = "<group>"; };
-		C95E2DCA18FFDB4000BD365F /* VBBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBBarButtonItem.h; sourceTree = "<group>"; };
-		C95E2DCB18FFDB4000BD365F /* VBBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBBarButtonItem.m; sourceTree = "<group>"; };
+		C95E2DCA18FFDB4000BD365F /* VBButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBButton.h; sourceTree = "<group>"; };
+		C95E2DCB18FFDB4000BD365F /* VBButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBButton.m; sourceTree = "<group>"; };
 		C9635CE7190220E30020569C /* VBFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBFont.h; sourceTree = "<group>"; };
 		C9635CE8190220E30020569C /* VBFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBFont.m; sourceTree = "<group>"; };
 		C9635CEA190222CB0020569C /* VBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBLabel.h; sourceTree = "<group>"; };
 		C9635CEB190222CB0020569C /* VBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBLabel.m; sourceTree = "<group>"; };
 		C9635CF1190235620020569C /* NanumGothic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumGothic-Bold.ttf"; sourceTree = "<group>"; };
 		C9635CF2190235620020569C /* NanumGothic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumGothic-Regular.ttf"; sourceTree = "<group>"; };
+		C9635CF31902F7FC0020569C /* VBRootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBRootController.h; sourceTree = "<group>"; };
+		C9635CF41902F7FC0020569C /* VBRootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBRootController.m; sourceTree = "<group>"; };
+		C9635CF51902F7FC0020569C /* VBRootController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBRootController.xib; sourceTree = "<group>"; };
+		C9635CF9190387D80020569C /* VBVenueDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenueDataSource.h; path = "Data Sources/VBVenueDataSource.h"; sourceTree = "<group>"; };
+		C9635CFA190387D80020569C /* VBVenueDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenueDataSource.m; path = "Data Sources/VBVenueDataSource.m"; sourceTree = "<group>"; };
+		C9635CFC19038D5E0020569C /* VBVenueTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBVenueTableViewCell.h; sourceTree = "<group>"; };
+		C9635CFD19038D5E0020569C /* VBVenueTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBVenueTableViewCell.m; sourceTree = "<group>"; };
+		C9635CFE19038D5E0020569C /* VBVenueTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBVenueTableViewCell.xib; sourceTree = "<group>"; };
+		C9635D021904377A0020569C /* VBVenueDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBVenueDelegate.h; path = Delegates/VBVenueDelegate.h; sourceTree = "<group>"; };
+		C9635D031904377A0020569C /* VBVenueDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBVenueDelegate.m; path = Delegates/VBVenueDelegate.m; sourceTree = "<group>"; };
+		C9635D05190444720020569C /* VBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBAppDelegate.h; path = Delegates/VBAppDelegate.h; sourceTree = "<group>"; };
+		C9635D06190444720020569C /* VBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBAppDelegate.m; path = Delegates/VBAppDelegate.m; sourceTree = "<group>"; };
 		C9671B4218EA1BF0003E8450 /* verbatim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verbatim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9671B4518EA1BF0003E8450 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C9671B4918EA1BF0003E8450 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C9671B5418EA1BF0003E8450 /* VBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VBAppDelegate.h; sourceTree = "<group>"; };
-		C9671B5518EA1BF0003E8450 /* VBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VBAppDelegate.m; sourceTree = "<group>"; };
 		C9671B5718EA1BF0003E8450 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9671B5E18EA1BF0003E8450 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C9671B7418EA1C12003E8450 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -282,13 +295,14 @@
 				C95E2D8318FFA89600BD365F /* VBInputSourceController.h */,
 				C95E2D8418FFA89600BD365F /* VBInputSourceController.m */,
 				C95E2D8518FFA89600BD365F /* VBInputSourceController.xib */,
-				C95E2D8618FFA89600BD365F /* VBNavigationController.h */,
-				C95E2D8718FFA89600BD365F /* VBNavigationController.m */,
 				C95E2D8B18FFA89600BD365F /* VBWelcomeController.h */,
 				C95E2D8C18FFA89600BD365F /* VBWelcomeController.m */,
 				C95E2D8D18FFA89600BD365F /* VBWelcomeController.xib */,
 				C95E2DBC18FFB2CA00BD365F /* VBViewController.h */,
 				C95E2DBD18FFB2CA00BD365F /* VBViewController.m */,
+				C9635CF31902F7FC0020569C /* VBRootController.h */,
+				C9635CF41902F7FC0020569C /* VBRootController.m */,
+				C9635CF51902F7FC0020569C /* VBRootController.xib */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -298,14 +312,37 @@
 			children = (
 				C95E2D9918FFA89600BD365F /* VBWindow.h */,
 				C95E2D9A18FFA89600BD365F /* VBWindow.m */,
-				C95E2DCA18FFDB4000BD365F /* VBBarButtonItem.h */,
-				C95E2DCB18FFDB4000BD365F /* VBBarButtonItem.m */,
+				C95E2DCA18FFDB4000BD365F /* VBButton.h */,
+				C95E2DCB18FFDB4000BD365F /* VBButton.m */,
 				C92AD1D118FFEDFD0028D55C /* VBNibView.h */,
 				C92AD1D218FFEDFD0028D55C /* VBNibView.m */,
 				C9635CEA190222CB0020569C /* VBLabel.h */,
 				C9635CEB190222CB0020569C /* VBLabel.m */,
+				C9635CFC19038D5E0020569C /* VBVenueTableViewCell.h */,
+				C9635CFD19038D5E0020569C /* VBVenueTableViewCell.m */,
+				C9635CFE19038D5E0020569C /* VBVenueTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C9635CF8190387AF0020569C /* Data Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C9635CF9190387D80020569C /* VBVenueDataSource.h */,
+				C9635CFA190387D80020569C /* VBVenueDataSource.m */,
+			);
+			name = "Data Sources";
+			sourceTree = "<group>";
+		};
+		C9635D01190437440020569C /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				C9635D05190444720020569C /* VBAppDelegate.h */,
+				C9635D06190444720020569C /* VBAppDelegate.m */,
+				C9635D021904377A0020569C /* VBVenueDelegate.h */,
+				C9635D031904377A0020569C /* VBVenueDelegate.m */,
+			);
+			name = Delegates;
 			sourceTree = "<group>";
 		};
 		C9671B3918EA1BF0003E8450 = {
@@ -355,6 +392,8 @@
 		C9671B4B18EA1BF0003E8450 /* verbatim */ = {
 			isa = PBXGroup;
 			children = (
+				C9635D01190437440020569C /* Delegates */,
+				C9635CF8190387AF0020569C /* Data Sources */,
 				C95E2D5B18FFA89600BD365F /* Categories */,
 				C95E2D6018FFA89600BD365F /* Core */,
 				C95E2D6B18FFA89600BD365F /* Models */,
@@ -362,8 +401,6 @@
 				C95E2D7718FFA89600BD365F /* Utils */,
 				C95E2D7C18FFA89600BD365F /* View Controllers */,
 				C95E2D8E18FFA89600BD365F /* Views */,
-				C9671B5418EA1BF0003E8450 /* VBAppDelegate.h */,
-				C9671B5518EA1BF0003E8450 /* VBAppDelegate.m */,
 				C9671B5718EA1BF0003E8450 /* Images.xcassets */,
 			);
 			path = verbatim;
@@ -475,7 +512,9 @@
 				C95E2DAB18FFA89600BD365F /* VBCaptionController.xib in Resources */,
 				C95E2DAF18FFA89600BD365F /* VBInputSourceController.xib in Resources */,
 				C95E2DA518FFA89600BD365F /* InfoPlist.strings in Resources */,
+				C9635CF71902F7FC0020569C /* VBRootController.xib in Resources */,
 				C95E2DAD18FFA89600BD365F /* VBCheckinController.xib in Resources */,
+				C9635D0019038D5E0020569C /* VBVenueTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +568,8 @@
 			files = (
 				C95E2DA118FFA89600BD365F /* VBSpeechKit.m in Sources */,
 				C95E2DAE18FFA89600BD365F /* VBInputSourceController.m in Sources */,
+				C9635D041904377A0020569C /* VBVenueDelegate.m in Sources */,
+				C9635CFB190387D80020569C /* VBVenueDataSource.m in Sources */,
 				C9635CE9190220E30020569C /* VBFont.m in Sources */,
 				C9635CEC190222CB0020569C /* VBLabel.m in Sources */,
 				C95E2DBE18FFB2CA00BD365F /* VBViewController.m in Sources */,
@@ -538,18 +579,19 @@
 				C95E2DA018FFA89600BD365F /* VBPubSub.m in Sources */,
 				C95E2DA318FFA89600BD365F /* VBUser.m in Sources */,
 				C95E2D9E18FFA89600BD365F /* VBInputSourceManager.m in Sources */,
-				C95E2DCC18FFDB4000BD365F /* VBBarButtonItem.m in Sources */,
+				C95E2DCC18FFDB4000BD365F /* VBButton.m in Sources */,
 				C95E2D9F18FFA89600BD365F /* VBParse.m in Sources */,
-				C95E2DB018FFA89600BD365F /* VBNavigationController.m in Sources */,
 				C95E2DA218FFA89600BD365F /* VBFoursquareObject.m in Sources */,
 				C95E2DBB18FFA89700BD365F /* VBWindow.m in Sources */,
 				C95E2DB318FFA89600BD365F /* VBWelcomeController.m in Sources */,
+				C9635D07190444720020569C /* VBAppDelegate.m in Sources */,
+				C9635CFF19038D5E0020569C /* VBVenueTableViewCell.m in Sources */,
 				C95E2D9D18FFA89600BD365F /* VBFoursquare.m in Sources */,
 				C95E2DAA18FFA89600BD365F /* VBCaptionController.m in Sources */,
 				C95E2DA418FFA89600BD365F /* VBVenue.m in Sources */,
 				C92AD1D318FFEDFD0028D55C /* VBNibView.m in Sources */,
 				C95E2DA618FFA89600BD365F /* main.m in Sources */,
-				C9671B5618EA1BF0003E8450 /* VBAppDelegate.m in Sources */,
+				C9635CF61902F7FC0020569C /* VBRootController.m in Sources */,
 				C95E2DA818FFA89600BD365F /* VBColor.m in Sources */,
 				C95E2DA918FFA89600BD365F /* VBHUD.m in Sources */,
 			);

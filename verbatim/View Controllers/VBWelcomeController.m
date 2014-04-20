@@ -38,7 +38,7 @@
 }
 
 - (IBAction)onTap:(id)sender {
-    [self.vbNavigationController setRootViewController:[VBCaptionController controller] animated:NO];
+    [self.rootController renderViewControllerWithClass:VBCaptionController.class];
 }
 
 @end

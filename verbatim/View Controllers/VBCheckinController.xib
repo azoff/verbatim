@@ -15,29 +15,28 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eze-ac-EZr">
-                    <rect key="frame" x="0.0" y="160" width="320" height="408"/>
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eze-ac-EZr">
+                    <rect key="frame" x="0.0" y="36" width="320" height="532"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j0x-OC-0GP" userLabel="MapView Placeholder">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-Fx-7iC" customClass="VBLabel">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map View Placeholder" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVy-Rb-gVM" customClass="VBLabel">
-                            <rect key="frame" x="75" y="69" width="171" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.93655303030000003" green="0.30582702410000001" blue="0.64499346660000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="vxz-Ba-BLm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
+                <constraint firstItem="jit-Fx-7iC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OuR-yp-plJ"/>
+                <constraint firstItem="jit-Fx-7iC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TIN-hj-MK8"/>
+                <constraint firstItem="eze-ac-EZr" firstAttribute="top" secondItem="jit-Fx-7iC" secondAttribute="bottom" id="cnV-e9-zWT"/>
                 <constraint firstAttribute="trailing" secondItem="eze-ac-EZr" secondAttribute="trailing" id="gqN-9b-2Qw"/>
-                <constraint firstItem="eze-ac-EZr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="160" id="ph8-yB-D53"/>
+                <constraint firstAttribute="trailing" secondItem="jit-Fx-7iC" secondAttribute="trailing" id="nXA-iU-qLy"/>
                 <constraint firstAttribute="bottom" secondItem="eze-ac-EZr" secondAttribute="bottom" id="sfV-lC-w8u"/>
                 <constraint firstItem="eze-ac-EZr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vK5-W1-lHE"/>
             </constraints>

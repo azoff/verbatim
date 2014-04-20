@@ -7,20 +7,13 @@
 //
 
 #import "VBViewController.h"
+#import "UIViewController+Factory.h"
 
 @implementation VBViewController
 
--(VBNavigationController*)vbNavigationController
+-(VBRootController *)rootController
 {
-    return (VBNavigationController*)[super navigationController];
-}
-
--(void)setupNavigationBar
-{
-    [self.vbNavigationController navigationBarShowBackground:NO];
-    self.navigationItem.hidesBackButton = YES;
-    self.navigationItem.leftBarButtonItem = nil;
-    self.navigationItem.rightBarButtonItem = nil;
+    return (VBRootController *)self.parentViewController;
 }
 
 @end

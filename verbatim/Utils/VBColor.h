@@ -15,6 +15,7 @@
 +(UIColor*)opaqueTextColor;
 +(UIColor*)activeColor;
 +(UIColor*)navigationBarColor;
++(UIColor*)separatorColor;
 
 @end
 

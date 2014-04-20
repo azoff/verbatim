@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VBNavigationController.h"
+#import "VBRootController.h"
 
 @interface VBViewController : UIViewController
 
--(VBNavigationController*)vbNavigationController;
--(void)setupNavigationBar;
+@property (nonatomic, readonly) VBRootController *rootController;
 
 @end

@@ -75,7 +75,7 @@ NSString * const CALLBACK_URL  = @"verbatim://foursquare";
                     andFailure:(void(^)(NSError*))failure
 {
     [AKLocationManager startLocatingWithUpdateBlock:^(CLLocation *location) {
-        [Foursquare2 venueSearchNearByLatitude:@(location.coordinate.latitude) longitude:@(location.coordinate.longitude) query:nil limit:nil intent:intentCheckin radius:@500 categoryId:nil
+        [Foursquare2 venueSearchNearByLatitude:@(location.coordinate.latitude) longitude:@(location.coordinate.longitude) query:nil limit:@50 intent:intentCheckin radius:@500 categoryId:nil
                                       callback:^(BOOL found, id result) {
                                           if (found)
                                               [self convertResult:result toVenuesWithBlock:success];
