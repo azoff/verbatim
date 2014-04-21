@@ -7,109 +7,138 @@
 //
 
 #import "VBInputSourceController.h"
+#import "VBUserTableViewCell.h"
 #import "VBCheckinController.h"
+#import "VBUserDataSource.h"
+#import "VBUserDelegate.h"
 #import "VBButton.h"
+#import "VBLabel.h"
 
-@interface VBInputSourceController ()<UITableViewDataSource,UITableViewDelegate>
+@interface VBInputSourceController () <VBUserSubDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *loginView;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong,nonatomic) NSArray *users; // of VBUser
+@property (weak, nonatomic) IBOutlet VBLabel *sourceNameLabel;
+@property (weak, nonatomic) IBOutlet UIView *checkInContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *checkInImageView;
+@property (weak, nonatomic) IBOutlet UITableView *sourceTableView;
+- (IBAction)onCheckInTap:(id)sender;
+
+@property (nonatomic) VBUserDataSource *userDataSource;
+@property (nonatomic) VBUserDelegate *userDelegate;
 
 @end
 
 @implementation VBInputSourceController
 
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(void)updateSourceNameLabelText
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    id label = [[[VBUser currentUser] source] label];
+    self.sourceNameLabel.text = label ? label : VBUserDefaultLabel;
 }
 
-- (void)fetchUsersFromVenue:(VBVenue *)venue
+-(void)updateContainerViews
+{
+    BOOL checkedIn = [[VBUser currentUser] isCheckedIn];
+    self.checkInContainerView.hidden = checkedIn;
+    self.sourceTableView.hidden = !checkedIn;
+}
+
+- (void)setupTableView
 {
     
-    [venue checkedInUsersWithSuccess:^(NSArray *users) {
-        self.users = users;
-        [self.tableView reloadData];
-    } andFailure:^(NSError *error) {
-        [VBHUD showWithError:error];
-    }];
-
+    self.sourceNameLabel.textColor = [VBColor activeColor];
+    
+    // colors
+    self.sourceTableView.backgroundColor = [UIColor clearColor];
+    self.sourceTableView.separatorColor = [VBColor separatorColor];
+    UIView *view = [UIView new]; view.backgroundColor = [UIColor clearColor];
+    self.sourceTableView.backgroundView = view;
+    self.sourceTableView.separatorColor = [VBColor separatorColor];
+    self.sourceTableView.separatorInset = UIEdgeInsetsZero;
+    self.sourceTableView.alpha = 0;
+    
+    id venue = [[VBUser currentUser] venue];
+    if (!venue) return; // exit early if no venue data to load
+    
+    // data source
+    id name = @"UserCell";
+    self.userDataSource = [VBUserDataSource sourceWithCellReuseIdentifier:name andVenue:venue];
+    self.sourceTableView.dataSource = self.userDataSource;
+    [self.sourceTableView registerNib:VBUserTableViewCell.nib forCellReuseIdentifier:name];
+    
+    // delegate
+    self.sourceTableView.delegate = self.userDelegate = [VBUserDelegate delegateWithSubDelegate:self];
+    
 }
 
+- (void)reloadUsers
+{
+    [VBHUD showIndeterminateProgressWithText:@"Loading Sources..."];
+    [self.userDataSource reloadWithError:^(NSError *error) {
+        if (error) {
+            [VBHUD showWithError:error];
+        } else {
+            [UIView animateWithDuration:0.5 animations:^{
+                self.sourceTableView.alpha = 1.0;
+            }];
+            [VBHUD hide];
+            [self.sourceTableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }];
+}
 
-- (void)viewDidLoad
+- (void)updateTableView
+{
+    if ([[VBUser currentUser] isCheckedIn]) {
+        [self reloadUsers];
+    } else {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.sourceTableView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            [self.sourceTableView reloadData];
+        }];
+    }
+    
+}
+
+- (void)addObservers
+{
+    id center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(updateTableView) name:VBUserEventCheckedIn object:nil];
+    [center addObserver:self.sourceTableView selector:@selector(reloadData) name:VBUserEventSourceChanged object:nil];
+}
+
+-(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // we hide both views until we reach setup, at which point we'll show either the login or table view.
-    self.loginView.hidden = YES;
-    self.tableView.hidden = YES;
-    
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    
-    // if the user logs in or logs out, make sure to update this controller's state and enter setup.
-    [[NSNotificationCenter defaultCenter] addObserverForName:VBUserEventCurrentUserAdded object:nil queue:nil usingBlock:^(NSNotification *note) {
-        NSLog(@"Got user logged in notification");
-        [self setup];
-    }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:VBUserEventCurrentUserRemoved object:nil queue:nil usingBlock:^(NSNotification *note) {
-        NSLog(@"Got user logged out notification");
-        [self setup];
-    }];
-    
-    [self setup];
+    [self setupTableView];
+    [self updateSourceNameLabelText];
+    [self updateContainerViews];
+    [self updateTableView];
+    [self addObservers];
 }
 
--(void)viewDidAppear:(BOOL)animated
+- (UITableViewCell *)cellForHeightMeasurement
 {
-    [super viewDidAppear:animated];
+    return [self.sourceTableView dequeueReusableCellWithIdentifier:self.userDataSource.cellReuseIdentifier];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(void)didSelectUser:(VBUser *)user
 {
-    return [self.users count];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InputSourceTestCell"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"InputSourceTestCell"];
+    id me = [VBUser currentUser];
+    if (me) {
+        [VBHUD showIndeterminateProgressWithText:@"Applying..."];
+        [me saveSourceWithUser:user success:^(VBUser *user) {
+            [VBHUD showDoneWithText:@"Done!" hideAfterDelay:1];
+            [self.sourceTableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            [self updateSourceNameLabelText];
+        } failure:^(NSError *error) {
+            [VBHUD showWithError:error];
+        }];
     }
-    VBUser *user = [self.users objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",user.firstName,user.lastName];
-    cell.detailTextLabel.text = @"(x listeners)";
-    return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (IBAction)onCheckInTap:(id)sender
 {
-    // get user selected
-    [VBUser currentUser].source = [self.users objectAtIndex:indexPath.row];
-    [[VBUser currentUser] saveEventually];
+    [self.rootController renderViewControllerWithClass:VBCheckinController.class];
 }
-
-
-- (void)setup
-{
-    VBUser *currentUser = [VBUser currentUser];
-    self.tableView.hidden = currentUser && currentUser.venue;
-    self.loginView.hidden = !self.tableView.hidden;
-    if (!self.tableView.hidden)
-        [self fetchUsersFromVenue:currentUser.venue];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end

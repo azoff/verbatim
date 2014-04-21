@@ -39,7 +39,7 @@
 }
 
 - (IBAction)onTap:(id)sender {
-    [[VBInputSourceManager manager] startListening];
+//    [[VBInputSourceManager manager] startListening];
     [self.rootController renderViewControllerWithClass:VBCaptionController.class];
 }
 

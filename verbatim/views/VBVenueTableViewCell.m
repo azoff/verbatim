@@ -32,7 +32,19 @@
         self.userCountLabel.text = @"0";
         NSLog(@"[ERROR] Unable to get user count, displaying 0. Reason: %@", error);
     }];
+    [self updateStyleForState];
+}
 
+- (void)updateStyleForState
+{
+    VBUser *current = [VBUser currentUser];
+    BOOL selected = current != nil && [self.venue isEqualObject:current.venue];
+    id color = selected ? [VBColor activeColor] : [VBColor translucsentTextColor];
+    id image = selected ? @"checkmark" : @"person";
+    self.nameLabel.textColor =
+    self.addressLabel.textColor =
+    self.userCountLabel.textColor = color;
+    self.sourceImage.image = [[UIImage imageNamed:image] imageByApplyingOverlayColor:color];
 }
 
 - (void)awakeFromNib
@@ -40,17 +52,6 @@
     id color = [VBColor translucsentTextColor];
     self.sourceImage.image = [self.sourceImage.image
                               imageByApplyingOverlayColor:color];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    self.contentView.backgroundColor = selected ? [VBColor separatorColor] : [VBColor backgroundColor];
-}
-
-+(UINib *)nib
-{
-    return [UINib nibWithNibName:NSStringFromClass(self.class) bundle:NSBundle.mainBundle];
 }
 
 @end

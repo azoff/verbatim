@@ -14,25 +14,27 @@ NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
 
 @dynamic foursquareID;
 
--(PFQuery *)query
+-(BOOL)isEqualObject:(VBFoursquareObject *)object
 {
-    return nil; // prevents compiler errors
+    return [self.foursquareID isEqualToString:[object foursquareID]];
 }
 
 -(void)upsertWithSuccess:(void(^)(id))success
               andFailure:(void(^)(NSError*))failure
 {
     
+    __block id result = self;
+    
     // for when we're done
     PFBooleanResultBlock done = ^(BOOL succeeded, NSError *error) {
-        if (succeeded) success(self);
+        if (succeeded) success(result);
         else failure(error);
     };
     
     // first check to see if the object is already hydrated...
     if (self.objectId) {
         // and has nothing to save...
-        if (self.isDirty) done(true, nil);
+        if (!self.isDirty) done(true, nil);
         // or something to save...
         else [self saveInBackgroundWithBlock:done];
         return;
@@ -49,9 +51,21 @@ NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
         // create a new object if not found...
         else if (!object)
             [self saveInBackgroundWithBlock:done];
-        // or set the object ID and save the object
+        // or merge the objects
         else {
             self.objectId = object.objectId;
+            for(id key in [object allKeys]) {
+                if (self[key] == nil) {
+                    self[key] = object[key];
+                    if ([self[key] isKindOfClass:PFObject.class]) {
+                        [self[key] fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                            if (error) failure(error);
+                            else self[key] = object;
+                        }];
+                    }
+                }
+            }
+            result = object;
             [self saveInBackgroundWithBlock:done];
         }
         
