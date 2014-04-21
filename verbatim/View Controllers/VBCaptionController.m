@@ -8,7 +8,6 @@
 
 #import "VBCaptionController.h"
 #import "VBInputSourceManager.h"
-#import "VBInputSourceController.h"
 #import "VBCheckinController.h"
 #import "VBFont.h"
 #import <AVFoundation/AVFoundation.h>
@@ -53,9 +52,11 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 @implementation VBCaptionController
 
-+(void)initialize
+-(id)init
 {
-    [[VBInputSourceManager manager] startListening];
+    if (self = [super init])
+        self.caption = self.captionHistory = @"";
+    return self;
 }
 
 
@@ -80,7 +81,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     
     if (possibleDevices.count == 0) {
         // when in simulator just display a redColor (or maybe an image).
-        self.cameraView.backgroundColor = [UIColor redColor];
+        self.cameraView.backgroundColor = [UIColor clearColor];
         return NO;
     }
     //You could check for front or back camera here, but for simplicity just grab the first device
@@ -118,8 +119,6 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.caption = @"";
     
     [self setupCameraCaptureSession];
     
@@ -196,49 +195,70 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     NSInteger addToLength = [caption length]+1;
     
     self.captionHistory = [self.captionHistory stringByAppendingString:[NSString stringWithFormat:@"%@ ",caption]];
-    
     NSInteger totalLength = [self.captionHistory length];
     
-    //if (self.presentationMode == PM_CAPTION_FULLTEXT) {
-        
-        NSMutableAttributedString *display = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
-        NSMutableAttributedString *olddisplay = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
-        
-        UIColor *_green =[UIColor greenColor];
-        UIFont *font = [VBFont defaultFontWithSize:16];
-        
-        NSShadow *shadowDic=[[NSShadow alloc] init];
-        [shadowDic setShadowBlurRadius:5.0];
-        [shadowDic setShadowColor:[UIColor grayColor]];
-        [shadowDic setShadowOffset:CGSizeMake(0, 3)];
-        
-        [display addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, totalLength)];
-        [display addAttribute:NSForegroundColorAttributeName value:_green range:NSMakeRange(previousLength, addToLength)];
-        [display addAttribute:NSShadowAttributeName value:shadowDic range:NSMakeRange(previousLength,addToLength)];
-        [display addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(previousLength, addToLength)];
-        [display addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:NSMakeRange(0, previousLength)];
+    NSMutableAttributedString *display = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
+    NSMutableAttributedString *olddisplay = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
     
-        [olddisplay addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, totalLength)];
-        [olddisplay addAttribute:NSForegroundColorAttributeName value:_green range:NSMakeRange(previousLength, addToLength)];
-        [olddisplay addAttribute:NSShadowAttributeName value:shadowDic range:NSMakeRange(previousLength,addToLength)];
-        [olddisplay addAttribute:NSForegroundColorAttributeName value:[UIColor clearColor] range:NSMakeRange(previousLength, addToLength)];
-        [olddisplay addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, previousLength)];
+    UIColor *activeColor  = [VBColor activeColor];
+    UIColor *regularColor = [VBColor translucsentTextColor];
+    UIColor *hiddenColor  = [UIColor clearColor];
+    UIFont *font          = [VBFont defaultFontWithSize:16];
+    NSShadow *shadow      = [[NSShadow alloc] init];
     
-        self.captionsLabel.attributedText = olddisplay;
-        
-        // put text to animate to into the captions overlay text
-        //self.captionsLabelAnimatedOverlay.frame = self.captionsLabel.frame;
-        self.captionsLabelAnimatedOverlay.attributedText = display;
-        self.captionsLabelAnimatedOverlay.layer.opacity = 0;
+    [shadow setShadowBlurRadius:5.0];
+    [shadow setShadowColor:[UIColor grayColor]];
+    [shadow setShadowOffset:CGSizeMake(0, 3)];
     
-        [UIView animateWithDuration:0.5 animations:^{
-            self.captionsLabelAnimatedOverlay.layer.opacity = 1;
-        } completion:^(BOOL finished) {
-            //self.captionsLabel.attributedText = display;
-        }];
-    //}
+    [display addAttribute:NSFontAttributeName
+                    value:font
+                    range:NSMakeRange(0, totalLength)];
     
-    //[VBHUD showWithText:caption hideAfterDelay:2];
+    [display addAttribute:NSForegroundColorAttributeName
+                    value:activeColor
+                    range:NSMakeRange(previousLength, addToLength)];
+    
+    [display addAttribute:NSShadowAttributeName
+                    value:shadow
+                    range:NSMakeRange(previousLength,addToLength)];
+    
+    [display addAttribute:NSForegroundColorAttributeName
+                    value:regularColor
+                    range:NSMakeRange(previousLength, addToLength)];
+    
+    [display addAttribute:NSForegroundColorAttributeName
+                    value:regularColor
+                    range:NSMakeRange(0, previousLength)];
+    
+    [olddisplay addAttribute:NSFontAttributeName
+                       value:font
+                       range:NSMakeRange(0, totalLength)];
+    
+    [olddisplay addAttribute:NSForegroundColorAttributeName
+                       value:activeColor
+                       range:NSMakeRange(previousLength, addToLength)];
+    
+    [olddisplay addAttribute:NSShadowAttributeName
+                       value:shadow range:NSMakeRange(previousLength, addToLength)];
+    
+    [olddisplay addAttribute:NSForegroundColorAttributeName
+                       value:hiddenColor
+                       range:NSMakeRange(previousLength, addToLength)];
+    
+    [olddisplay addAttribute:NSForegroundColorAttributeName
+                       value:regularColor
+                       range:NSMakeRange(0, previousLength)];
+    
+    self.captionsLabel.attributedText = olddisplay;
+    
+    // put text to animate to into the captions overlay text
+    //self.captionsLabelAnimatedOverlay.frame = self.captionsLabel.frame;
+    self.captionsLabelAnimatedOverlay.attributedText = display;
+    self.captionsLabelAnimatedOverlay.layer.opacity = 0;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.captionsLabelAnimatedOverlay.layer.opacity = 1;
+    } completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
