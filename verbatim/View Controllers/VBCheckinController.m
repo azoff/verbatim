@@ -18,22 +18,26 @@
 @property (nonatomic) VBVenueDataSource *venueDataSource;
 @property (nonatomic) VBVenueDelegate *venueDelegate;
 
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
+- (IBAction)onLogout:(id)sender;
+
 @end
 
 @implementation VBCheckinController
 
 - (void)fetchVenues
 {
-    [VBHUD showIndeterminateProgressWithText:@"Searching Nearby Venues..."];
+    // TODO: need to show hud only if this is an active view...or show it within it's own view
+    //[VBHUD showIndeterminateProgressWithText:@"Searching Nearby Venues..."];
     [self.venueDataSource reloadWithError:^(NSError *error) {
         if (error) {
-            [VBHUD showWithError:error];
+            //[VBHUD showWithError:error];
             [self dismissController];
         } else {
             [UIView animateWithDuration:0.5 animations:^{
                 self.tableView.alpha = 1.0;
             }];
-            [VBHUD hide];
+            //[VBHUD hide];
             [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
     }];
@@ -44,11 +48,6 @@
     if ([VBFoursquare isAuthorized]) {
         [self fetchVenues];
     } else {
-        id center = [NSNotificationCenter defaultCenter];
-        [center addObserver:self selector:@selector(fetchVenues)
-                       name:VBFoursquareEventAuthorized object:nil];
-        [center addObserver:self selector:@selector(dismissController)
-                       name:VBFoursquareEventAuthorizeError object:nil];
         [VBFoursquare authorize];
     }
 }
@@ -76,13 +75,14 @@
 
 -(void)didSelectVenue:(VBVenue *)venue
 {
-    [VBHUD showIndeterminateProgressWithText:@"Hold On..."];
+    [VBHUD showIndeterminateProgressWithText:@"Checkin' in..."];
     [[VBUser currentUser] checkInWithVenue:venue success:^(VBUser *user) {
         [VBHUD showDoneWithText:@"Checked In!" hideAfterDelay:2];
-        [self dismissController];
+        
+        // transition to inputSource view
+        [self.rootController switchToAppState:APP_STATE_INPUTSOURCE animate:YES];
     } failure:^(NSError *error) {
         [VBHUD showWithError:error];
-        [self dismissController];
     }];
 }
 
@@ -91,16 +91,39 @@
     return [self .tableView dequeueReusableCellWithIdentifier:self.venueDataSource.cellReuseIdentifier];
 }
 
+- (void)addObservers
+{
+    id center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(fetchVenues) name:VBFoursquareEventAuthorized object:nil];
+    [center addObserver:self selector:@selector(dismissController) name:VBFoursquareEventAuthorizeError object:nil];
+    [center addObserver:self selector:@selector(dismissController) name:VBFoursquareEventDeauthorized object:nil];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self setupTableView];
+    [self addObservers];
+}
+
+- (void)onRootViewDidLoad
+{
+    [self fetchVenuesIfAuthenticated];
+}
+
+- (void)onRootMadeActive
+{
+    // refetch data each time we come back to the venue list
     [self fetchVenuesIfAuthenticated];
 }
 
 - (void)dismissController
 {
-    [self.rootController renderLastViewController];
+    [self.rootController switchToAppState:APP_STATE_CAPTION animate:YES];
 }
 
+- (IBAction)onLogout:(id)sender {
+    [VBFoursquare deauthorize];
+}
 @end

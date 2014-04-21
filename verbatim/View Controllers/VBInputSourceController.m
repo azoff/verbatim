@@ -57,7 +57,6 @@
     self.sourceTableView.alpha = 0;
     
     id venue = [[VBUser currentUser] venue];
-    if (!venue) return; // exit early if no venue data to load
     
     // data source
     id name = @"UserCell";
@@ -72,15 +71,17 @@
 
 - (void)reloadUsers
 {
-    [VBHUD showIndeterminateProgressWithText:@"Loading Sources..."];
+    // TODO: show HUD either when this view is active, or within it's own view
+    //[VBHUD showIndeterminateProgressWithText:@"Loading Sources..."];
     [self.userDataSource reloadWithError:^(NSError *error) {
         if (error) {
             [VBHUD showWithError:error];
         } else {
-            [UIView animateWithDuration:0.5 animations:^{
+            self.sourceTableView.alpha = 1;
+            /*[UIView animateWithDuration:0.5 animations:^{
                 self.sourceTableView.alpha = 1.0;
-            }];
-            [VBHUD hide];
+            }];*/
+            //[VBHUD hide];
             [self.sourceTableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
     }];
@@ -89,6 +90,7 @@
 - (void)updateTableView
 {
     if ([[VBUser currentUser] isCheckedIn]) {
+        self.userDataSource.venue = [[VBUser currentUser] venue];
         [self reloadUsers];
     } else {
         [UIView animateWithDuration:0.5 animations:^{
@@ -103,18 +105,48 @@
 - (void)addObservers
 {
     id center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(updateTableView) name:VBUserEventCheckedIn object:nil];
-    [center addObserver:self.sourceTableView selector:@selector(reloadData) name:VBUserEventSourceChanged object:nil];
+    [center addObserver:self selector:@selector(reloadUsers) name:VBUserEventSourceChanged object:nil];
+    [center addObserver:self selector:@selector(onUserCheckedIn) name:VBUserEventCheckedIn object:nil];
+    [center addObserver:self selector:@selector(onDeauthorized) name:VBFoursquareEventDeauthorized object:nil];
+    
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setupTableView];
+    [self addObservers];
+}
+
+-(void)onRootViewDidLoad
+{
+    // prefetch the data as soon as the root view has loaded so we
+    // have it all ready if a user is checked in on startup
+    [self updateTableView];
+}
+
+-(void)onRootMadeActive
+{
+    // refresh data whenever we switch back to this view
+    [self updateTableView];
     [self updateSourceNameLabelText];
     [self updateContainerViews];
+}
+
+-(void)onUserCheckedIn
+{
+    // when user checks in, update our checked in states for views
+    // and fetch new data
+    self.userDataSource.venue = [[VBUser currentUser] venue];
+    [self updateContainerViews];
     [self updateTableView];
-    [self addObservers];
+}
+
+-(void)onDeauthorized
+{
+    // when logging out, update login/out state
+    [self updateContainerViews];
 }
 
 - (UITableViewCell *)cellForHeightMeasurement
@@ -131,6 +163,10 @@
             [VBHUD showDoneWithText:@"Done!" hideAfterDelay:1];
             [self.sourceTableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
             [self updateSourceNameLabelText];
+            
+            // transition back to caption view
+            [self.rootController switchToAppState:APP_STATE_CAPTION animate:YES];
+            
         } failure:^(NSError *error) {
             [VBHUD showWithError:error];
         }];
@@ -139,6 +175,6 @@
 
 - (IBAction)onCheckInTap:(id)sender
 {
-    [self.rootController renderViewControllerWithClass:VBCheckinController.class];
+    [VBFoursquare authorize];
 }
 @end

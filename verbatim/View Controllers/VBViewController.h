@@ -13,4 +13,7 @@
 
 @property (nonatomic, readonly) VBRootController *rootController;
 
+-(void)onRootMadeActive; // abstract, must be implemented by super class
+-(void)onRootViewDidLoad; // called after the root view is loaded for the first time.
+
 @end

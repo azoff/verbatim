@@ -227,7 +227,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
                     range:NSMakeRange(previousLength, addToLength)];
     
     [display addAttribute:NSForegroundColorAttributeName
-                    value:regularColor
+                    value:hiddenColor
                     range:NSMakeRange(0, previousLength)];
     
     [olddisplay addAttribute:NSFontAttributeName
