@@ -124,7 +124,8 @@
 			llAcc:  coords.accuracy,
 			query:  value,
 			limit:  10,
-			intent: 'match'
+			intent: 'browse',
+			radius: 5000
 		});
 		venueSearch.lastTransport.then(renderVenueSearch, showApiError);
 		venueSearch.lastTransport.always(endVenueSearch);
