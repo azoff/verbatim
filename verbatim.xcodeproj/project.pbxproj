@@ -50,6 +50,8 @@
 		C9635D0019038D5E0020569C /* VBVenueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9635CFE19038D5E0020569C /* VBVenueTableViewCell.xib */; };
 		C9635D041904377A0020569C /* VBVenueDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635D031904377A0020569C /* VBVenueDelegate.m */; };
 		C9635D07190444720020569C /* VBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9635D06190444720020569C /* VBAppDelegate.m */; };
+		C9635D081904E8DA0020569C /* NanumGothic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9635CF1190235620020569C /* NanumGothic-Bold.ttf */; };
+		C9635D091904E8DA0020569C /* NanumGothic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9635CF2190235620020569C /* NanumGothic-Regular.ttf */; };
 		C9671B4618EA1BF0003E8450 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9671B4818EA1BF0003E8450 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4718EA1BF0003E8450 /* CoreGraphics.framework */; };
 		C9671B4A18EA1BF0003E8450 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
@@ -507,6 +509,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9635D081904E8DA0020569C /* NanumGothic-Bold.ttf in Resources */,
+				C9635D091904E8DA0020569C /* NanumGothic-Regular.ttf in Resources */,
 				C95E2DB418FFA89600BD365F /* VBWelcomeController.xib in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
 				C95E2DAB18FFA89600BD365F /* VBCaptionController.xib in Resources */,

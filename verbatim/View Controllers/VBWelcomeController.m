@@ -8,6 +8,7 @@
 
 #import "VBWelcomeController.h"
 #import "VBCaptionController.h"
+#import "VBInputSourceManager.h"
 
 @interface VBWelcomeController ()
 
@@ -38,6 +39,7 @@
 }
 
 - (IBAction)onTap:(id)sender {
+    [[VBInputSourceManager manager] startListening];
     [self.rootController renderViewControllerWithClass:VBCaptionController.class];
 }
 
