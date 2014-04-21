@@ -22,6 +22,23 @@
 @synthesize distance;
 
 
+-(void)syncWithSuccess :(void (^) (VBVenue *))success andError:(void (^) (NSError *))errorBlock
+{
+    PFQuery *venueQuery = [VBVenue query];
+    [venueQuery whereKey:@"foursquareID" equalTo:self.foursquareID];
+    NSArray *venues = [venueQuery findObjects];
+    if (venues.count > 0) {
+        self.objectId = ((VBVenue *)[venues firstObject]).objectId;
+    } else {
+        [self upsertWithSuccess:^(VBVenue *venue) {
+            success(venue);
+        } andFailure:^(NSError *error) {
+            errorBlock(error);
+        }];
+    }
+        
+}
+
 -(PFQuery *)checkedInUsersQuery
 {
     PFQuery *query = [VBUser query];

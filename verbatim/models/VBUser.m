@@ -14,7 +14,7 @@ NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
 NSString* VBUserEventSourceChanged      = @"VBUserEventSourceChanged";
 
-VBUser* currentUser;
+static VBUser* currentUser;
 
 @implementation VBUser
 
@@ -57,7 +57,13 @@ VBUser* currentUser;
         id desc  = @{NSLocalizedDescriptionKey:@"Only current user may check in"};
         id error = [NSError errorWithDomain:@"" code:0 userInfo:desc];
         failure(error);
+        return;
     }
+    
+    [venue syncWithSuccess:nil andError:^(NSError *error) {
+        failure(error);
+        return;
+    }];
     
     // check in on foursquare
     [VBFoursquare checkInWithVenue:venue success:^(VBVenue *venue) {
@@ -80,8 +86,8 @@ VBUser* currentUser;
         success(self);
         return;
     }
-    self.source    = nil;
-    self.venue     = nil;
+    self.source    = (VBUser *)[NSNull null];
+    self.venue     = (VBVenue *)[NSNull null];
     self.canonical = false;
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) success(self);
@@ -133,8 +139,16 @@ VBUser* currentUser;
         } andFailure:failure];
     } else {
         [VBFoursquare currentUserDetailsWithSuccess:^(VBUser *user) {
-            currentUser = user;
-            [user checkOutWithSuccess:^(VBUser *user) {
+            PFQuery * selfFoursquareQuery = [self query];
+            [selfFoursquareQuery whereKey:@"foursquareID" equalTo:user.foursquareID];
+            [selfFoursquareQuery orderByAscending:@"createdAt"];
+            NSArray *users = [selfFoursquareQuery findObjects];
+            currentUser = [users firstObject];
+            for (VBUser *u in users) {
+                NSLog(@"%@", u.objectId);
+            }
+
+            [currentUser checkOutWithSuccess:^(VBUser *user) {
                 [center postNotificationName:VBUserEventCurrentUserAdded object:self];
             } andFailure:failure];
         } andFailure:failure];
