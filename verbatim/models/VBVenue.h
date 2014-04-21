@@ -13,6 +13,8 @@
 @property (nonatomic) NSString * address;      // for display in table views
 @property (nonatomic) NSNumber * distance;     // in meters, from location (not saved, used in table views)
 
+-(void)syncWithSuccess :(void (^) (VBVenue *))success andError:(void (^) (NSError *))errorBlock;
+
 -(void)checkedInUsersWithSuccess:(void (^)(NSArray*))success
                       andFailure:(void (^)(NSError*))failure;
 
