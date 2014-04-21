@@ -40,7 +40,6 @@ NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
     
     // next, check if the object already exists
     PFQuery *query = [self.class query];
-    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
     [query whereKey:@"foursquareID" equalTo:self.foursquareID];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         

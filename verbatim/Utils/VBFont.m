@@ -14,7 +14,11 @@ NSString * const DEFAULT_FONT_FAMILY_NAME = @"NanumGothic";
 
 +(UIFont *)defaultFontWithSize:(CGFloat)size
 {
-    return [UIFont fontWithName:DEFAULT_FONT_FAMILY_NAME size:size];
+    id font = [UIFont fontWithName:DEFAULT_FONT_FAMILY_NAME size:size];
+    if (font == nil)
+        [NSException raise:@"Missing Font"
+                    format:@"Unable to find font %@ in bundle resources", DEFAULT_FONT_FAMILY_NAME];
+    return font;
 }
 
 @end
