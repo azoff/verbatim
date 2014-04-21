@@ -34,7 +34,7 @@
                 self.tableView.alpha = 1.0;
             }];
             [VBHUD hide];
-            [self.tableView reloadData];
+            [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
     }];
 }

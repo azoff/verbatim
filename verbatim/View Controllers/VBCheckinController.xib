@@ -21,10 +21,10 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jit-Fx-7iC" customClass="VBLabel">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
+                    <rect key="frame" x="0.0" y="16" width="320" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="vxz-Ba-BLm"/>
+                        <constraint firstAttribute="height" constant="20" id="vxz-Ba-BLm"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -32,7 +32,7 @@
                 </label>
             </subviews>
             <constraints>
-                <constraint firstItem="jit-Fx-7iC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OuR-yp-plJ"/>
+                <constraint firstItem="jit-Fx-7iC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="OuR-yp-plJ"/>
                 <constraint firstItem="jit-Fx-7iC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TIN-hj-MK8"/>
                 <constraint firstItem="eze-ac-EZr" firstAttribute="top" secondItem="jit-Fx-7iC" secondAttribute="bottom" id="cnV-e9-zWT"/>
                 <constraint firstAttribute="trailing" secondItem="eze-ac-EZr" secondAttribute="trailing" id="gqN-9b-2Qw"/>

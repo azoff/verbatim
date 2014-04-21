@@ -14,6 +14,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.font = [VBFont defaultFontWithSize:self.font.pointSize];
+    self.textColor = [VBColor translucsentTextColor];
 }
 
 @end

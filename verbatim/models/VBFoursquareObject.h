@@ -12,6 +12,8 @@
 
 @property (nonatomic) NSString * foursquareID;
 
+-(BOOL)isEqualObject:(VBFoursquareObject *)object;
+
 -(void)upsertWithSuccess:(void(^)(id))success
               andFailure:(void(^)(NSError*))failure;
 

@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VBTableViewCell.h"
 
-@interface VBVenueTableViewCell : UITableViewCell
+@interface VBVenueTableViewCell : VBTableViewCell
 
 @property (nonatomic) VBVenue *venue;
-
-+(UINib *)nib;
 
 @end

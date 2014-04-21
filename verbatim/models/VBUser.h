@@ -9,6 +9,7 @@
 #import "VBVenue.h"
 #import "VBFoursquareObject.h"
 
+extern NSString* VBUserDefaultLabel;
 extern NSString* VBUserEventSourceChanged;
 extern NSString* VBUserEventCurrentUserAdded;
 extern NSString* VBUserEventCurrentUserRemoved;
@@ -23,11 +24,18 @@ extern NSString* VBUserEventSourceChanged;
 @property (nonatomic) NSString * lastName;  // from foursquare
 @property (nonatomic) BOOL canonical;  // when coming from editor
 
+@property (nonatomic, readonly) NSString* label;
+@property (nonatomic, readonly) BOOL isListeningToSelf;
+
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 +(void)setupCurrentUser;
 +(instancetype)currentUser;
 
 -(BOOL)isCheckedIn;
+
+-(void)saveSourceWithUser:(VBUser *)user
+                  success:(void(^)(VBUser*))success
+                  failure:(void(^)(NSError*))failure;
 
 -(void)checkInWithVenue:(VBVenue *)venue
                 success:(void(^)(VBUser*))success

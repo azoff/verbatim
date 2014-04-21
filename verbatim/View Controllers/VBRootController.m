@@ -59,10 +59,13 @@
 
 - (void)finishAddingViewController:(UIViewController *)controller
 {
-    if (self.controller)
+    if (self.controller) {
         [self.controller didMoveToParentViewController:nil];
+        if (self.controller.class != self.lastViewControllerClass) {
+            self.lastViewControllerClass = self.controller.class;
+        }
+    }
     [controller didMoveToParentViewController:self];
-    self.lastViewControllerClass = [self.controller class];
     self.controller = controller;
 }
 
@@ -111,6 +114,8 @@
 
 - (IBAction)onButtonTap:(id)sender {
     id targetClass;
+    if ([[sender overlayColor] isEqual:[VBColor activeColor]])
+        return; // exit early if already active
     if (sender == self.micButton)
         targetClass = VBInputSourceController.class;
     else if (sender == self.captionButton)
