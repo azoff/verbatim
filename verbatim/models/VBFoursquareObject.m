@@ -35,7 +35,6 @@ NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
         if (self.isDirty) done(true, nil);
         // or something to save...
         else [self saveInBackgroundWithBlock:done];
-        return;
     }
     
     // next, check if the object already exists
