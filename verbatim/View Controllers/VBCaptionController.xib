@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBCaptionController">
             <connections>
+                <outlet property="cameraImageView" destination="HPa-IH-ooJ" id="Air-04-nIN"/>
                 <outlet property="cameraView" destination="Mh2-pV-pfO" id="c3u-jg-UMQ"/>
                 <outlet property="captionLabel" destination="HhB-VD-WDU" id="ZjB-y0-zhw"/>
                 <outlet property="captionsLabel" destination="U0r-iE-D4C" id="9oG-nc-pX8"/>
                 <outlet property="captionsLabelAnimatedOverlay" destination="MoT-cQ-Ow2" id="nSt-SP-uG9"/>
                 <outlet property="historyView" destination="ChQ-hJ-MUQ" id="VmV-6k-Pgi"/>
                 <outlet property="panGestureRecognizer" destination="DXt-c1-K3u" id="eZ7-BB-922"/>
-                <outlet property="scrollView" destination="YxJ-vL-gJg" id="5Ul-DP-iLg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,13 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxJ-vL-gJg">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mh2-pV-pfO" userLabel="CameraView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPa-IH-ooJ">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="...my career derailed miserably ..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="HhB-VD-WDU" customClass="VBLabel">
@@ -72,6 +74,7 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="U0r-iE-D4C" firstAttribute="leading" secondItem="ChQ-hJ-MUQ" secondAttribute="leading" constant="20" id="32q-mP-Mt4"/>
                         <constraint firstAttribute="width" constant="320" id="6LX-X7-bab"/>
@@ -82,6 +85,9 @@
                         <constraint firstItem="MoT-cQ-Ow2" firstAttribute="leading" secondItem="ChQ-hJ-MUQ" secondAttribute="leading" constant="20" id="l0d-Ld-LMy"/>
                         <constraint firstAttribute="trailing" secondItem="U0r-iE-D4C" secondAttribute="trailing" constant="20" id="oZw-Qt-Xze"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="ekX-SI-OTO"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.270588249" green="0.84313732389999996" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
@@ -91,24 +97,21 @@
                 <constraint firstAttribute="bottom" secondItem="ChQ-hJ-MUQ" secondAttribute="bottom" id="2KL-W8-fnh"/>
                 <constraint firstItem="Mh2-pV-pfO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3FU-Kf-KZf"/>
                 <constraint firstAttribute="bottom" secondItem="Mh2-pV-pfO" secondAttribute="bottom" id="3xv-9z-omN"/>
-                <constraint firstItem="YxJ-vL-gJg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="4pP-RL-znd"/>
                 <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Ec-VW-xCt"/>
                 <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7Ju-Wv-dLw"/>
                 <constraint firstAttribute="bottom" secondItem="Mh2-pV-pfO" secondAttribute="bottom" id="A3O-ss-HCz"/>
-                <constraint firstAttribute="bottom" secondItem="YxJ-vL-gJg" secondAttribute="bottom" id="K9a-WD-11e"/>
                 <constraint firstItem="Mh2-pV-pfO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NDL-VG-thr"/>
                 <constraint firstAttribute="trailing" secondItem="Mh2-pV-pfO" secondAttribute="trailing" id="OgN-P7-vnb"/>
                 <constraint firstAttribute="trailing" secondItem="ChQ-hJ-MUQ" secondAttribute="trailing" id="QRV-7x-Z9Y"/>
                 <constraint firstItem="Mh2-pV-pfO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wwi-1N-j3W"/>
                 <constraint firstItem="HhB-VD-WDU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="f3J-1t-gL1"/>
-                <constraint firstItem="YxJ-vL-gJg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fpA-Ui-HWP"/>
                 <constraint firstAttribute="trailing" secondItem="HhB-VD-WDU" secondAttribute="trailing" constant="10" id="sd8-JI-Jig"/>
                 <constraint firstItem="Mh2-pV-pfO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vZO-Qi-oot"/>
-                <constraint firstAttribute="trailing" secondItem="YxJ-vL-gJg" secondAttribute="trailing" id="wET-VA-jOT"/>
                 <constraint firstAttribute="bottom" secondItem="HhB-VD-WDU" secondAttribute="bottom" constant="20" id="zaE-XS-aNc"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <connections>
+                <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="uFY-lT-FKw"/>
                 <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="AgS-Ep-rUw"/>
             </connections>
         </view>

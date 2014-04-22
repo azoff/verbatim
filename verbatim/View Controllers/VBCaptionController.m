@@ -39,25 +39,17 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 @property (weak, nonatomic) IBOutlet UIView *historyView;
 
-
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
 
 @property (strong,nonatomic) NSString *captionHistory;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
 @end
 
 @implementation VBCaptionController
-
--(id)init
-{
-    if (self = [super init])
-        self.caption = self.captionHistory = @"";
-    return self;
-}
 
 
 // returns YES if a camera was detected and added, NO if not (for simulator)
@@ -80,9 +72,13 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     NSArray *possibleDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     
     if (possibleDevices.count == 0) {
-        // when in simulator just display a redColor (or maybe an image).
-        self.cameraView.backgroundColor = [UIColor clearColor];
+        // when in simulator just display an image.
+        self.cameraImageView.image = [UIImage imageNamed:@"TigerTalk"];
+        self.cameraImageView.hidden = NO;
         return NO;
+    } else {
+        // hide the image view
+        self.cameraImageView.hidden = YES;
     }
     //You could check for front or back camera here, but for simplicity just grab the first device
     AVCaptureDevice *device = [possibleDevices objectAtIndex:0];
@@ -102,6 +98,8 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.cameraCaptureSession];
     // Set the preview layer frame
     previewLayer.frame = self.cameraView.bounds;
+    // make sure camera covers entire view
+    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     // and add this layer to the camera view
     [self.cameraView.layer addSublayer:previewLayer];
     [self.cameraCaptureSession startRunning];
@@ -120,10 +118,12 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 {
     [super viewDidLoad];
     
-    [self setupCameraCaptureSession];
+    self.caption = @"";
+    self.captionHistory = @"";
+    self.captionLabel.text = @"Talk or select someone to listen to";
+    self.captionsLabel.text = @"No history of captions yet!";
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 12,
-                                        self.scrollView.frame.size.height);
+    [self setupCameraCaptureSession];
     
     // subscribe to channel for debug listening
     [[NSNotificationCenter defaultCenter]
@@ -189,6 +189,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 {
     _caption = caption;
     self.captionLabel.text = caption;
+    self.captionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [self.captions addObject:caption];
     
     NSInteger previousLength=[self.captionHistory length];
