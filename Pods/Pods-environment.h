@@ -54,6 +54,18 @@
 #define COCOAPODS_VERSION_MINOR_AKLocationManager 0
 #define COCOAPODS_VERSION_PATCH_AKLocationManager 3
 
+// Facebook-iOS-SDK
+#define COCOAPODS_POD_AVAILABLE_Facebook_iOS_SDK
+#define COCOAPODS_VERSION_MAJOR_Facebook_iOS_SDK 3
+#define COCOAPODS_VERSION_MINOR_Facebook_iOS_SDK 13
+#define COCOAPODS_VERSION_PATCH_Facebook_iOS_SDK 1
+
+// Firebase
+#define COCOAPODS_POD_AVAILABLE_Firebase
+#define COCOAPODS_VERSION_MAJOR_Firebase 1
+#define COCOAPODS_VERSION_MINOR_Firebase 0
+#define COCOAPODS_VERSION_PATCH_Firebase 9
+
 // Foursquare-API-v2
 #define COCOAPODS_POD_AVAILABLE_Foursquare_API_v2
 #define COCOAPODS_VERSION_MAJOR_Foursquare_API_v2 1
