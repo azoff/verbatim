@@ -34,13 +34,18 @@
 
 -(void)reloadWithError:(void(^)(NSError*))done
 {
-    
-    [self.venue checkedInUsersWithSuccess:^(NSArray *users) {
-        self.users = users;
+    if (self.venue) {
+        [self.venue checkedInUsersWithSuccess:^(NSArray *users) {
+            self.users = users;
+            done(nil);
+        } andFailure:^(NSError *error) {
+            done(error);
+        }];
+    } else {
+        // if no venue, populate with current user
+        self.users = @[[VBUser currentUser]];
         done(nil);
-    } andFailure:^(NSError *error) {
-        done(error);
-    }];
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

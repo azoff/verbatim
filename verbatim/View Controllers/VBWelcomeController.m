@@ -33,14 +33,15 @@
     [tapString appendAttributedString:[[NSAttributedString alloc]initWithString:@"Tap" attributes:highlightedAttributes]];
     [tapString appendAttributedString:[[NSAttributedString alloc]initWithString:@" To Begin." attributes:standardAttributes]];
 
+    self.view.backgroundColor = [UIColor blackColor];
     self.welcomeLabel1.textColor = [VBColor translucsentTextColor];
     self.welcomeLabel2.textColor = [VBColor activeColor];
     [self.welcomeLabel3 setAttributedText:tapString];
 }
 
 - (IBAction)onTap:(id)sender {
-//    [[VBInputSourceManager manager] startListening];
-    [self.rootController renderViewControllerWithClass:VBCaptionController.class];
+    [[VBInputSourceManager manager] startListening];
+    [self.rootController switchToAppState:APP_STATE_CAPTION removeWelcomeSplash:YES animate:YES];
 }
 
 @end

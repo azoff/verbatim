@@ -16,4 +16,14 @@
     return (VBRootController *)self.parentViewController;
 }
 
+-(void)onRootMadeActive
+{
+    // implement in parent class
+}
+
+-(void)onRootViewDidLoad
+{
+    // implement in parent class
+}
+
 @end
