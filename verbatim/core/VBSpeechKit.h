@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <SpeechKit/SpeechKit.h>
 
+typedef void(^VBSpeechKitResultBlock)(SKRecognition *);
+
 @interface VBSpeechKit : NSObject
 
-+(void)setupWithDelegate:(id<SpeechKitDelegate>)delegate;
++(instancetype)kit;
+-(void)startListeningWithBlock:(VBSpeechKitResultBlock)block;
+-(void)stopListening;
 
 @end

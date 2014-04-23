@@ -26,6 +26,7 @@ extern NSString* VBUserEventSourceChanged;
 
 @property (nonatomic, readonly) NSString* label;
 @property (nonatomic, readonly) BOOL isListeningToSelf;
+@property (nonatomic, readonly) BOOL isNotListeningToSelf;
 
 +(instancetype)userWithDictionary:(NSDictionary *)dictionary;
 +(void)setupCurrentUser;
