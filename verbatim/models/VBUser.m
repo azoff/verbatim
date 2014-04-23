@@ -34,6 +34,11 @@ VBUser* currentUser;
     return [self isEqualObject:self.source];
 }
 
+-(BOOL)isNotListeningToSelf
+{
+    return ![self isListeningToSelf];
+}
+
 -(void)listenerCountWithSuccess:(void (^)(int))success
                      andFailure:(void (^)(NSError*))failure
 {
