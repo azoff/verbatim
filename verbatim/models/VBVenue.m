@@ -19,6 +19,7 @@
 @dynamic foursquareID;
 @dynamic name;
 @dynamic address;
+@dynamic geoPoint;
 @synthesize distance;
 
 
@@ -56,6 +57,10 @@
 {
     
     // get the user count
+    if (self.objectId == nil) {
+        success(0);
+        return;
+    }
     [[self checkedInUsersQuery] countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
         if (error) failure(error);
         else success(number);
@@ -70,7 +75,19 @@
     instance.foursquareID = dictionary[@"id"];
     instance.address = dictionary[@"location"][@"address"];
     instance.distance = dictionary[@"location"][@"distance"];
+    if (dictionary[@"location"][@"lat"] && dictionary[@"location"][@"lng"]) {
+        CGFloat lat = [dictionary[@"location"][@"lat"] floatValue];
+        CGFloat lng = [dictionary[@"location"][@"lng"] floatValue];
+        instance.geoPoint = [PFGeoPoint geoPointWithLatitude:lat longitude:lng];
+    }
     return instance;
+}
+
++(NSArray*)venuesNearBy:(CLLocation *)location
+{
+    PFQuery *query = [VBVenue query];
+    [query whereKey:@"geoPoint" nearGeoPoint:[PFGeoPoint geoPointWithLocation:location] withinKilometers:0.5];
+    return [query findObjects];
 }
 
 @end
