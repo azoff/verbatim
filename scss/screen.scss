@@ -168,8 +168,7 @@ footer {
 }
 
 #state-find-venue {
-	margin: 0 auto;
-	width: 320px - (2*$size-unit);
+	margin: 0 $size-unit;
 	label {
 		line-height: 2.2;
 	}
