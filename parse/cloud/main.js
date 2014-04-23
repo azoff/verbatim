@@ -23,20 +23,11 @@ function findOrCreateFoursquareObject(classname, properties) {
 	});
 }
 
-function publishUserCaption(user, caption) {
-	return createObject("VBPubSub", {
-		channel: "User"+user.get('foursquareID'),
-		data: { caption: caption }
-	});
-}
-
-Parse.Cloud.define('send_caption', function(request, response){
+Parse.Cloud.define('check_in', function(request, response){
 	var venue   = request.params.venue;
 	var user    = request.params.user;
-	var caption = request.params.caption;
 	if (!user    || !user.id)        return response.error("Invalid user param");
 	if (!venue   || !venue.id)       return response.error("Invalid venue param");
-	if (!caption || !caption.length) return response.error("Invalid caption param");
 	findOrCreateFoursquareObject('VBVenue', {
 		foursquareID: venue.id,
 		name: venue.name,
@@ -49,9 +40,19 @@ Parse.Cloud.define('send_caption', function(request, response){
 			lastName: user.lastName,
 			canonical: true,
 			venue: venue
-		}).then(function(user){
-			return publishUserCaption(user, caption).
-				then(response.success, response.error);
-		}, response.error)
+		}).then(response.success, response.error)
 	}, response.error);
+});
+
+Parse.Cloud.define('check_out', function(request, response){
+	var user    = request.params.user;
+	if (!user    || !user.id)        return response.error("Invalid user param");
+	findOrCreateFoursquareObject('VBUser', {
+		foursquareID: user.id,
+		name: user.name,
+		firstName: user.firstName,
+		lastName: user.lastName,
+		canonical: true,
+		venue: null
+	}).then(response.success, response.error)
 });

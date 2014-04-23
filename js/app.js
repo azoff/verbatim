@@ -1,4 +1,4 @@
-(function($, body, geo, Parse){
+(function($, body, geo, Parse, Firebase){
 
 	"use strict";
 
@@ -14,6 +14,7 @@
 	$('#venue-form').submit(findVenues);
 	$('#caption-form').submit(checkCaptionSubmission);
 
+	var PubSubUser, PubSub = new Firebase('https://blazing-fire-9021.firebaseio.com/users');
 	Parse.initialize("Y3hSYuF2y9tzwgyaBGtu0IKSSLgNPyFX8QRaUo00", "RtAhaq1EZavaifdetmMePZwIGZ37tGMrCWwtKbdl");
 	$.Marelle('EP5PE0WLZIMC4NUMM1IY2J00BE43XULPCEFEU11MDHJ15MP3').then(init, showApiError);
 
@@ -42,14 +43,32 @@
 	}
 
 	function toggleVenue(event) {
-		var venue = $(event.currentTarget);
-		venue.siblings().toggleClass('visible');
-		body.toggleClass('selected');
-		if (body.hasClass('selected')) {
-			selectedVenue = venue.data();
-		} else {
-			selectedVenue = null;
-		}
+
+		var target   = $(event.currentTarget);
+		var selected = body.hasClass('selected');
+		var method   = selected ? 'check_out' : 'check_in';
+		var venue    = selected ? null : target.data();
+		var job      = $.Deferred();
+		var params   = { user: user, venue: venue };
+		var handlers = { success: job.resolve, error: job.reject };
+
+		toggleLoader(true);
+
+		Parse.Cloud.run(method, params, handlers);
+
+		job.then(function(){
+			if (selectedVenue = venue)
+				PubSubUser = PubSub.child(user.id);
+			target.siblings().toggleClass('visible');
+			body.toggleClass('selected');
+		}, function(){
+			showNotification('error', 'Unable to ' + method.replace('_', ' ') + ', please try again.');
+		});
+
+		job.always(function(){
+			toggleLoader(false);
+		});
+
 	}
 
 	function checkCaptionSubmission(event) {
@@ -72,27 +91,16 @@
 	function submitCaption(caption) {
 		updateStatus('Submitting caption...');
 		captionField.val('');
-		var job = $.Deferred();
-		var params = { user: user, venue: selectedVenue, caption: caption };
-		Parse.Cloud.run('send_caption', params, {
-			success: job.resolve,
-			error: job.reject
+		PubSubUser.push(caption, function(error){
+			if (error) showCaptionError();
+			else updateStatus('Caption sent!');
+			captionField.prop('disabled', false);
 		});
-		job.then(captionSent, showCaptionError);
-		job.always(captionDone);
 	}
 
 	function showCaptionError() {
 		showNotification('error', 'Unable to communicate with our servers, please try again later');
 		updateStatus('An error occurred.');
-	}
-
-	function captionSent() {
-		updateStatus('Caption sent!');
-	}
-
-	function captionDone() {
-		captionField.prop('disabled', false);
 	}
 
 	function requireLocation() {
@@ -231,4 +239,4 @@
 		body.addClass('ready');
 	}
 
-})(jQuery, jQuery(document.body), navigator.geolocation, Parse);
+})(jQuery, jQuery(document.body), navigator.geolocation, Parse, Firebase);
