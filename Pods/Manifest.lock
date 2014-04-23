@@ -19,19 +19,25 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AKLocationManager (1.0.3)
+  - Facebook-iOS-SDK (3.13.1)
+  - Firebase (1.0.9)
   - Foursquare-API-v2 (1.4.4)
   - MBProgressHUD (0.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - AKLocationManager (~> 1.0)
+  - Facebook-iOS-SDK (~> 3.13)
+  - Firebase (~> 1.0.0)
   - Foursquare-API-v2 (~> 1.4)
   - MBProgressHUD (~> 0.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 0121f4b69be3fa58d1ab317866e036e12ac9651d
   AKLocationManager: c2c1c8eecd37c2b9193cb7803db999bcc518315c
+  Facebook-iOS-SDK: 0d121e16437981fabff9379e07bf646bd5ab245c
+  Firebase: f88860bb05fde375a236bab7182ecc4e02fe5c93
   Foursquare-API-v2: cb5609c318903a4d80a58d7d476298362e889a9b
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

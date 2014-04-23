@@ -41,6 +41,7 @@ install_resource()
       ;;
   esac
 }
+install_resource "Facebook-iOS-SDK/src/FBUserSettingsViewResources.bundle"
 install_resource "Foursquare-API-v2/Foursquare2/pin.png"
 install_resource "Foursquare-API-v2/Foursquare2/pin@2x.png"
 install_resource "Foursquare-API-v2/Foursquare2/poweredByFoursquare_gray.png"
