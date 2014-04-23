@@ -24,6 +24,7 @@ extern NSString * VBFoursquareAuthorizeErrorAttributeName;
 + (BOOL)handleURL:(NSURL *)url;
 
 +(void)venuesNearbyWithSuccess:(void(^)(NSArray*))success
+                    andCoalese:(void(^)(NSArray*))parseSuccess
                     andFailure:(void(^)(NSError*))failure;
 
 +(void)currentUserDetailsWithSuccess:(void(^)(VBUser*))success

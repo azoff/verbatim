@@ -72,15 +72,20 @@ NSString * const CALLBACK_URL  = @"verbatim://foursquare";
 }
 
 +(void)venuesNearbyWithSuccess:(void(^)(NSArray*))success
+                    andCoalese:(void(^)(NSArray*))parseSuccess
                     andFailure:(void(^)(NSError*))failure
 {
     [AKLocationManager startLocatingWithUpdateBlock:^(CLLocation *location) {
         [Foursquare2 venueSearchNearByLatitude:@(location.coordinate.latitude) longitude:@(location.coordinate.longitude) query:nil limit:@50 intent:intentCheckin radius:@500 categoryId:nil
                                       callback:^(BOOL found, id result) {
-                                          if (found)
+                                          if (found) {
                                               [self convertResult:result toVenuesWithBlock:success];
-                                          else
+
+                                              parseSuccess([VBVenue venuesNearBy:location]);
+                                              
+                                          } else {
                                               failure(result);
+                                          }
                                       }];
     } failedBlock:failure];
 }

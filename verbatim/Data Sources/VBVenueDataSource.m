@@ -36,6 +36,11 @@
     [VBFoursquare venuesNearbyWithSuccess:^(NSArray *venues) {
         self.venues = venues;
         done(nil);
+    } andCoalese:^(NSArray *parseVenues) {
+        NSMutableSet *venueSet = [NSMutableSet setWithArray:self.venues];
+        [venueSet addObjectsFromArray:parseVenues];
+        self.venues = [venueSet allObjects];
+        done(nil);
     } andFailure:^(NSError *error) {
         done(error);
     }];
