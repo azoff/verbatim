@@ -7,6 +7,7 @@
 //
 
 #import "VBUser.h"
+#import "VBPubSub.h"
 #import <Parse/PFObject+Subclass.h>
 
 NSString* VBUserDefaultLabel = @"Microphone";
@@ -14,6 +15,7 @@ NSString* VBUserEventSourceChanged = @"VBUserEventSourceChanged";
 NSString* VBUserEventCurrentUserAdded   = @"VBUserEventCurrentUserAdded";
 NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
+NSString* VBUserEventCheckedOut         = @"VBUserEventCheckedOut";
 
 VBUser* currentUser;
 
@@ -58,65 +60,118 @@ VBUser* currentUser;
                 success:(void(^)(VBUser*))success
                 failure:(void(^)(NSError*))failure;
 {
-    // validate user
-    if ([self.class.currentUser foursquareID] != self.foursquareID) {
-        [NSException raise:@"Invalid User Access" format:@"Only allowed to change venue for current user"];
-    }
     
     // exit early if no change
-    if ([venue.foursquareID isEqualToString:[self.venue foursquareID]] && self.objectId) {
+    if ([venue isEqualObject:self.venue] && self.objectId) {
         success(self);
         return;
     }
-    
-    // check in on foursquare
-    [VBFoursquare checkInWithVenue:venue success:^(VBVenue *venue) {
-        // create the venue on parse
-        [venue upsertWithSuccess:^(id venue) {
-            // save the venu to the user
-            self.venue = venue;
-            [self upsertWithSuccess:^(id user) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCheckedIn object:self userInfo:@{@"venue": venue}];
-                success(user);
+
+    // (1) check out, if currently checked in
+    [self checkOutWithSuccess:^(VBUser *user) {
+        
+        // (2) check in on foursquare
+        [VBFoursquare checkInWithVenue:venue success:^(VBVenue *venue) {
+            
+            // (3) create the venue on parse
+            [venue upsertWithSuccess:^(VBVenue *venue) {
+                
+                // (4) save the venu to the user
+                self.venue = venue;
+                [self upsertWithSuccess:^(VBUser *user) {
+                    
+                    // (5) publish on Firebase
+                    [VBPubSub publishNewUser:user atVenue:venue success:^(Firebase *ref) {
+                        
+                        // (6) publish locally
+                        [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCheckedIn object:self userInfo:@{@"venue": venue}];
+                        success(user);
+                        
+                    } failure:failure];
+                } andFailure:failure];
             } andFailure:failure];
-        } andFailure:failure];
-    } failure:failure];
+        } failure:failure];
+    } andFailure:failure];
+    
 }
 
 -(void)checkOutWithSuccess:(void (^)(VBUser *))success
                 andFailure:(void (^)(NSError *))failure
 {
+    
+    // exit early if already reset
     if (!self.venue && !self.canonical && !self.source && self.objectId) {
         success(self);
         return;
     }
-    self.source    = nil;
-    self.venue     = nil;
-    self.canonical = false;
-    [self upsertWithSuccess:success andFailure:failure];
+    
+    void(^reset)(id) = ^(id result){
+        
+        // (2) remove the user's source, since it is no longer applicable
+        [self saveSourceWithUser:nil success:^(VBUser *user) {
+            
+            // (3) update the user internals to represent the checked out state
+            self.venue     = nil;
+            self.canonical = false;
+            [self upsertWithSuccess:^(VBUser *user) {
+                
+                // (4) delete any captions the user has
+                [VBPubSub deleteChannelWithUser:user success:^(Firebase *ref) {
+                    
+                    // (5) publish locally
+                    [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCheckedOut object:self userInfo:nil];
+                    success(self);
+                    
+                } failure:failure];
+            } andFailure:failure];
+        } failure:failure];
+    };
+    
+    // (1) publish checkout if the user is checked in
+    if (!self.venue) reset(nil);
+    else [self.venue fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+        if (error) failure(error);
+        else [VBPubSub redactExistingUser:self fromVenue:self.venue success:reset failure:failure];
+    }];
+    
 }
 
--(void)saveSourceWithUser:(VBUser *)user
+-(void)saveSourceWithUser:(VBUser *)source
                 success:(void(^)(VBUser*))success
                 failure:(void(^)(NSError*))failure;
 {
-    // validate user
-    if ([self.class.currentUser foursquareID] != self.foursquareID) {
-        [NSException raise:@"Invalid User Access" format:@"Only allowed to change source for current user"];
-    }
     
     // exit early if no change
-    if ([user isEqualObject:self.source] && self.objectId) {
+    if ([source isEqualObject:self.source] && self.objectId) {
         success(self);
         return;
     }
     
-    // save the source to the user
-    self.source = user;
-    [self upsertWithSuccess:^(id user) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventSourceChanged object:self userInfo:@{@"source": user}];
-        success(user);
-    } andFailure:failure];
+    void(^notifySourceChange)(id) = ^(id ref){
+        // (4) finally, publish locally
+        [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventSourceChanged object:self userInfo:@{@"source": self}];
+        success(self);
+    };
+    
+    void(^updateSource)(id) = ^(id ref){
+        
+        // (2) save the source ref change to the user
+        BOOL validSource = source && ![source isEqualObject:self];
+        if (validSource) self[@"source"] = source;
+        else [self removeObjectForKey:@"source"];
+        [self upsertWithSuccess:^(VBUser *user) {
+            
+            // (3) check if we're adding a new source, if so, publish
+            if (!validSource) notifySourceChange(user);
+            else [VBPubSub publishNewListener:self toSource:source success:notifySourceChange failure:failure];
+            
+        } andFailure:failure];
+    };
+    
+    // (1) make sure we don't have a current source
+    if (!self.source) updateSource(nil);
+    else [VBPubSub redactExistingListener:self fromSource:self.source success:updateSource failure:failure];
+    
 }
 
 -(NSString *)label
@@ -149,14 +204,6 @@ VBUser* currentUser;
 {
     id source = self[@"source"];
     return source ? source : self;
-}
-
--(void)setSource:(VBUser *)source
-{
-    if (source == nil)
-        [self removeObjectForKey:@"source"];
-    else if (![self.source isEqualObject:source])
-        self[@"source"] = source;
 }
 
 +(NSString *)parseClassName
@@ -201,9 +248,11 @@ VBUser* currentUser;
         [center postNotificationName:VBUserEventCurrentUserRemoved object:self];
     } else {
         [VBFoursquare currentUserDetailsWithSuccess:^(VBUser *user) {
-            [user upsertWithSuccess:^(VBUser *_user) {
-                currentUser = _user;
-                [center postNotificationName:VBUserEventCurrentUserAdded object:self];
+            [user upsertWithSuccess:^(VBUser *user) {
+                [user checkOutWithSuccess:^(VBUser *user) {
+                    currentUser = user;
+                    [center postNotificationName:VBUserEventCurrentUserAdded object:self];
+                } andFailure:failure];
             } andFailure:failure];
         } andFailure:failure];
     }

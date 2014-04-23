@@ -14,6 +14,7 @@
 @interface VBInputSourceManager ()
 
 @property (nonatomic) FirebaseHandle pubSubHandle;
+@property (nonatomic) VBUser *lastSource;
 
 @end
 
@@ -61,15 +62,21 @@ NSString *const VBInputSourceManagerEventCaptionProcessing = @"VBInputSourceMana
 
 - (void)didChangeInputSource
 {
-    [VBPubSub unsubscribeFromHandle:self.pubSubHandle];
+    if (self.lastSource) {
+        [VBPubSub unsubscribeFromUser:self.lastSource handle:self.pubSubHandle];
+        self.lastSource = nil;
+    }
+    
     VBUser *user = [VBUser currentUser];
     if ([user isNotListeningToSelf]) {
-        self.pubSubHandle = [VBPubSub subscribeToUser:user.source success:^(NSString *caption) {
+        self.pubSubHandle = [VBPubSub subscribeToUserCaptionAdditions:user.source success:^(NSString *caption) {
+            self.lastSource = user.source;
             [self postCaption:caption];
         } failure:^(NSError *error) {
             [VBHUD showWithError:error];
         }];
     }
+    
 }
 
 -(void)postCaption:(NSString *)caption {
@@ -85,10 +92,10 @@ NSString *const VBInputSourceManagerEventCaptionProcessing = @"VBInputSourceMana
     id caption = results.firstObject;
     if (caption == nil) return;
     id current = [VBUser currentUser];
-    if ([current isListeningToSelf])
+    if (!current || [current isListeningToSelf])
         [self postCaption:caption];
     if ([current isCheckedIn])
-        [VBPubSub publishCaption:caption user:current success:nil failure:^(NSError * error) {
+        [VBPubSub publishNewCaption:caption fromUser:current success:nil failure:^(NSError *error) {
             [VBHUD showWithError:error];
         }];
 }

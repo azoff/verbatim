@@ -437,28 +437,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 }
 
 - (BOOL)regexValidateIdentifier:(NSString *)identifier {
-
-    if (!self.eventNameRegex) {
-
-        // Event name must only have 0-9A-Za-z, underscore, hyphen, and space (but no hyphen or space in the first position).
-        NSString *regex = @"^[0-9a-zA-Z_]+[0-9a-zA-Z _-]*$";
-
-        NSError *regexError;
-        self.eventNameRegex = [NSRegularExpression regularExpressionWithPattern:regex
-                                                                        options:nil
-                                                                          error:&regexError];
-        self.validatedIdentifiers = [[[NSMutableSet alloc] init] autorelease];
-    }
-
-    if (![self.validatedIdentifiers containsObject:identifier]) {
-        NSUInteger numMatches = [self.eventNameRegex numberOfMatchesInString:identifier options:nil range:NSMakeRange(0, identifier.length)];
-        if (numMatches > 0) {
-            [self.validatedIdentifiers addObject:identifier];
-        } else {
-            return NO;
-        }
-    }
-
     return YES;
 }
 
@@ -850,64 +828,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 - (void)handleActivitiesPostCompletion:(NSError *)error
                           loggingEntry:(NSString *)loggingEntry
                                session:(FBSession *)session {
-
-    typedef enum {
-        FlushResultSuccess,
-        FlushResultServerError,
-        FlushResultNoConnectivity
-    } FlushResult;
-
-    [FBAppEvents ensureOnMainThread];
-
-    FlushResult flushResult = FlushResultSuccess;
-    if (error) {
-
-        NSInteger errorCode = [[[error userInfo] objectForKey:FBErrorHTTPStatusCodeKey] integerValue];
-
-        // We interpret a 400 coming back from FBRequestConnection as a server error due to improper data being
-        // sent down.  Otherwise we assume no connectivity, or another condition where we could treat it as no connectivity.
-        flushResult = errorCode == 400 ? FlushResultServerError : FlushResultNoConnectivity;
-    }
-
-    FBSessionAppEventsState *appEventsState = session.appEventsState;
-    BOOL allEventsAreImplicit = YES;
-    @synchronized (appEventsState) {
-        if (flushResult != FlushResultNoConnectivity) {
-            for (NSDictionary *eventAndImplicitFlag in appEventsState.inFlightEvents) {
-                if (![eventAndImplicitFlag[kFBAppEventIsImplicit] boolValue]) {
-                    allEventsAreImplicit = NO;
-                    break;
-                }
-            }
-
-            // Either success or a real server error.  Either way, no more in flight events.
-            [appEventsState clearInFlightAndStats];
-        }
-
-        appEventsState.requestInFlight = NO;
-    }
-
-    if (flushResult == FlushResultServerError) {
-        [FBAppEvents logAndNotify:[error description] allowLogAsDeveloperError:!allEventsAreImplicit];
-    }
-
-    NSString *resultString = @"<unknown>";
-    switch (flushResult) {
-        case FlushResultSuccess:
-            resultString = @"Success";
-            break;
-
-        case FlushResultNoConnectivity:
-            resultString = @"No Connectivity";
-            break;
-
-        case FlushResultServerError:
-            resultString = [NSString stringWithFormat:@"Server Error - %@", [error description]];
-            break;
-    }
-
-    [FBLogger singleShotLogEntry:FBLoggingBehaviorAppEvents
-                    formatString:@"%@\nFlush Result : %@", loggingEntry, resultString];
 }
 
 
@@ -1029,7 +949,7 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 }
 
 + (void)logAndNotify:(NSString *)msg {
-    [FBAppEvents logAndNotify:msg allowLogAsDeveloperError:YES];
+
 }
 
 #pragma mark - event log persistence

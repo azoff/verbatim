@@ -7,10 +7,17 @@
 //
 
 #import "VBUserDataSource.h"
+#import "VBPubSub.h"
+
+typedef void(^VBUserDataSourceHandle)(NSError*);
 
 @interface VBUserDataSource()
 
-@property (nonatomic) NSArray *users;
+@property (nonatomic, strong) NSMutableDictionary *users;
+@property (nonatomic, strong) NSMutableArray *objectIds;
+@property (nonatomic) FirebaseHandle onRemoval;
+@property (nonatomic) FirebaseHandle onAddition;
+@property (nonatomic, strong) VBUserDataSourceHandle onUpdate;
 
 @end
 
@@ -18,7 +25,9 @@
 
 -(id)init
 {
-    self.users = @[];
+    self.objectIds = [NSMutableArray array];
+    self.users = [NSMutableDictionary dictionary];
+    self.onUpdate = nil;
     return self;
 }
 
@@ -32,31 +41,104 @@
     return self;
 }
 
--(void)reloadWithError:(void(^)(NSError*))done
+- (void)addUser:(VBUser*)user withId:(NSString *)objectId
+{
+    [self.users setValue:user forKey:objectId];
+    [self.objectIds addObject:objectId];
+    if (self.onUpdate) self.onUpdate(nil);
+}
+
+- (void)removeUserById:(NSString*)objectId
+{
+    [self.users removeObjectForKey:objectId];
+    [self.objectIds removeObject:objectId];
+    if (self.onUpdate) self.onUpdate(nil);
+}
+
+- (void)removeAllUsers
+{
+    [self.users removeAllObjects];
+    [self.objectIds removeAllObjects];
+    if (self.onUpdate) self.onUpdate(nil);
+}
+
+- (VBUser *)userById:(NSString*)objectId
+{
+    return [self.users valueForKey:objectId];
+}
+
+- (VBUser *)userByIndex:(NSUInteger)objectIndex
+{
+    return [self userById:self.objectIds[objectIndex]];
+}
+
+-(void)setVenue:(VBVenue *)venue
 {
     if (self.venue) {
-        [self.venue checkedInUsersWithSuccess:^(NSArray *users) {
-            self.users = users;
-            done(nil);
-        } andFailure:^(NSError *error) {
-            done(error);
-        }];
-    } else {
-        // if no venue, populate with current user
-        self.users = @[[VBUser currentUser]];
-        done(nil);
+        [VBPubSub unsubscribeFromVenue:self.venue handle:self.onAddition];
+        [VBPubSub unsubscribeFromVenue:self.venue handle:self.onRemoval];
     }
+    
+    _venue = venue;
+    
+    [self removeAllUsers];
+    VBUser *user = [VBUser currentUser];
+    if (user) [self addUser:user withId:user.objectId];
+    
+    if (!self.venue) return;
+    
+    self.onAddition = [VBPubSub subscribeToVenueUserAdditions:venue success:^(id objectId) {
+        [self didAddUserObjectId:objectId];
+    } failure:^(NSError *error) {
+        [self didReceiveError:error];
+    }];
+    
+    self.onRemoval = [VBPubSub subscribeToVenueUserDeletions:venue success:^(id objectId) {
+        [self didRemoveUserObjectId:objectId];
+    } failure:^(NSError *error) {
+        [self didReceiveError:error];
+    }];
+    
+}
+
+- (void)didReceiveError:(NSError *)error
+{
+    if (self.onUpdate) self.onUpdate(error);
+}
+
+- (void)didAddUserObjectId:(NSString *)objectId
+{
+    if ([self userById:objectId])
+        return;
+    [VBUser objectCachedInBackgroundWithId:objectId success:^(VBUser* user) {
+        if (user && ![self userById:objectId])
+            [self addUser:user withId:objectId];
+    } failure:^(NSError *error) {
+        [self didReceiveError:error];
+    }];
+}
+
+- (void)didRemoveUserObjectId:(NSString *)objectId
+{
+    if (![self userById:objectId]) return;
+    [self removeUserById:objectId];
+}
+
+-(void)observeUpdateWithBlock:(VBUserDataSourceHandle)onUpdate
+{
+    self.onUpdate = onUpdate;
+    onUpdate(nil);
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.users.count;
+    return self.objectIds.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id cell  = [tableView dequeueReusableCellWithIdentifier:self.cellReuseIdentifier];
-    id user = [self.users objectAtIndex:indexPath.row];
+    id user = [self userByIndex:indexPath.row];
     [cell setUser:user];
     return cell;
 }
