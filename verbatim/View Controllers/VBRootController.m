@@ -57,12 +57,12 @@
     }
     if (!(self.appState == APP_STATE_INPUTSOURCE)) {
         // move InputSource away again
-        self.inputSourceView.transform = CGAffineTransformMakeTranslation(300.0,0);
+        self.inputSourceView.transform = CGAffineTransformMakeTranslation(320.0,0);
         self.inputSourceView.alpha = 0.5;
     }
     if (!(self.appState == APP_STATE_CHECKIN)) {
         // move checkin state away
-        self.checkinView.transform = CGAffineTransformMakeTranslation(-300.0,0);
+        self.checkinView.transform = CGAffineTransformMakeTranslation(-320.0,0);
         self.checkinView.alpha = 0.5;
     }
     if (!(self.appState == APP_STATE_WELCOME)) {
