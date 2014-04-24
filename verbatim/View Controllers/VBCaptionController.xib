@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBCaptionController">
             <connections>
+                <outlet property="cameraContainer" destination="CM8-ij-Ba2" id="0cz-4Z-a8U"/>
                 <outlet property="cameraImageView" destination="HPa-IH-ooJ" id="Air-04-nIN"/>
                 <outlet property="cameraView" destination="Mh2-pV-pfO" id="c3u-jg-UMQ"/>
                 <outlet property="captionLabel" destination="HhB-VD-WDU" id="ZjB-y0-zhw"/>
@@ -21,11 +22,16 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mh2-pV-pfO" userLabel="CameraView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CM8-ij-Ba2" userLabel="CameraContainer">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPa-IH-ooJ">
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mh2-pV-pfO" userLabel="CameraView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPa-IH-ooJ" userLabel="StillCameraView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
@@ -93,20 +99,12 @@
             <color key="backgroundColor" red="0.270588249" green="0.84313732389999996" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Mh2-pV-pfO" secondAttribute="trailing" id="1w1-1N-UVt"/>
                 <constraint firstAttribute="bottom" secondItem="ChQ-hJ-MUQ" secondAttribute="bottom" id="2KL-W8-fnh"/>
-                <constraint firstItem="Mh2-pV-pfO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3FU-Kf-KZf"/>
-                <constraint firstAttribute="bottom" secondItem="Mh2-pV-pfO" secondAttribute="bottom" id="3xv-9z-omN"/>
                 <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Ec-VW-xCt"/>
                 <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7Ju-Wv-dLw"/>
-                <constraint firstAttribute="bottom" secondItem="Mh2-pV-pfO" secondAttribute="bottom" id="A3O-ss-HCz"/>
-                <constraint firstItem="Mh2-pV-pfO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NDL-VG-thr"/>
-                <constraint firstAttribute="trailing" secondItem="Mh2-pV-pfO" secondAttribute="trailing" id="OgN-P7-vnb"/>
                 <constraint firstAttribute="trailing" secondItem="ChQ-hJ-MUQ" secondAttribute="trailing" id="QRV-7x-Z9Y"/>
-                <constraint firstItem="Mh2-pV-pfO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wwi-1N-j3W"/>
                 <constraint firstItem="HhB-VD-WDU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="f3J-1t-gL1"/>
                 <constraint firstAttribute="trailing" secondItem="HhB-VD-WDU" secondAttribute="trailing" constant="10" id="sd8-JI-Jig"/>
-                <constraint firstItem="Mh2-pV-pfO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vZO-Qi-oot"/>
                 <constraint firstAttribute="bottom" secondItem="HhB-VD-WDU" secondAttribute="bottom" constant="20" id="zaE-XS-aNc"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

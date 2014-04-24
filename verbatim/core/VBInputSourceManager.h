@@ -12,6 +12,7 @@
 
 // notifications you can subscribe to
 extern NSString *const VBInputSourceManagerEventCaptionReceived;
+extern NSString *const VBInputSourceManagerEventCaptionProcessing;
 
 +(instancetype)manager;
 

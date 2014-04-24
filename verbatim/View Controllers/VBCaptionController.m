@@ -10,6 +10,7 @@
 #import "VBInputSourceManager.h"
 #import "VBCheckinController.h"
 #import "VBFont.h"
+#import "VBPubSub.h"
 #import <AVFoundation/AVFoundation.h>
 
 
@@ -39,11 +40,17 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 @property (weak, nonatomic) IBOutlet UIView *historyView;
 
+@property (nonatomic,assign) BOOL inSimulator;
+@property (weak, nonatomic) IBOutlet UIView *cameraContainer;
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
+@property (strong,nonatomic) AVCaptureStillImageOutput *stillImageOutput;
+
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
 
 @property (strong,nonatomic) NSString *captionHistory;
+
+@property (nonatomic) FirebaseHandle imagePubSubHandle;
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
@@ -55,12 +62,6 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 // returns YES if a camera was detected and added, NO if not (for simulator)
 - (BOOL)setupCameraCaptureSession {
     
-    /*
-     // add the following line below if we might want to capture a still frame from the camera
-     // every now and then, e.g. for broadcast to listeners with caption
-     AVCaptureOutput *output = [[AVCaptureStillImageOutput alloc] init];
-    [session addOutput:output];*/
-    
     // if we've already setup the cameraCaptureSession, let's return now as we only want
     // to do this once. This is also why it wasn't lazy instantiated.
     if (self.cameraCaptureSession) {
@@ -69,19 +70,19 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     self.cameraCaptureSession = [[AVCaptureSession alloc] init];
     
     //Setup camera input
-    NSArray *possibleDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    
-    if (possibleDevices.count == 0) {
+    AVCaptureDevice *device = [self frontFacingCameraIfAvailable];
+    if (!device) {
+        self.inSimulator = YES;
         // when in simulator just display an image.
         self.cameraImageView.image = [UIImage imageNamed:@"TigerTalk"];
         self.cameraImageView.hidden = NO;
+        self.cameraView.hidden = YES;
         return NO;
     } else {
+        self.inSimulator = NO;
         // hide the image view
         self.cameraImageView.hidden = YES;
     }
-    //You could check for front or back camera here, but for simplicity just grab the first device
-    AVCaptureDevice *device = [possibleDevices objectAtIndex:0];
     NSError *error = nil;
     
     // create an input and add it to the session
@@ -102,8 +103,99 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     // and add this layer to the camera view
     [self.cameraView.layer addSublayer:previewLayer];
+    
+    // setup still image capture from camera
+    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    [self.stillImageOutput setOutputSettings:outputSettings];
+    [self.cameraCaptureSession addOutput:self.stillImageOutput];
+    
     [self.cameraCaptureSession startRunning];
     return YES;
+}
+
+// Find front camera, return nil if no cameras, or 
+-(AVCaptureDevice *) frontFacingCameraIfAvailable{
+    NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    
+    if (videoDevices.count == 0) {
+        return nil;
+    }
+    
+    for (AVCaptureDevice *device in videoDevices){
+        if (device.position == AVCaptureDevicePositionFront){
+            return device;
+        }
+    }
+    //  couldn't find one on the front, so just get the default video device.
+    return [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+}
+
+-(void)captureStillImageDataFromCameraOnComplete:(void(^)(NSData *))complete {
+    if (self.inSimulator) {
+        UIImage *image = self.cameraImageView.image;
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
+        return complete(imageData);
+    }
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) { break; }
+    }
+    
+    NSLog(@"about to request a capture from: %@", self.stillImageOutput);
+    
+    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+        
+        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+        complete(imageData);
+    }];
+}
+
+
+/*-(void)displayStillCameraWithImageData:(NSData *)imageData
+{
+    NSLog(@"Setting still image");
+    self.cameraImageView.hidden = NO;
+    self.cameraView.hidden = YES;
+    
+   
+    self.cameraImageView.image = image;
+    
+    VBUser *current = [VBUser currentUser];
+    if ([current isCheckedIn]) {
+        NSLog(@"User checked in so publishing image data");
+        [VBPubSub publishImageData:nil user:[VBUser currentUser] success:nil failure:^(NSError * error) {
+            [VBHUD showWithError:error];
+        }];
+    } else {
+        NSLog(@"User not checked in so not publishing data");
+    }
+
+}*/
+
+- (void)onProcessingCaption {
+    NSLog(@"onProcessing caption - should get a screen grab of front facing camera");
+    [self captureStillImageDataFromCameraOnComplete:^(NSData *imageData) {
+        NSLog(@"Got image data");
+        // processing...
+        
+        VBUser *current = [VBUser currentUser];
+        if ([current isCheckedIn]) {
+            NSLog(@"onProcessingCaption: User checked in so publishing image data");
+            [VBPubSub publishImageData:imageData user:[VBUser currentUser] success:nil failure:^(NSError * error) {
+                [VBHUD showWithError:error];
+            }];
+        } else {
+            NSLog(@"onProcessingCaption: User not checked in so not publishing data");
+        }
+        
+    }];
 }
 
 -(NSArray *)captions
@@ -134,7 +226,16 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
          NSLog(@"Caption controller received notification: %@",notification.userInfo[@"caption"]);
          self.caption = notification.userInfo[@"caption"];
      }];
-    
+    // subscribe to channel for debug listening
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:VBInputSourceManagerEventCaptionProcessing
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *notification) {
+         NSLog(@"Caption controller received processing notification: %@",notification.userInfo[@"caption"]);
+         [self onProcessingCaption];
+     }];
+        
     self.view.backgroundColor = [UIColor blackColor];
     self.presentationMode = PM_CAPTION_CAMERA;
     
@@ -150,7 +251,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     _presentationMode = presentationMode;
     
     if (self.presentationMode == PM_CAPTION_FULLTEXT) {
-        self.cameraView.layer.opacity = 0;
+        self.cameraContainer.layer.opacity = 0;
         self.captionLabel.layer.opacity = 0;
         self.historyView.layer.opacity = 1;
         
@@ -168,7 +269,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
         layer.shadowRadius = 5.0;
         layer.shadowOffset = (CGSize){.width=0.0,.height=0.0};
         
-        self.cameraView.layer.opacity = 1;
+        self.cameraContainer.layer.opacity = 1;
         
         self.captionLabel.transform = CGAffineTransformIdentity;
         self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,-VBCaptionControllerTransitionDistance);
@@ -268,6 +369,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     // Dispose of any resources that can be recreated.
 }
 
+
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint point = [panGestureRecognizer locationInView:self.view];
     
@@ -288,7 +390,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
                 dest_perc = 0.0;
             }
             // fade the camera...
-            self.cameraView.layer.opacity = 1 - dest_perc;
+            self.cameraContainer.layer.opacity = 1 - dest_perc;
             self.captionLabel.layer.opacity = 1 - dest_perc;
             self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-dest_perc * VBCaptionControllerTransitionDistance);
             self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(1-dest_perc) * VBCaptionControllerTransitionDistance);
@@ -297,7 +399,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
             if (travelled < 0) {
                 dest_perc = 0.0;
             }
-            self.cameraView.layer.opacity = dest_perc;
+            self.cameraContainer.layer.opacity = dest_perc;
             self.captionLabel.layer.opacity = dest_perc;
             self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-(1-dest_perc) * VBCaptionControllerTransitionDistance);
             self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(dest_perc) * VBCaptionControllerTransitionDistance);

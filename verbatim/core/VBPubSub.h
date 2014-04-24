@@ -13,6 +13,11 @@
 
 +(void)publishCaption:(NSString *)caption user:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure;
 +(FirebaseHandle)subscribeToUser:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure;
+
++(void)publishImageData:(NSData *)imageData user:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure;
++(FirebaseHandle)subscribeToUserImageData:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure;
+
 +(void)unsubscribeFromHandle:(FirebaseHandle)handle;
+
 
 @end

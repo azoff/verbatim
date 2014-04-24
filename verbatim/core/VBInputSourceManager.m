@@ -20,6 +20,7 @@
 @implementation VBInputSourceManager
 
 NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManagerUserNewCaptionNotification";
+NSString *const VBInputSourceManagerEventCaptionProcessing = @"VBInputSourceManagerEventCaptionProcessing";
 
 + (instancetype)manager
 {
@@ -35,6 +36,8 @@ NSString *const VBInputSourceManagerEventCaptionReceived = @"VBInputSourceManage
 - (void)startListening
 {
     [[VBSpeechKit kit] startListeningWithBlock:^(SKRecognition *recognition) {
+        id center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:VBInputSourceManagerEventCaptionProcessing object:self userInfo:nil];
         [self processRecognitionResults:recognition.results];
     }];
 }

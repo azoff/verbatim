@@ -9,12 +9,16 @@
 #import "VBLabel.h"
 #import "UIImage+Overlay.h"
 #import "VBUserTableViewCell.h"
+#import "VBPubSub.h"
 
 @interface VBUserTableViewCell ()
 
 @property (weak, nonatomic) IBOutlet VBLabel *nameLabel;
 @property (weak, nonatomic) IBOutlet VBLabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sourceImageView;
+@property (strong,nonatomic) UIImage *image;
+
+@property FirebaseHandle userImageHandle;
 
 @end
 
@@ -31,6 +35,18 @@
         self.countLabel.text = @"0";
         NSLog(@"[ERROR] Unable to get listener count, displaying 0. Reason: %@", error);
     }];
+    
+    // subscribe to any new images for that user that come in.
+   // [VBPubSub unsubscribeFromHandle:self.userImageHandle];
+   
+    self.userImageHandle = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
+        NSLog(@"Got new image data");
+        self.sourceImageView.image = [[UIImage alloc] initWithData:imageData];
+        
+    } failure:^(NSError *error) {
+        [VBHUD showWithError:error];
+    }];
+    
     [self updateStyleForState];
 }
 
