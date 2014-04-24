@@ -67,7 +67,7 @@
 				PubSubVenue = PubSub.child("venues").child(vbvenue.get('foursquareID')).child(user.id);
 			}
 			if (selectedVenue) {
-				PubSubVenue.set(vbuser.id);
+				PubSubVenue.set(vbuser.id, $.noop);
 			} else {
 				PubSubVenue.remove();
 				PubSubVenue = null;
