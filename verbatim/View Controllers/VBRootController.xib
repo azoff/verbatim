@@ -14,6 +14,7 @@
                 <outlet property="locationButton" destination="zsi-7e-P0T" id="GhJ-mt-r94"/>
                 <outlet property="micButton" destination="7og-vd-MRM" id="QWO-am-bXj"/>
                 <outlet property="navBar" destination="SFp-4P-GyM" id="IG3-tG-UUd"/>
+                <outlet property="transitionToCameraView" destination="mX8-Rc-4zj" id="ucF-XJ-NqE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="welcomeView" destination="Iw2-xb-y8G" id="nwH-8Q-luO"/>
             </connections>
@@ -63,7 +64,7 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="wah-kB-ths" userLabel="InputSourceView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="0.0" width="220" height="568"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
@@ -72,6 +73,10 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mX8-Rc-4zj">
+                            <rect key="frame" x="190" y="258" width="90" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>

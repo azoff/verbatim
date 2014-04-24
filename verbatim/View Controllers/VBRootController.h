@@ -23,4 +23,6 @@ typedef enum VBAppState VBAppState;
 - (void)switchToAppState:(VBAppState)appState animate:(BOOL)animate;
 - (void)switchToAppState:(VBAppState)appState removeWelcomeSplash:(BOOL)remove animate:(BOOL)animate;
 
+- (void)animateNewCameraSourceWithAnimationFrame:(CGRect)frame andImage:(UIImage *)image complete:(void(^)())complete;
+
 @end
