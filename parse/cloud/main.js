@@ -40,7 +40,9 @@ Parse.Cloud.define('check_in', function(request, response){
 			lastName: user.lastName,
 			canonical: true,
 			venue: venue
-		}).then(response.success, response.error)
+		}).then(function(user){
+			response.success(user, venue);
+		}, response.error)
 	}, response.error);
 });
 
@@ -52,7 +54,13 @@ Parse.Cloud.define('check_out', function(request, response){
 		name: user.name,
 		firstName: user.firstName,
 		lastName: user.lastName,
-		canonical: true,
-		venue: null
-	}).then(response.success, response.error)
+		canonical: false
+	}).then(function(user){
+		var venue = user.get('venue');
+		if (venue) {
+			user.set('venue', null);
+			user.save();
+		}
+		response.success(user, venue);
+	}, response.error)
 });

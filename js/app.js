@@ -14,7 +14,7 @@
 	$('#venue-form').submit(findVenues);
 	$('#caption-form').submit(checkCaptionSubmission);
 
-	var PubSubUser, PubSub = new Firebase('https://blazing-fire-9021.firebaseio.com/users');
+	var PubSubUser, PubSubVenue, PubSub = new Firebase('https://blazing-fire-9021.firebaseio.com');
 	Parse.initialize("Y3hSYuF2y9tzwgyaBGtu0IKSSLgNPyFX8QRaUo00", "RtAhaq1EZavaifdetmMePZwIGZ37tGMrCWwtKbdl");
 	$.Marelle('EP5PE0WLZIMC4NUMM1IY2J00BE43XULPCEFEU11MDHJ15MP3').then(init, showApiError);
 
@@ -56,9 +56,20 @@
 
 		Parse.Cloud.run(method, params, handlers);
 
-		job.then(function(){
-			if (selectedVenue = venue)
-				PubSubUser = PubSub.child(user.id);
+		job.then(function(vbuser, vbvenue){
+			PubSubUser = PubSub.child("users").child(user.id);
+			if (selectedVenue = venue) {
+				PubSubVenue = PubSub.child("venues").child(venue.id).child(user.id);
+			} else if(!PubSubVenue) {
+				PubSubVenue = PubSub.child("venues").child(vbvenue.get('foursquareID')).child(user.id);
+			}
+			if (selectedVenue) {
+				PubSubVenue.set(vbuser.id);
+			} else {
+				PubSubUser.remove();
+				PubSubVenue.remove();
+				PubSubVenue = null;
+			}
 			target.siblings().toggleClass('visible');
 			body.toggleClass('selected');
 		}, function(){
