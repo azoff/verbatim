@@ -8,48 +8,62 @@
 
 #import "VBPubSub.h"
 
-NSString * const FIREBASE_URL = @"https://blazing-fire-9021.firebaseio.com/";
-
-@interface VBPubSub ()
-
-@end
+NSString * const FIREBASE_URL = @"https://blazing-fire-9021.firebaseio.com";
 
 @implementation VBPubSub
 
-+(void)publishCaption:(NSString *)caption user:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
++(void)publishNewCaption:(NSString*)value fromUser:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
-    [[[self channelForUser:user] childByAutoId] setValue:caption withCompletionBlock:^(NSError *error, Firebase *ref) {
+    [[[self channelForUser:user] childByAutoId] setValue:value withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (error && failure) failure(error);
         else if(!error && success) success(ref);
     }];
 }
 
-+(FirebaseHandle)subscribeToUser:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure
++(void)deleteChannelWithUser:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
-    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
-    return [[self channelForUser:user] observeEventType:FEventTypeChildAdded withBlock:block withCancelBlock:failure];
+    [[self channelForUser:user] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (error && failure) failure(error);
+        else if(!error && success) success(ref);
+    }];
 }
 
-+(void)unsubscribeFromHandle:(FirebaseHandle)handle
++(void)publishNewUser:(VBUser *)user atVenue:(VBVenue *)venue success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
-    [self.root removeObserverWithHandle:handle];
+    [[[self channelForVenue:venue] childByAppendingPath:user.foursquareID] setValue:user.objectId withCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (error && failure) failure(error);
+        else if(!error && success) success(ref);
+    }];
 }
 
-+(Firebase *)channelForUser:(VBUser *)user
++(void)redactExistingUser:(VBUser *)user fromVenue:(VBVenue *)venue success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
-    return [self.root childByAppendingPath:[NSString stringWithFormat:@"users/%@",user.foursquareID]];
+    [[[self channelForVenue:venue] childByAppendingPath:user.foursquareID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (error && failure) failure(error);
+        else if(!error && success) success(ref);
+    }];
 }
 
-+(Firebase *)imageChannelForUser:(VBUser *)user
++(void)publishNewListener:(VBUser *)listener toSource:(VBUser *)source success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
-    return [self.root childByAppendingPath:[NSString stringWithFormat:@"userimages/%@",user.foursquareID]];
+    [[[self channelForSource:source] childByAppendingPath:listener.foursquareID] setValue:listener.objectId withCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (error && failure) failure(error);
+        else if(!error && success) success(ref);
+    }];
 }
 
++(void)redactExistingListener:(VBUser *)listener fromSource:(VBUser *)source success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
+{
+    [[[self channelForSource:source] childByAppendingPath:listener.foursquareID] removeValueWithCompletionBlock:^(NSError *error, Firebase *ref) {
+        if (error && failure) failure(error);
+        else if(!error && success) success(ref);
+    }];
+}
 +(void)publishImageData:(NSData *)imageData user:(VBUser *)user success:(void(^)(Firebase*))success failure:(void(^)(NSError*))failure
 {
     NSString *base64String = [imageData base64EncodedStringWithOptions:0];
     
-    [[self imageChannelForUser:user] setValue:base64String withCompletionBlock:^(NSError *error, Firebase *ref) {
+    [[self channelForUserImage:user] setValue:base64String withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (error && failure) failure(error);
         else if(!error && success) success(ref);
     }];
@@ -63,10 +77,95 @@ NSString * const FIREBASE_URL = @"https://blazing-fire-9021.firebaseio.com/";
             success(decodedData);
         }
     };
-    return [[self imageChannelForUser:user] observeEventType:FEventTypeValue withBlock:block withCancelBlock:failure];
+    return [[self channelForUserImage:user] observeEventType:FEventTypeValue withBlock:block withCancelBlock:failure];
 }
 
-+(Firebase *)root
++(FirebaseHandle)subscribeToUserCaptionAdditions:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
+    return [[self channelForUser:user] observeEventType:FEventTypeChildAdded withBlock:block withCancelBlock:failure];
+}
+
++(FirebaseHandle)subscribeToListenerAdditions:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
+    return [[self channelForSource:user] observeEventType:FEventTypeChildAdded withBlock:block withCancelBlock:failure];
+}
+
++(FirebaseHandle)subscribeToListenerDeletions:(VBUser *)user success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
+    return [[self channelForSource:user] observeEventType:FEventTypeChildRemoved withBlock:block withCancelBlock:failure];
+}
+
++(FirebaseHandle)subscribeToVenueUserAdditions:(VBVenue *)venue success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
+    return [[self channelForVenue:venue] observeEventType:FEventTypeChildAdded withBlock:block withCancelBlock:failure];
+}
+
++(FirebaseHandle)subscribeToVenueUserDeletions:(VBVenue *)venue success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    id block = ^(FDataSnapshot *snapshot) { success(snapshot.value); };
+    return [[self channelForVenue:venue] observeEventType:FEventTypeChildRemoved withBlock:block withCancelBlock:failure];
+}
+
++(void)unsubscribeFromVenue:(VBVenue *)venue handle:(FirebaseHandle)handle
+{
+    [[self channelForVenue:venue] removeObserverWithHandle:handle];
+}
+
++(void)unsubscribeFromUser:(VBUser *)user handle:(FirebaseHandle)handle
+{
+    [[self channelForUser:user] removeObserverWithHandle:handle];
+}
+
++(void)unsubscribeFromUserImage:(VBUser *)user handle:(FirebaseHandle)handle
+{
+    [[self channelForUserImage:user] removeObserverWithHandle:handle];
+}
+
++(Firebase *)channelForSource:(VBUser *)source
+{
+    return [self.channelForSources childByAppendingPath:source.foursquareID];
+}
+
++(Firebase *)channelForUser:(VBUser *)user
+{
+    return [self.channelForUsers childByAppendingPath:user.foursquareID];
+}
+
++(Firebase *)channelForUserImage:(VBUser *)user
+{
+    return [self.channelForUserImages childByAppendingPath:user.foursquareID];
+}
+
++(Firebase *)channelForVenue:(VBVenue *)venue
+{
+    return [self.channelForVenues childByAppendingPath:venue.foursquareID];
+}
+
++(Firebase *)channelForSources
+{
+    return [self.channelForRoot childByAppendingPath:@"sources"];
+}
+
++(Firebase *)channelForUsers
+{
+    return [self.channelForRoot childByAppendingPath:@"users"];
+}
+
++(Firebase *)channelForUserImages
+{
+    return [self.channelForRoot childByAppendingPath:@"images"];
+}
+
++(Firebase *)channelForVenues
+{
+    return [self.channelForRoot childByAppendingPath:@"venues"];
+}
+
++(Firebase *)channelForRoot
 {
     static id _root = nil;
     static dispatch_once_t _predicate;

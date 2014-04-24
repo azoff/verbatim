@@ -17,8 +17,10 @@
 @property (weak, nonatomic) IBOutlet VBLabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sourceImageView;
 @property (strong,nonatomic) UIImage *image;
-
-@property FirebaseHandle userImageHandle;
+@property (nonatomic) NSMutableSet *userObjectIds;
+@property (nonatomic) FirebaseHandle onAdded;
+@property (nonatomic) FirebaseHandle onRemoved;
+@property (nonatomic) FirebaseHandle onImage;
 
 @end
 
@@ -26,28 +28,63 @@
 
 -(void)setUser:(VBUser *)user
 {
+    
+    if (self.user) {
+        [VBPubSub unsubscribeFromUser:self.user handle:self.onAdded];
+        [VBPubSub unsubscribeFromUser:self.user handle:self.onRemoved];
+        [VBPubSub unsubscribeFromUserImage:self.user handle:self.onImage];
+    }
+    
     _user = user;
     self.nameLabel.text = user.label;
-    self.countLabel.text = @"-";
-    [user listenerCountWithSuccess:^(int count) {
-        self.countLabel.text = [[NSNumber numberWithInt:count] stringValue];
-    } andFailure:^(NSError *error) {
-        self.countLabel.text = @"0";
-        NSLog(@"[ERROR] Unable to get listener count, displaying 0. Reason: %@", error);
+    [self.userObjectIds removeAllObjects];
+    self.onAdded = [VBPubSub subscribeToListenerAdditions:user success:^(id objectId) {
+        [self didAddUserObjectId:objectId];
+    } failure:^(NSError *error) {
+        [self didReceiveError:error];
     }];
     
-    // subscribe to any new images for that user that come in.
-   // [VBPubSub unsubscribeFromHandle:self.userImageHandle];
-   
-    self.userImageHandle = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
-        NSLog(@"Got new image data");
+    self.onRemoved = [VBPubSub subscribeToListenerDeletions:user success:^(id objectId) {
+        [self didRemoveUserObjectId:objectId];
+    } failure:^(NSError *error) {
+        [self didReceiveError:error];
+    }];
+    
+    self.onImage = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
         self.sourceImageView.image = [[UIImage alloc] initWithData:imageData];
-        
     } failure:^(NSError *error) {
         [VBHUD showWithError:error];
     }];
-    
+
     [self updateStyleForState];
+    [self updateUserCount];
+}
+
+- (void)updateUserCount
+{
+    VBUser *source = [[VBUser currentUser] source];
+    BOOL active = [self.user isEqualObject:source];
+    int count = self.userObjectIds.count;
+    count = count == 0 && active ? 1 : count;
+    self.countLabel.text = [[NSNumber numberWithInt:count] stringValue];
+}
+
+- (void)didAddUserObjectId:(NSString *)objectId
+{
+    [self.userObjectIds addObject:objectId];
+    [self updateUserCount];
+}
+
+- (void)didRemoveUserObjectId:(NSString *)objectId
+{
+    [self.userObjectIds removeObject:objectId];
+    [self updateUserCount];
+    
+}
+
+- (void)didReceiveError:(NSError *)error
+{
+    [VBHUD showWithError:error];
 }
 
 - (void)updateStyleForState
@@ -60,6 +97,11 @@
     self.nameLabel.textColor =
     self.countLabel.textColor = color;
     self.sourceImageView.image = [[UIImage imageNamed:image] imageByApplyingOverlayColor:color];
+}
+
+- (void)awakeFromNib
+{
+    self.userObjectIds = [NSMutableSet set];
 }
 
 @end

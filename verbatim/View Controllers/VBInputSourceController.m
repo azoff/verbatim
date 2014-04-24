@@ -64,50 +64,28 @@
     self.sourceTableView.dataSource = self.userDataSource;
     [self.sourceTableView registerNib:VBUserTableViewCell.nib forCellReuseIdentifier:name];
     
+    [self.userDataSource observeUpdateWithBlock:^(NSError *error) {
+        if (error) [VBHUD showWithError:error];
+        else self.sourceTableView.alpha = 1;
+        [self.sourceTableView reloadData];
+    }];
+    
     // delegate
     self.sourceTableView.delegate = self.userDelegate = [VBUserDelegate delegateWithSubDelegate:self];
     
 }
 
-- (void)reloadUsers
-{
-    // TODO: show HUD either when this view is active, or within it's own view
-    //[VBHUD showIndeterminateProgressWithText:@"Loading Sources..."];
-    [self.userDataSource reloadWithError:^(NSError *error) {
-        if (error) {
-            [VBHUD showWithError:error];
-        } else {
-            self.sourceTableView.alpha = 1;
-            /*[UIView animateWithDuration:0.5 animations:^{
-                self.sourceTableView.alpha = 1.0;
-            }];*/
-            //[VBHUD hide];
-            [self.sourceTableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        }
-    }];
-}
-
 - (void)updateTableView
 {
-    if ([[VBUser currentUser] isCheckedIn]) {
-        self.userDataSource.venue = [[VBUser currentUser] venue];
-        [self reloadUsers];
-    } else {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.sourceTableView.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            [self.sourceTableView reloadData];
-        }];
-    }
-    
+    self.userDataSource.venue = [[VBUser currentUser] venue];
 }
 
 - (void)addObservers
 {
     id center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(reloadUsers) name:VBUserEventSourceChanged object:nil];
+    [center addObserver:self selector:@selector(updateTableView) name:VBUserEventSourceChanged object:nil];
     [center addObserver:self selector:@selector(onUserCheckedIn) name:VBUserEventCheckedIn object:nil];
-    [center addObserver:self selector:@selector(onDeauthorized) name:VBFoursquareEventDeauthorized object:nil];
+    [center addObserver:self selector:@selector(onDeauthorized) name:VBUserEventCurrentUserRemoved object:nil];
     
 }
 
@@ -175,6 +153,10 @@
 
 - (IBAction)onCheckInTap:(id)sender
 {
-    [VBFoursquare authorize];
+    if ([VBUser currentUser])
+        [self.rootController switchToAppState:APP_STATE_CHECKIN animate:YES];
+    else
+        [VBFoursquare authorize];
+        
 }
 @end

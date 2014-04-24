@@ -17,4 +17,8 @@
 -(void)upsertWithSuccess:(void(^)(id))success
               andFailure:(void(^)(NSError*))failure;
 
++(void)objectCachedInBackgroundWithId:(NSString *)objectId
+                              success:(void(^)(id))success
+                              failure:(void(^)(NSError*))failure;
+
 @end

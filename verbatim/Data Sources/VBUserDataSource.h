@@ -12,7 +12,7 @@
 
 + (instancetype)sourceWithCellReuseIdentifier:(NSString *)identifier andVenue:(VBVenue *)venue;
 - (instancetype)initWithCellReuseIdentifier:(NSString *)identifier andVenue:(VBVenue *)venue;
-- (void)reloadWithError:(void(^)(NSError*))done;
+- (void)observeUpdateWithBlock:(void(^)(NSError*))done;
 @property (nonatomic) VBVenue *venue;
 @property (nonatomic) NSString* cellReuseIdentifier;
 

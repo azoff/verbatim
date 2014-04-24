@@ -7,6 +7,7 @@
 //
 
 #import "VBFoursquareObject.h"
+#import <Parse/PFObject+Subclass.h>
 
 NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
 
@@ -72,6 +73,20 @@ NSUInteger const PARSE_OBJECT_NOT_FOUND = 101;
     }];
     
     
+}
+
++(void)objectCachedInBackgroundWithId:(NSString *)objectId success:(void(^)(id))success failure:(void(^)(NSError*))failure
+{
+    PFQuery *query = [self query];
+// temporarily disabling caching...
+//    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+//    query.maxCacheAge = 60 * 60 * 24; // object details cached for a day
+    [query getObjectInBackgroundWithId:objectId block:^(PFObject *object, NSError *error) {
+        // blow up on error
+        if (error != nil && error.code != PARSE_OBJECT_NOT_FOUND) failure(error);
+        // return nil or the object, if found
+        else success(object);
+    }];
 }
 
 @end
