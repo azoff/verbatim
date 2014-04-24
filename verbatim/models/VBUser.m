@@ -16,6 +16,7 @@ NSString* VBUserEventCurrentUserAdded   = @"VBUserEventCurrentUserAdded";
 NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
 NSString* VBUserEventCheckedOut         = @"VBUserEventCheckedOut";
+NSString* VBUserEventCameraSourceChanged = @"VBUserEventCameraSourceChanged";
 
 VBUser* currentUser;
 

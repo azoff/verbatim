@@ -16,11 +16,13 @@ extern NSString* VBUserEventCurrentUserRemoved;
 extern NSString* VBUserEventCheckedIn;
 extern NSString* VBUserEventCheckedOut;
 extern NSString* VBUserEventSourceChanged;
+extern NSString* VBUserEventCameraSourceChanged;
 
 @interface VBUser : VBFoursquareObject<PFSubclassing>
 
 @property (nonatomic) VBVenue  * venue;     // checked-in venue, could be nil
-@property (nonatomic, readonly) VBUser   * source;    // user source at checked-in venue, could be nil;
+@property (nonatomic, readonly) VBUser   * source;          // user source at checked-in venue, could be nil;
+
 @property (nonatomic) NSString * firstName; // from foursquare
 @property (nonatomic) NSString * lastName;  // from foursquare
 @property (nonatomic) BOOL canonical;  // when coming from editor

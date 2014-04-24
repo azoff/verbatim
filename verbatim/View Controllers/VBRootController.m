@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIView *checkinView;
 @property (weak, nonatomic) IBOutlet UIView *inputSourceView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *transitionToCameraView;
+
 @property (assign,nonatomic) VBAppState appState;
 
 - (IBAction)onButtonTap:(id)sender;
@@ -102,12 +104,20 @@
         self.inputSourceView.hidden = NO;
         self.inputSourceView.alpha = 1;
         self.inputSourceView.transform = CGAffineTransformIdentity;
+        
+        self.captionView.alpha = 0.5;
+        self.captionView.transform = CGAffineTransformIdentity;
+        CALayer *layer = self.captionView.layer;
+        CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+        rotationAndPerspectiveTransform = CATransform3DTranslate(rotationAndPerspectiveTransform, 140, 0, -180);
+        rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -45.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+        layer.transform = rotationAndPerspectiveTransform;
 
         [self.containerView bringSubviewToFront:self.inputSourceView];
         [self.inputSourceController onRootMadeActive];
     }
     else if (self.appState == APP_STATE_CHECKIN) {
-        NSLog(@"switching app to checkin state");
         self.checkinView.hidden = NO;
         self.checkinView.alpha = 1;
         self.checkinView.transform = CGAffineTransformIdentity;
@@ -117,6 +127,52 @@
     }
     [self.headerView bringSubviewToFront:self.navBar];
     [self.view bringSubviewToFront:self.headerView];
+}
+
+- (void)animateNewCameraSourceWithAnimationFrame:(CGRect)frame andImage:(UIImage *)image complete:(void (^)())complete {
+    
+    [self.containerView bringSubviewToFront:self.transitionToCameraView];
+    
+    self.transitionToCameraView.image = image;
+    self.transitionToCameraView.alpha = 0.0;
+    self.transitionToCameraView.frame = frame;
+    self.transitionToCameraView.hidden = NO;
+    
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.transitionToCameraView.frame = self.view.frame;
+        self.transitionToCameraView.alpha = 0.8;
+        self.transitionToCameraView.transform = CGAffineTransformIdentity;
+        CALayer *layer = self.transitionToCameraView.layer;
+        CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+        rotationAndPerspectiveTransform = CATransform3DTranslate(rotationAndPerspectiveTransform, 240, 0, 100);
+        rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -10.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+        layer.transform = rotationAndPerspectiveTransform;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut|UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.transitionToCameraView.frame = self.view.frame;
+            self.transitionToCameraView.alpha = 1;
+            self.transitionToCameraView.transform = CGAffineTransformIdentity;
+            CALayer *layer = self.transitionToCameraView.layer;
+            CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+            rotationAndPerspectiveTransform = CATransform3DTranslate(rotationAndPerspectiveTransform, 140, 0, -180);
+            rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+            rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -45.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+            layer.transform = rotationAndPerspectiveTransform;
+        } completion:^(BOOL finished) {
+            self.transitionToCameraView.hidden = YES;
+            
+            complete();
+            
+            // a final fading animation to get back to normal state.
+            self.captionView.alpha = 1;
+            [UIView animateWithDuration:0.2 animations:^{
+                self.captionView.alpha = 0.5;
+            }];
+            
+        }];
+    }];
+    
 }
 
 - (void)switchToAppState:(VBAppState)appState animate:(BOOL)animate
@@ -180,6 +236,8 @@
     self.captionView.backgroundColor = [UIColor clearColor];
     self.inputSourceView.backgroundColor = [UIColor clearColor];
     self.checkinView.backgroundColor = [UIColor clearColor];
+    
+    self.transitionToCameraView.hidden = YES;
     
     self.welcomeController = [[VBWelcomeController alloc] init];
     [self addChildController:self.welcomeController toView:self.welcomeView];

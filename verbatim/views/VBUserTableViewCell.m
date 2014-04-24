@@ -11,11 +11,12 @@
 #import "VBUserTableViewCell.h"
 #import "VBPubSub.h"
 
-@interface VBUserTableViewCell ()
+@interface VBUserTableViewCell () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet VBLabel *nameLabel;
 @property (weak, nonatomic) IBOutlet VBLabel *countLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sourceImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
 @property (strong,nonatomic) UIImage *image;
 @property (nonatomic) NSMutableSet *userObjectIds;
 @property (nonatomic) FirebaseHandle onAdded;
@@ -50,14 +51,27 @@
         [self didReceiveError:error];
     }];
     
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraImageTapped:)];
+    [self.cameraImageView setUserInteractionEnabled:YES];
+    [tgr setDelegate:self];
+    [self.cameraImageView addGestureRecognizer:tgr];
+
+    
     self.onImage = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
-        self.sourceImageView.image = [[UIImage alloc] initWithData:imageData];
+        self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
     } failure:^(NSError *error) {
         [VBHUD showWithError:error];
     }];
 
     [self updateStyleForState];
     [self updateUserCount];
+}
+
+-(void)cameraImageTapped:(UIGestureRecognizer *)tap
+{
+    CGRect frame = [self convertRect:self.cameraImageView.frame toView:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCameraSourceChanged object:self userInfo:@{@"cameraSource": self.user, @"animationFrame":[NSValue valueWithCGRect:frame], @"image":self.cameraImageView.image}];
 }
 
 - (void)updateUserCount

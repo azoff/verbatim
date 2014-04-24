@@ -50,7 +50,8 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 @property (strong,nonatomic) NSString *captionHistory;
 
-@property (nonatomic) FirebaseHandle imagePubSubHandle;
+@property (nonatomic) FirebaseHandle onCameraImageChanged;
+@property (nonatomic,strong) VBUser *previousCameraSource;
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer;
 
@@ -133,7 +134,18 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 -(void)captureStillImageDataFromCameraOnComplete:(void(^)(NSData *))complete {
     if (self.inSimulator) {
-        UIImage *image = self.cameraImageView.image;
+        //UIImage *image = self.cameraImageView.image;
+        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+        CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+        CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+        UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+        CGRect rect = CGRectMake(0, 0, 1, 1);
+        // Create a 1 by 1 pixel context
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+        [color setFill];
+        UIRectFill(rect);   // Fill it with your color
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
         return complete(imageData);
     }
@@ -158,26 +170,29 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 }
 
 
-/*-(void)displayStillCameraWithImageData:(NSData *)imageData
+-(void)onCameraSourceChangedToUser:(VBUser *)user withAnimationFrame:(CGRect)frame andImage:(UIImage *)image
 {
-    NSLog(@"Setting still image");
+    NSLog(@"Setting still image camera subscription to user %@",user);
     self.cameraImageView.hidden = NO;
     self.cameraView.hidden = YES;
     
-   
-    self.cameraImageView.image = image;
-    
-    VBUser *current = [VBUser currentUser];
-    if ([current isCheckedIn]) {
-        NSLog(@"User checked in so publishing image data");
-        [VBPubSub publishImageData:nil user:[VBUser currentUser] success:nil failure:^(NSError * error) {
-            [VBHUD showWithError:error];
-        }];
-    } else {
-        NSLog(@"User not checked in so not publishing data");
+    if (self.previousCameraSource) {
+        [VBPubSub unsubscribeFromUserImage:self.previousCameraSource handle:self.onCameraImageChanged];
     }
 
-}*/
+    // perform animation...
+    [self.rootController animateNewCameraSourceWithAnimationFrame:frame andImage:image complete:^{
+        self.cameraImageView.image = image;
+        self.onCameraImageChanged = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
+            self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
+            self.previousCameraSource = user;
+        } failure:^(NSError *error) {
+            [VBHUD showWithError:error];
+        }];
+    }];
+    
+    
+}
 
 - (void)onProcessingCaption {
     NSLog(@"onProcessing caption - should get a screen grab of front facing camera");
@@ -235,6 +250,20 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
          NSLog(@"Caption controller received processing notification: %@",notification.userInfo[@"caption"]);
          [self onProcessingCaption];
      }];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:VBUserEventCameraSourceChanged
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *notification) {
+         NSLog(@"User camera source changed: %@",notification.userInfo[@"cameraSource"]);
+         CGRect frame;
+         if (notification.userInfo[@"animationFrame"]) {
+             frame = [notification.userInfo[@"animationFrame"] CGRectValue];
+         }
+         [self onCameraSourceChangedToUser:notification.userInfo[@"cameraSource"] withAnimationFrame:frame andImage:notification.userInfo[@"image"]];
+     }];
+    
         
     self.view.backgroundColor = [UIColor blackColor];
     self.presentationMode = PM_CAPTION_CAMERA;
@@ -368,7 +397,6 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 - (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     CGPoint point = [panGestureRecognizer locationInView:self.view];
