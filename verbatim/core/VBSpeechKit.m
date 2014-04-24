@@ -78,7 +78,9 @@ BOOL         const SPEECHKIT_SSL    = NO;
 
 -(void)recognizer:(SKRecognizer *)recognizer didFinishWithError:(NSError *)error suggestion:(NSString *)suggestion
 {
-    [self stopRecognizer];
+    NSLog(@"[ERROR] %@", error);
+    [VBHUD showWithError:error];
+    [self stopListening];
 }
 
 - (void)destroyed

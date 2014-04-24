@@ -10,6 +10,7 @@
 #import "VBColor.h"
 #import "VBCaptionController.h"
 #import "VBRootController.h"
+#import "UIViewController+Factory.h"
 
 @implementation VBWindow
 

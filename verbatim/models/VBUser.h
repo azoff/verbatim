@@ -16,7 +16,6 @@ extern NSString* VBUserEventCurrentUserRemoved;
 extern NSString* VBUserEventCheckedIn;
 extern NSString* VBUserEventCheckedOut;
 extern NSString* VBUserEventSourceChanged;
-extern NSString* VBUserEventCameraSourceChanged;
 
 @interface VBUser : VBFoursquareObject<PFSubclassing>
 

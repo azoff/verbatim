@@ -7,7 +7,6 @@
 //
 
 #import "VBWelcomeController.h"
-#import "VBCaptionController.h"
 #import "VBInputSourceManager.h"
 
 @interface VBWelcomeController ()
@@ -41,7 +40,7 @@
 
 - (IBAction)onTap:(id)sender {
     [[VBInputSourceManager manager] startListening];
-    [self.rootController switchToAppState:APP_STATE_CAPTION removeWelcomeSplash:YES animate:YES];
+    [self.rootController setAppState:APP_STATE_CAPTION animate:YES];
 }
 
 @end

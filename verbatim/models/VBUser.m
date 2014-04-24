@@ -16,7 +16,6 @@ NSString* VBUserEventCurrentUserAdded   = @"VBUserEventCurrentUserAdded";
 NSString* VBUserEventCurrentUserRemoved = @"VBUserEventCurrentUserRemoved";
 NSString* VBUserEventCheckedIn          = @"VBUserEventCheckedIn";
 NSString* VBUserEventCheckedOut         = @"VBUserEventCheckedOut";
-NSString* VBUserEventCameraSourceChanged = @"VBUserEventCameraSourceChanged";
 
 VBUser* currentUser;
 
@@ -49,7 +48,7 @@ VBUser* currentUser;
     [query whereKey:@"source" equalTo:self];
     [self.source fetchIfNeededInBackgroundWithBlock:^(PFObject *object, NSError *error) {
         if (error) failure(error);
-        NSUInteger plusMe = self.isListeningToSelf ? 1 : 0;
+        int plusMe = self.isListeningToSelf ? 1 : 0;
         return [query countObjectsInBackgroundWithBlock:^(int number, NSError *error) {
             if (error) failure(error);
             else success(number+plusMe);

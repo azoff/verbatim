@@ -51,12 +51,6 @@
         [self didReceiveError:error];
     }];
     
-    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraImageTapped:)];
-    [self.cameraImageView setUserInteractionEnabled:YES];
-    [tgr setDelegate:self];
-    [self.cameraImageView addGestureRecognizer:tgr];
-
-    
     self.onImage = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
         self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
     } failure:^(NSError *error) {
@@ -67,20 +61,13 @@
     [self updateUserCount];
 }
 
--(void)cameraImageTapped:(UIGestureRecognizer *)tap
-{
-    CGRect frame = [self convertRect:self.cameraImageView.frame toView:nil];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCameraSourceChanged object:self userInfo:@{@"cameraSource": self.user, @"animationFrame":[NSValue valueWithCGRect:frame], @"image":self.cameraImageView.image}];
-}
-
 - (void)updateUserCount
 {
     VBUser *source = [[VBUser currentUser] source];
     BOOL active = [self.user isEqualObject:source];
-    int count = self.userObjectIds.count;
+    NSUInteger count = self.userObjectIds.count;
     count = count == 0 && active ? 1 : count;
-    self.countLabel.text = [[NSNumber numberWithInt:count] stringValue];
+    self.countLabel.text = [[NSNumber numberWithInteger:count] stringValue];
 }
 
 - (void)didAddUserObjectId:(NSString *)objectId

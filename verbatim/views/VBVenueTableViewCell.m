@@ -56,7 +56,7 @@
 
 - (void)updateUserCount
 {
-    self.userCountLabel.text = [[NSNumber numberWithInt:self.userObjectIds.count] stringValue];
+    self.userCountLabel.text = [[NSNumber numberWithInteger:self.userObjectIds.count] stringValue];
 }
 
 - (void)didAddUserObjectId:(NSString *)objectId

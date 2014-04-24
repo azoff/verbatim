@@ -143,7 +143,7 @@
             [self updateSourceNameLabelText];
             
             // transition back to caption view
-            [self.rootController switchToAppState:APP_STATE_CAPTION animate:YES];
+            [self.rootController setAppState:APP_STATE_CAPTION animate:YES];
             
         } failure:^(NSError *error) {
             [VBHUD showWithError:error];
@@ -154,7 +154,7 @@
 - (IBAction)onCheckInTap:(id)sender
 {
     if ([VBUser currentUser])
-        [self.rootController switchToAppState:APP_STATE_CHECKIN animate:YES];
+        [self.rootController setAppState:APP_STATE_CHECKIN animate:YES];
     else
         [VBFoursquare authorize];
         

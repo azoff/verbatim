@@ -83,7 +83,7 @@
 
 +(void)showWithError:(NSError*)error
 {
-    [VBHUD showWithText:error.localizedDescription hideAfterDelay:5];
+    [VBHUD showWithText:error.localizedDescription hideAfterDelay:1];
 }
 
 +(void)hide {

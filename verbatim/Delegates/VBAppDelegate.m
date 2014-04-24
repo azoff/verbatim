@@ -7,7 +7,6 @@
 //
 
 #import "VBAppDelegate.h"
-#import "VBCaptionController.h"
 #import "VBWindow.h"
 #import "VBPubSub.h"
 
