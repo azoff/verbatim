@@ -57,7 +57,10 @@
 		Parse.Cloud.run(method, params, handlers);
 
 		job.then(function(vbuser, vbvenue){
+
 			PubSubUser = PubSub.child("users").child(user.id);
+			PubSubUser.remove();
+
 			if (selectedVenue = venue) {
 				PubSubVenue = PubSub.child("venues").child(venue.id).child(user.id);
 			} else if(!PubSubVenue) {
@@ -66,7 +69,6 @@
 			if (selectedVenue) {
 				PubSubVenue.set(vbuser.id);
 			} else {
-				PubSubUser.remove();
 				PubSubVenue.remove();
 				PubSubVenue = null;
 			}
