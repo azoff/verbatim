@@ -6,16 +6,20 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBRootController">
             <connections>
+                <outlet property="captionContainer" destination="TuJ-V8-Q7g" id="ohH-Wg-Xqw"/>
                 <outlet property="captionView" destination="riY-Yu-dVC" id="5Lb-ok-tPu"/>
+                <outlet property="checkinContainer" destination="JPB-Le-6Gv" id="Gga-4L-482"/>
                 <outlet property="checkinView" destination="3bV-g2-aUx" id="QgH-LB-fpw"/>
-                <outlet property="containerView" destination="Yet-LW-0cu" id="cdd-ea-okV"/>
+                <outlet property="headerContainer" destination="bRs-RO-kAB" id="AN3-8L-ync"/>
                 <outlet property="headerView" destination="SFp-4P-GyM" id="n7c-4v-b9t"/>
+                <outlet property="inputSourceContainer" destination="WdV-nE-pDW" id="opJ-U7-mna"/>
                 <outlet property="inputSourceView" destination="wah-kB-ths" id="VSG-WS-Xbe"/>
                 <outlet property="locationButton" destination="zsi-7e-P0T" id="GhJ-mt-r94"/>
                 <outlet property="micButton" destination="7og-vd-MRM" id="QWO-am-bXj"/>
                 <outlet property="navBar" destination="SFp-4P-GyM" id="IG3-tG-UUd"/>
                 <outlet property="transitionToCameraView" destination="mX8-Rc-4zj" id="ucF-XJ-NqE"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="welcomeContainer" destination="Yet-LW-0cu" id="LxV-tz-alh"/>
                 <outlet property="welcomeView" destination="Iw2-xb-y8G" id="nwH-8Q-luO"/>
             </connections>
         </placeholder>
@@ -24,59 +28,87 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" id="SFp-4P-GyM" userLabel="Header">
+                <view contentMode="scaleToFill" id="bRs-RO-kAB" userLabel="HeaderContainer">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zsi-7e-P0T" userLabel="LocationButton" customClass="VBButton">
-                            <rect key="frame" x="8" y="8" width="22" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" backgroundImage="location">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="JTY-7m-Fys"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7og-vd-MRM" userLabel="MicButton" customClass="VBButton">
-                            <rect key="frame" x="292" y="8" width="22" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" backgroundImage="mic">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="yZG-Uw-hR9"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                </view>
-                <view contentMode="scaleToFill" id="Yet-LW-0cu">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" id="riY-Yu-dVC" userLabel="CaptionView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view contentMode="scaleToFill" id="SFp-4P-GyM" userLabel="Header">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="36"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zsi-7e-P0T" userLabel="LocationButton" customClass="VBButton">
+                                    <rect key="frame" x="8" y="8" width="22" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" backgroundImage="location">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="JTY-7m-Fys"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7og-vd-MRM" userLabel="MicButton" customClass="VBButton">
+                                    <rect key="frame" x="292" y="8" width="22" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" backgroundImage="mic">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onButtonTap:" destination="-1" eventType="touchUpInside" id="yZG-Uw-hR9"/>
+                                    </connections>
+                                </button>
+                            </subviews>
                         </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="JPB-Le-6Gv" userLabel="CheckinContainer">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
                         <view contentMode="scaleToFill" id="3bV-g2-aUx" userLabel="CheckinView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="TuJ-V8-Q7g" userLabel="CaptionContainer">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="riY-Yu-dVC" userLabel="CaptionView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="WdV-nE-pDW" userLabel="InputSourceContainer">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
                         <view contentMode="scaleToFill" id="wah-kB-ths" userLabel="InputSourceView">
                             <rect key="frame" x="0.0" y="0.0" width="220" height="568"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mX8-Rc-4zj" userLabel="TransitionToCameraImage View">
+                    <rect key="frame" x="115" y="239" width="90" height="90"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <view contentMode="scaleToFill" id="Yet-LW-0cu" userLabel="WelcomeContainer">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
                         <view contentMode="scaleToFill" id="Iw2-xb-y8G" userLabel="WelcomeView">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mX8-Rc-4zj">
-                            <rect key="frame" x="190" y="258" width="90" height="90"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
