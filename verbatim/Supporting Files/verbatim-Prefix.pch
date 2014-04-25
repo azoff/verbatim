@@ -15,6 +15,7 @@
     #import <Foundation/Foundation.h>
     #import "VBParse.h"
     #import "VBColor.h"
+    #import "VBImage.h"
     #import "VBViewController.h"
     #import "VBFoursquare.h"
     #import "VBVenue.h"

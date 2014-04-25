@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00AE92D95A8F4E27B046B3B1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
+		0147224A190B0ED0009C3ADF /* VBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 01472249190B0ED0009C3ADF /* VBImage.m */; };
 		C900E78219060D31005933BA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C900E78119060D31005933BA /* libicucore.dylib */; };
 		C900E78419060D3B005933BA /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C900E78319060D3B005933BA /* libc++.dylib */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
@@ -90,6 +91,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01472248190B0ED0009C3ADF /* VBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBImage.h; sourceTree = "<group>"; };
+		01472249190B0ED0009C3ADF /* VBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBImage.m; sourceTree = "<group>"; };
 		257F18DBD9954D91A56D7EA7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C0E8333783943969D40AD4C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		C900E78119060D31005933BA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -302,6 +305,8 @@
 				C95E2D7B18FFA89600BD365F /* VBHUD.m */,
 				C9635CE7190220E30020569C /* VBFont.h */,
 				C9635CE8190220E30020569C /* VBFont.m */,
+				01472248190B0ED0009C3ADF /* VBImage.h */,
+				01472249190B0ED0009C3ADF /* VBImage.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				C95E2DBE18FFB2CA00BD365F /* VBViewController.m in Sources */,
 				C95E2DAC18FFA89600BD365F /* VBCheckinController.m in Sources */,
 				C95E2D9C18FFA89600BD365F /* UIViewController+Factory.m in Sources */,
+				0147224A190B0ED0009C3ADF /* VBImage.m in Sources */,
 				C95E2D9B18FFA89600BD365F /* UIImage+Overlay.m in Sources */,
 				C95E2DA018FFA89600BD365F /* VBPubSub.m in Sources */,
 				C9635D0C1905079F0020569C /* VBUserDataSource.m in Sources */,
