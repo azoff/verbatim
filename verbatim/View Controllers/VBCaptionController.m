@@ -134,18 +134,7 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
 -(void)captureStillImageDataFromCameraOnComplete:(void(^)(NSData *))complete {
     if (self.inSimulator) {
-        //UIImage *image = self.cameraImageView.image;
-        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-        CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-        CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-        UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-        CGRect rect = CGRectMake(0, 0, 1, 1);
-        // Create a 1 by 1 pixel context
-        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-        [color setFill];
-        UIRectFill(rect);   // Fill it with your color
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = [VBImage randomColorImage];
         NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
         return complete(imageData);
     }
@@ -182,7 +171,13 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
 
     // perform animation...
     [self.rootController animateNewCameraSourceWithAnimationFrame:frame andImage:image complete:^{
-        self.cameraImageView.image = image;
+        
+        // if we have a nil image, set it to black at first until we get one from network.
+        if (!image) {
+            self.cameraImageView.image = [VBImage imageFromColor:[UIColor blackColor]];
+        } else {
+            self.cameraImageView.image = image;
+        }
         self.onCameraImageChanged = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
             self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
             self.previousCameraSource = user;

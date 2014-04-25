@@ -133,6 +133,10 @@
     
     [self.containerView bringSubviewToFront:self.transitionToCameraView];
     
+    if (!image) {
+        image = [VBImage imageFromColor:[UIColor blackColor]];
+    }
+    
     self.transitionToCameraView.image = image;
     self.transitionToCameraView.alpha = 0.0;
     self.transitionToCameraView.frame = frame;

@@ -56,6 +56,7 @@
     [tgr setDelegate:self];
     [self.cameraImageView addGestureRecognizer:tgr];
 
+    // TODO: add a cache here so we can grab the image immediately without waiting for it from the network each time.
     
     self.onImage = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
         self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
@@ -71,7 +72,15 @@
 {
     CGRect frame = [self convertRect:self.cameraImageView.frame toView:nil];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCameraSourceChanged object:self userInfo:@{@"cameraSource": self.user, @"animationFrame":[NSValue valueWithCGRect:frame], @"image":self.cameraImageView.image}];
+    NSMutableDictionary *userInfo = [@{
+                                       @"cameraSource": self.user,
+                                       @"animationFrame":[NSValue valueWithCGRect:frame]
+                                       } mutableCopy];
+    if (self.cameraImageView.image) {
+        userInfo[@"image"] = self.cameraImageView.image;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:VBUserEventCameraSourceChanged object:self userInfo:userInfo];
 }
 
 - (void)updateUserCount
