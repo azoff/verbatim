@@ -15,7 +15,9 @@
 
 @interface VBRootController ()
 
+
 // our navigation/header stuff
+@property (weak, nonatomic) IBOutlet UIView *headerContainer;
 @property (weak, nonatomic) IBOutlet UIView *headerView; // the parent view for nav
 @property (weak, nonatomic) IBOutlet UIView *navBar;
 @property (weak, nonatomic) IBOutlet VBButton *micButton;
@@ -28,11 +30,17 @@
 @property (nonatomic,strong) VBWelcomeController *welcomeController;
 
 // views for our child view controllers for transition management
-@property (weak, nonatomic) IBOutlet UIView *containerView; // the parent view for child controllers
+@property (weak, nonatomic) IBOutlet UIView *welcomeContainer;
 @property (weak, nonatomic) IBOutlet UIView *welcomeView;
+
+@property (weak, nonatomic) IBOutlet UIView *captionContainer;
 @property (weak, nonatomic) IBOutlet UIView *captionView;
-@property (weak, nonatomic) IBOutlet UIView *checkinView;
+
+@property (weak, nonatomic) IBOutlet UIView *inputSourceContainer;
 @property (weak, nonatomic) IBOutlet UIView *inputSourceView;
+
+@property (weak, nonatomic) IBOutlet UIView *checkinContainer;
+@property (weak, nonatomic) IBOutlet UIView *checkinView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *transitionToCameraView;
 
@@ -54,18 +62,18 @@
     // reset to previous positions.
     if (!(self.appState == APP_STATE_CAPTION)) {
         // zoom caption state into background...
-        self.captionView.alpha = 0.5;
-        self.captionView.transform = CGAffineTransformMakeScale(0.9,0.9);
+        self.captionContainer.alpha = 0.5;
+        self.captionContainer.transform = CGAffineTransformMakeScale(0.9,0.9);
     }
     if (!(self.appState == APP_STATE_INPUTSOURCE)) {
         // move InputSource away again
-        self.inputSourceView.transform = CGAffineTransformMakeTranslation(320.0,0);
-        self.inputSourceView.alpha = 0.5;
+        self.inputSourceContainer.transform = CGAffineTransformMakeTranslation(320.0,0);
+        self.inputSourceContainer.alpha = 0.5;
     }
     if (!(self.appState == APP_STATE_CHECKIN)) {
         // move checkin state away
-        self.checkinView.transform = CGAffineTransformMakeTranslation(-320.0,0);
-        self.checkinView.alpha = 0.5;
+        self.checkinContainer.transform = CGAffineTransformMakeTranslation(-320.0,0);
+        self.checkinContainer.alpha = 0.5;
     }
     if (!(self.appState == APP_STATE_WELCOME)) {
         self.welcomeView.alpha = 0;
@@ -81,57 +89,57 @@
         
         self.welcomeView.hidden = NO;
         
-        self.checkinView.alpha = 0.3;
-        self.inputSourceView.alpha = 0.3;
+        self.checkinContainer.alpha = 0.3;
+        self.inputSourceContainer.alpha = 0.3;
         
-        self.inputSourceView.hidden = YES;
-        self.captionView.hidden = YES;
+        self.inputSourceContainer.hidden = YES;
+        self.captionContainer.hidden = YES;
         self.welcomeView.alpha = 1;
 
-        [self.containerView bringSubviewToFront:self.welcomeView];
+        [self.view bringSubviewToFront:self.welcomeContainer];
         [self.welcomeController onRootMadeActive];
     }
     else if ((self.appState == APP_STATE_CAPTION)) {
-        self.captionView.hidden = NO;
-        self.captionView.alpha = 1;
-        self.captionView.transform = CGAffineTransformIdentity;
+        self.captionContainer.hidden = NO;
+        self.captionContainer.alpha = 1;
+        self.captionContainer.transform = CGAffineTransformIdentity;
         
-        [self.containerView bringSubviewToFront:self.captionView];
+        [self.view bringSubviewToFront:self.captionContainer];
         [self.captionController onRootMadeActive];
         
     }
     else if (self.appState == APP_STATE_INPUTSOURCE) {
-        self.inputSourceView.hidden = NO;
-        self.inputSourceView.alpha = 1;
-        self.inputSourceView.transform = CGAffineTransformIdentity;
+        self.inputSourceContainer.hidden = NO;
+        self.inputSourceContainer.alpha = 1;
+        self.inputSourceContainer.transform = CGAffineTransformIdentity;
         
-        self.captionView.alpha = 0.5;
-        self.captionView.transform = CGAffineTransformIdentity;
-        CALayer *layer = self.captionView.layer;
+        self.captionContainer.alpha = 0.5;
+        self.captionContainer.transform = CGAffineTransformIdentity;
+        CALayer *layer = self.captionContainer.layer;
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform = CATransform3DTranslate(rotationAndPerspectiveTransform, 140, 0, -180);
         rotationAndPerspectiveTransform.m34 = 1.0 / -500;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, -45.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
         layer.transform = rotationAndPerspectiveTransform;
 
-        [self.containerView bringSubviewToFront:self.inputSourceView];
+        [self.view bringSubviewToFront:self.inputSourceContainer];
         [self.inputSourceController onRootMadeActive];
     }
     else if (self.appState == APP_STATE_CHECKIN) {
-        self.checkinView.hidden = NO;
-        self.checkinView.alpha = 1;
-        self.checkinView.transform = CGAffineTransformIdentity;
+        self.checkinContainer.hidden = NO;
+        self.checkinContainer.alpha = 1;
+        self.checkinContainer.transform = CGAffineTransformIdentity;
         
-        [self.containerView bringSubviewToFront:self.checkinView];
+        [self.view bringSubviewToFront:self.checkinContainer];
         [self.checkinController onRootMadeActive];
     }
-    [self.headerView bringSubviewToFront:self.navBar];
-    [self.view bringSubviewToFront:self.headerView];
+    
+    [self.view bringSubviewToFront:self.headerContainer];
 }
 
 - (void)animateNewCameraSourceWithAnimationFrame:(CGRect)frame andImage:(UIImage *)image complete:(void (^)())complete {
     
-    [self.containerView bringSubviewToFront:self.transitionToCameraView];
+    [self.view bringSubviewToFront:self.transitionToCameraView];
     
     self.transitionToCameraView.image = image;
     self.transitionToCameraView.alpha = 0.0;
@@ -165,9 +173,9 @@
             complete();
             
             // a final fading animation to get back to normal state.
-            self.captionView.alpha = 1;
+            self.captionContainer.alpha = 1;
             [UIView animateWithDuration:0.2 animations:^{
-                self.captionView.alpha = 0.5;
+                self.captionContainer.alpha = 0.5;
             }];
             
         }];
@@ -201,7 +209,7 @@
 
 - (void)setNavBarHidden:(BOOL)hidden animated:(BOOL)animated
 {
-    self.navBar.hidden = hidden;
+    self.headerContainer.hidden = hidden;
     //TODO: animation
 }
 
@@ -232,10 +240,11 @@
 {
     [super viewDidLoad];
     
-    self.containerView.backgroundColor = [UIColor clearColor];
-    self.captionView.backgroundColor = [UIColor clearColor];
-    self.inputSourceView.backgroundColor = [UIColor clearColor];
-    self.checkinView.backgroundColor = [UIColor clearColor];
+    self.headerContainer.backgroundColor = self.headerView.backgroundColor = [UIColor redColor];
+    self.welcomeContainer.backgroundColor = [UIColor clearColor];
+    self.captionContainer.backgroundColor = self.captionView.backgroundColor = [UIColor clearColor];
+    self.inputSourceContainer.backgroundColor = self.inputSourceView.backgroundColor = [UIColor clearColor];
+    self.checkinContainer.backgroundColor = self.checkinView.backgroundColor = [UIColor clearColor];
     
     self.transitionToCameraView.hidden = YES;
     
