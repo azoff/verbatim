@@ -11,29 +11,35 @@
 #import "VBInputSourceManager.h"
 #import "VBFont.h"
 #import "VBPubSub.h"
+#import "VBCaptionDataSource.h"
+#import "VBCaptionTableViewCell.h"
+#import "VBCaptionDelegate.h"
 
 @interface VBCaptionController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic) CGFloat lastCaptionPanOffsetY;
-@property (nonatomic) CGFloat lastCaptionContentOffsetY;
-@property (nonatomic) CGFloat captionTextViewMinHeight;
-@property (nonatomic) NSMutableAttributedString *captionHistory;
+@property (nonatomic) CGFloat captionTableMinHeight;
 @property (nonatomic) BOOL adjustingHeight;
+@property (nonatomic) BOOL captionTableCollapsed;
 @property (nonatomic) BOOL monitoringContentSize;
-@property (nonatomic) BOOL captionTextViewCollapsed;
+@property (nonatomic) VBCaptionDataSource *captionDataSource;
+@property (nonatomic) VBCaptionDelegate *captionDelegate;
+
 @property (nonatomic, strong) AVCaptureSession *cameraCaptureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput *cameraCaptureOutput;
+
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
-@property (weak, nonatomic) IBOutlet UIView *activeCameraView;
-@property (weak, nonatomic) IBOutlet UITextView *captionTextView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *captionTextViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *captionTextViewPanRecognizer;
+@property (weak, nonatomic) UIView *activeCameraView;
+@property (weak, nonatomic) IBOutlet UITableView *captionTable;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *captionTableHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *captionTablePanRecognizer;
+
 @property (nonatomic) VBUser *lastSource;
 @property (nonatomic) FirebaseHandle userImageSubscription;
 
-- (IBAction)onCaptionTextViewPan:(id)sender;
-- (IBAction)onCaptionTextViewHold:(id)sender;
+- (IBAction)onCaptionTablePan:(id)sender;
+- (IBAction)onCaptionTableLongPress:(id)sender;
 
 @end
 
@@ -43,8 +49,9 @@
 - (id)init
 {
     self = [super init];
-    if (self)
-        self.captionHistory = [[NSMutableAttributedString alloc] init];
+    if (self) {
+        
+    }
     return self;
 }
 
@@ -52,6 +59,7 @@
 {
     [super viewDidLoad];
     [self setupView];
+    [self setupCaptionTable];
     [self addObservers];
     [self setupCameraCaptureSession];
     [self setupCameraCaptureOutput];
@@ -60,26 +68,36 @@
 
 - (void)setupView
 {
-    self.captionTextViewMinHeight = self.captionTextView.frame.size.height;
-    self.captionTextViewCollapsed = YES;
-    self.captionTextViewPanRecognizer.delegate = self;
+    self.monitoringContentSize = YES;
+    self.captionTableMinHeight = self.captionTableHeightConstraint.constant;
+    self.captionTableCollapsed = YES;
+    self.captionTablePanRecognizer.delegate = self;
     [self renderRandomCameraBackgroundColor];
+}
+
+- (void)setupCaptionTable
+{
+    // colors
+    self.captionTable.backgroundColor = [VBColor captionBarColor];
+    self.captionTable.backgroundView = nil;
+
+    // data source
+    id name = @"CaptionCell";
+    self.captionTable.dataSource = self.captionDataSource = [VBCaptionDataSource sourceWithCellReuseIdentifier:name];
+    [self.captionTable registerNib:VBCaptionTableViewCell.nib forCellReuseIdentifier:name];
+    
+    self.captionTable.delegate = self.captionDelegate = [VBCaptionDelegate delegateWithDataSource:self.captionDataSource];
+
 }
 
 - (void)addObservers
 {
     
-    // append captions on input source manager updates
     id center = [NSNotificationCenter defaultCenter];
-    [center addObserverForName:VBInputSourceManagerEventCaptionReceived
-                        object:nil queue:nil usingBlock:^(NSNotification *notification) {
-                            [self appendCaption:notification.userInfo[@"caption"]];
-                        }];
     
-    // clear out captions on caption source changes
+    // change camera on caption source changes
     [center addObserverForName:VBUserEventSourceChanged
                         object:nil queue:nil usingBlock:^(NSNotification *notification) {
-                            [self clearCaptionHistory];
                             [self updateCameraSource];
                         }];
     
@@ -88,6 +106,10 @@
                         object:nil queue:nil usingBlock:^(NSNotification *notification) {
                              [self captureAndPublishUserImage];
                         }];
+    
+    [self.captionDataSource observeUpdateWithBlock:^{
+        [self.captionTable reloadData];
+    }];
     
 }
 
@@ -200,7 +222,6 @@
     if (!self.cameraCaptureSession)
         return;
     
-    
     // setup still image capture from camera
     self.cameraCaptureOutput = [[AVCaptureStillImageOutput alloc] init];
     [self.cameraCaptureOutput setOutputSettings:@{AVVideoCodecKey: AVVideoCodecJPEG}];
@@ -265,32 +286,15 @@
     }];
 }
 
-- (void)setMonitoringContentSize:(BOOL)monitoringContentSize
-{
-    if (monitoringContentSize == _monitoringContentSize) return;
-    id keyPath = NSStringFromSelector(@selector(contentSize));
-    if ((_monitoringContentSize = monitoringContentSize)) {
-        [self.captionTextView addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
-    } else {
-        [self.captionTextView removeObserver:self forKeyPath:keyPath];
-    }
-}
-
-- (void)clearCaptionHistory
-{
-    [self.captionHistory deleteCharactersInRange:NSMakeRange(0, self.captionHistory.length)];
-    [self renderCaptionHistory];
-}
-
--(void)setCaptionTextViewCollapsed:(BOOL)captionTextViewCollapsed
+-(void)setCaptionTableCollapsed:(BOOL)captionTextViewCollapsed
 {
     [self setCaptionTextViewCollapsed:captionTextViewCollapsed animatedWithDuration:0 velocity:0];
 }
 
 -(void)setCaptionTextViewCollapsed:(BOOL)captionTextViewCollapsed animatedWithDuration:(CGFloat)duration velocity:(CGFloat)velocity
 {
-    self.captionTextViewHeightConstraint.constant = (_captionTextViewCollapsed = captionTextViewCollapsed) ?
-        self.captionTextViewMinHeight : self.view.frame.size.height;
+    self.captionTableHeightConstraint.constant = (_captionTableCollapsed = captionTextViewCollapsed) ?
+        self.captionTableMinHeight : self.view.frame.size.height;
     self.adjustingHeight = NO;
     [UIView animateWithDuration:duration
                           delay:0
@@ -303,68 +307,35 @@
                      }
                      completion:^(BOOL finished) {
                          if (finished) {
-                             self.monitoringContentSize = self.captionTextViewCollapsed;
-                             self.captionTextView.scrollEnabled = YES;
+                             self.monitoringContentSize = self.captionTableCollapsed;
+                             self.captionTable.scrollEnabled = YES;
                              self.adjustingHeight = NO;
                              [self updateActiveCameraViewAlpha];
                          }
                      }];
 }
 
-- (void)appendCaption:(NSString *)caption
-{
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    id attributes = @{
-      NSFontAttributeName: [VBFont defaultFontWithSize:17],
-      NSForegroundColorAttributeName: [VBColor translucsentTextColor],
-      NSParagraphStyleAttributeName: paragraphStyle
-    };
-    NSString *string = [NSString stringWithFormat:@"\n\n%@\n", caption];
-    NSAttributedString *text = [[NSAttributedString alloc] initWithString:string attributes:attributes];
-    [self.captionHistory appendAttributedString:text];
-    [self renderCaptionHistory];
-}
-
 - (void)setAdjustingHeight:(BOOL)adjustingHeight
 {
-    void(^animation)(void);
-    if ((_adjustingHeight = adjustingHeight))
-        animation = ^{ self.captionTextView.backgroundColor = [VBColor separatorColor]; };
-    else
-        animation = ^{ self.captionTextView.backgroundColor = [VBColor captionBarColor]; };
+    id color = (_adjustingHeight = adjustingHeight) ? [VBColor separatorColor] : [VBColor captionBarColor];
     [UIView animateWithDuration:0.3 delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:animation
+                     animations:^{ self.captionTable.backgroundColor = color; }
                      completion:nil];
-}
-
-- (void)renderCaptionHistory
-{
-    self.lastCaptionContentOffsetY = self.captionTextView.contentOffset.y;
-    self.captionTextView.attributedText = self.captionHistory;
-    [self pegCaptionContentOffset];
-}
-
-- (void)pegCaptionContentOffset
-{
-    CGPoint currentOffset = self.captionTextView.contentOffset;
-    self.captionTextView.contentOffset = CGPointMake(currentOffset.x, self.lastCaptionContentOffsetY);
 }
 
 - (CGFloat)captionTextViewBottomOffsetY
 {
-    CGSize containerSize = self.captionTextView.bounds.size;
-    CGSize contentSize   = self.captionTextView.contentSize;
+    CGSize containerSize = self.captionTable.bounds.size;
+    CGSize contentSize   = self.captionTable.contentSize;
     return contentSize.height - containerSize.height;
 }
 
 - (void)scrollToLastCaptionWithAnimation:(BOOL)animation
 {
-    if (animation) [self pegCaptionContentOffset];
-    CGPoint currentOffset = self.captionTextView.contentOffset;
+    CGPoint currentOffset = self.captionTable.contentOffset;
     CGFloat offsetY = self.captionTextViewBottomOffsetY;
-    [self.captionTextView setContentOffset:CGPointMake(currentOffset.x, offsetY) animated:animation];
+    [self.captionTable setContentOffset:CGPointMake(currentOffset.x, offsetY) animated:animation];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -375,13 +346,13 @@
 
 - (void)updateCaptionTextViewHeight:(CGFloat)heightDelta
 {
-    CGFloat requestedHeight = self.captionTextViewHeightConstraint.constant + heightDelta;
-    CGFloat allowedHeight   = MIN(MAX(self.captionTextViewMinHeight, requestedHeight), self.view.frame.size.height);
-    self.captionTextViewHeightConstraint.constant = allowedHeight;
-    [self.view layoutIfNeeded];
+    CGFloat requestedHeight = self.captionTableHeightConstraint.constant + heightDelta;
+    CGFloat allowedHeight   = MIN(MAX(self.captionTableMinHeight, requestedHeight), self.view.frame.size.height);
+    self.captionTableHeightConstraint.constant = allowedHeight;
+    [self.captionTable layoutIfNeeded];
 }
 
-- (IBAction)onCaptionTextViewHold:(UILongPressGestureRecognizer *)sender {
+- (IBAction)onCaptionTableLongPress:(UILongPressGestureRecognizer *)sender {
     switch (sender.state) {
         default: break;
         case UIGestureRecognizerStateBegan:
@@ -398,9 +369,9 @@
     return YES;
 }
 
-- (IBAction)onCaptionTextViewPan:(UIPanGestureRecognizer *)sender {
+- (IBAction)onCaptionTablePan:(UIPanGestureRecognizer *)sender {
     
-    if (!self.adjustingHeight && self.captionTextView.scrollEnabled)
+    if (!self.adjustingHeight && self.captionTable.scrollEnabled)
         return;
     
     CGPoint p;
@@ -409,11 +380,11 @@
         default: break;
         case UIGestureRecognizerStateBegan:
             self.monitoringContentSize = NO;
-            self.captionTextView.scrollEnabled = NO;
+            self.captionTable.scrollEnabled = NO;
             break;
         case UIGestureRecognizerStateChanged:
             p = [sender translationInView:self.view];
-            [self updateCaptionTextViewHeight:self.lastCaptionContentOffsetY - p.y];
+            [self updateCaptionTextViewHeight:self.lastCaptionPanOffsetY - p.y];
             [self updateActiveCameraViewAlpha];
             break;
         case UIGestureRecognizerStateEnded:
@@ -424,14 +395,25 @@
             break;
     }
     
-    self.lastCaptionContentOffsetY = p.y;
+    self.lastCaptionPanOffsetY = p.y;
     
+}
+
+- (void)setMonitoringContentSize:(BOOL)monitoringContentSize
+{
+    if (monitoringContentSize == _monitoringContentSize) return;
+    id keyPath = NSStringFromSelector(@selector(contentSize));
+    if ((_monitoringContentSize = monitoringContentSize)) {
+        [self.captionTable addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
+    } else {
+        [self.captionTable removeObserver:self forKeyPath:keyPath];
+    }
 }
 
 - (void)updateActiveCameraViewAlpha
 {
-    CGFloat range    = self.view.frame.size.height - self.captionTextViewMinHeight;
-    CGFloat distance = self.captionTextViewHeightConstraint.constant - self.captionTextViewMinHeight;
+    CGFloat range    = self.view.frame.size.height - self.captionTableMinHeight;
+    CGFloat distance = self.captionTableHeightConstraint.constant - self.captionTableMinHeight;
     CGFloat percent  = distance / range;
     CGFloat alpha    = 1 - 0.5*percent;
     self.activeCameraView.alpha = alpha;

@@ -69,6 +69,10 @@
 		C9671B7B18EA1C59003E8450 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B7A18EA1C59003E8450 /* Security.framework */; };
 		C9671B7D18EA1C63003E8450 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B7C18EA1C63003E8450 /* SystemConfiguration.framework */; };
 		C9671B7F18EA1CB1003E8450 /* SpeechKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B7E18EA1CB1003E8450 /* SpeechKit.framework */; };
+		C99B69A8190E4FB2007B0483 /* VBCaptionDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B69A7190E4FB2007B0483 /* VBCaptionDataSource.m */; };
+		C99B69AC190E5224007B0483 /* VBCaptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B69AA190E5224007B0483 /* VBCaptionTableViewCell.m */; };
+		C99B69AD190E5224007B0483 /* VBCaptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C99B69AB190E5224007B0483 /* VBCaptionTableViewCell.xib */; };
+		C99B69B0190E5A2C007B0483 /* VBCaptionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C99B69AF190E5A2C007B0483 /* VBCaptionDelegate.m */; };
 		C9B01B3C18F221CE0086E066 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B5E18EA1BF0003E8450 /* XCTest.framework */; };
 		C9B01B3D18F221CE0086E066 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4518EA1BF0003E8450 /* Foundation.framework */; };
 		C9B01B3E18F221CE0086E066 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9671B4918EA1BF0003E8450 /* UIKit.framework */; };
@@ -189,6 +193,13 @@
 		C9671B7A18EA1C59003E8450 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		C9671B7C18EA1C63003E8450 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C9671B7E18EA1CB1003E8450 /* SpeechKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpeechKit.framework; path = Frameworks/SpeechKit.framework; sourceTree = "<group>"; };
+		C99B69A6190E4FB2007B0483 /* VBCaptionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBCaptionDataSource.h; path = "Data Sources/VBCaptionDataSource.h"; sourceTree = "<group>"; };
+		C99B69A7190E4FB2007B0483 /* VBCaptionDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBCaptionDataSource.m; path = "Data Sources/VBCaptionDataSource.m"; sourceTree = "<group>"; };
+		C99B69A9190E5224007B0483 /* VBCaptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBCaptionTableViewCell.h; path = verbatim/views/VBCaptionTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		C99B69AA190E5224007B0483 /* VBCaptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBCaptionTableViewCell.m; path = verbatim/views/VBCaptionTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		C99B69AB190E5224007B0483 /* VBCaptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = VBCaptionTableViewCell.xib; path = verbatim/views/VBCaptionTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		C99B69AE190E5A2C007B0483 /* VBCaptionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VBCaptionDelegate.h; path = Delegates/VBCaptionDelegate.h; sourceTree = "<group>"; };
+		C99B69AF190E5A2C007B0483 /* VBCaptionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VBCaptionDelegate.m; path = Delegates/VBCaptionDelegate.m; sourceTree = "<group>"; };
 		C9B01B3B18F221CE0086E066 /* verbatimTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = verbatimTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9B01B4118F221CE0086E066 /* verbatimTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "verbatimTests-Info.plist"; sourceTree = "<group>"; };
 		C9B01B4318F221CE0086E066 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -349,6 +360,9 @@
 				C9635D12190509B70020569C /* VBUserTableViewCell.xib */,
 				C9635D15190517B40020569C /* VBTableViewCell.h */,
 				C9635D16190517B40020569C /* VBTableViewCell.m */,
+				C99B69A9190E5224007B0483 /* VBCaptionTableViewCell.h */,
+				C99B69AA190E5224007B0483 /* VBCaptionTableViewCell.m */,
+				C99B69AB190E5224007B0483 /* VBCaptionTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,6 +374,8 @@
 				C9635CFA190387D80020569C /* VBVenueDataSource.m */,
 				C9635D0A1905079F0020569C /* VBUserDataSource.h */,
 				C9635D0B1905079F0020569C /* VBUserDataSource.m */,
+				C99B69A6190E4FB2007B0483 /* VBCaptionDataSource.h */,
+				C99B69A7190E4FB2007B0483 /* VBCaptionDataSource.m */,
 			);
 			name = "Data Sources";
 			sourceTree = "<group>";
@@ -373,6 +389,8 @@
 				C9635D031904377A0020569C /* VBVenueDelegate.m */,
 				C9635D18190520840020569C /* VBUserDelegate.h */,
 				C9635D19190520840020569C /* VBUserDelegate.m */,
+				C99B69AE190E5A2C007B0483 /* VBCaptionDelegate.h */,
+				C99B69AF190E5A2C007B0483 /* VBCaptionDelegate.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -550,6 +568,7 @@
 				C95E2DAF18FFA89600BD365F /* VBInputSourceController.xib in Resources */,
 				C95E2DA518FFA89600BD365F /* InfoPlist.strings in Resources */,
 				C9635CF71902F7FC0020569C /* VBRootController.xib in Resources */,
+				C99B69AD190E5224007B0483 /* VBCaptionTableViewCell.xib in Resources */,
 				C95E2DAD18FFA89600BD365F /* VBCheckinController.xib in Resources */,
 				C9635D0019038D5E0020569C /* VBVenueTableViewCell.xib in Resources */,
 				C9635D14190509B70020569C /* VBUserTableViewCell.xib in Resources */,
@@ -610,6 +629,7 @@
 				C9635CFB190387D80020569C /* VBVenueDataSource.m in Sources */,
 				C9635CE9190220E30020569C /* VBFont.m in Sources */,
 				C9635CEC190222CB0020569C /* VBLabel.m in Sources */,
+				C99B69AC190E5224007B0483 /* VBCaptionTableViewCell.m in Sources */,
 				C95E2DBE18FFB2CA00BD365F /* VBViewController.m in Sources */,
 				C95E2DAC18FFA89600BD365F /* VBCheckinController.m in Sources */,
 				C95E2D9C18FFA89600BD365F /* UIViewController+Factory.m in Sources */,
@@ -626,6 +646,7 @@
 				C95E2DB318FFA89600BD365F /* VBWelcomeController.m in Sources */,
 				C9635D07190444720020569C /* VBAppDelegate.m in Sources */,
 				C9635CFF19038D5E0020569C /* VBVenueTableViewCell.m in Sources */,
+				C99B69B0190E5A2C007B0483 /* VBCaptionDelegate.m in Sources */,
 				C95E2D9D18FFA89600BD365F /* VBFoursquare.m in Sources */,
 				C9635D17190517B40020569C /* VBTableViewCell.m in Sources */,
 				C95E2DA418FFA89600BD365F /* VBVenue.m in Sources */,
@@ -633,6 +654,7 @@
 				C900E78D1908E5DD005933BA /* VBCaptionController.m in Sources */,
 				C95E2DA618FFA89600BD365F /* main.m in Sources */,
 				C9635CF61902F7FC0020569C /* VBRootController.m in Sources */,
+				C99B69A8190E4FB2007B0483 /* VBCaptionDataSource.m in Sources */,
 				C9635D1A190520840020569C /* VBUserDelegate.m in Sources */,
 				C95E2DA818FFA89600BD365F /* VBColor.m in Sources */,
 				C95E2DA918FFA89600BD365F /* VBHUD.m in Sources */,

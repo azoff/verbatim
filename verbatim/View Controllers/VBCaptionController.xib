@@ -8,9 +8,9 @@
             <connections>
                 <outlet property="cameraImageView" destination="RRw-FM-anr" id="cUk-V0-KEd"/>
                 <outlet property="cameraView" destination="3cN-cZ-NSq" id="HFy-IX-gFR"/>
-                <outlet property="captionTextView" destination="rNB-yQ-8he" id="BRA-OD-azY"/>
-                <outlet property="captionTextViewHeightConstraint" destination="B7H-5S-LeN" id="pEd-2j-s5A"/>
-                <outlet property="captionTextViewPanRecognizer" destination="thA-S6-PyA" id="Yf4-9A-J5h"/>
+                <outlet property="captionTable" destination="7t8-lH-dwF" id="JyH-fI-Eec"/>
+                <outlet property="captionTableHeightConstraint" destination="qdN-4E-2V2" id="BJo-kK-zJH"/>
+                <outlet property="captionTablePanRecognizer" destination="BGt-dI-eec" id="obZ-Vb-piT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -27,21 +27,20 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </view>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNB-yQ-8he">
+                <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7t8-lH-dwF" userLabel="Caption Table View">
                     <rect key="frame" x="0.0" y="498" width="320" height="70"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="70" id="B7H-5S-LeN"/>
+                        <constraint firstAttribute="height" constant="70" id="qdN-4E-2V2"/>
                     </constraints>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <connections>
-                        <outletCollection property="gestureRecognizers" destination="thA-S6-PyA" appends="YES" id="Csb-xO-q3g"/>
-                        <outletCollection property="gestureRecognizers" destination="yaC-9w-B2u" appends="YES" id="0oT-mp-q4s"/>
+                        <outletCollection property="gestureRecognizers" destination="BGt-dI-eec" appends="YES" id="aqJ-gH-Peo"/>
+                        <outletCollection property="gestureRecognizers" destination="jS1-2O-pne" appends="YES" id="iuO-Ps-NFw"/>
                     </connections>
-                </textView>
+                </tableView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="3cN-cZ-NSq" secondAttribute="trailing" id="0gJ-Jd-SaV"/>
@@ -51,22 +50,22 @@
                 <constraint firstItem="RRw-FM-anr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9tQ-5g-xDn"/>
                 <constraint firstAttribute="bottom" secondItem="RRw-FM-anr" secondAttribute="bottom" id="Ks9-ba-fvh"/>
                 <constraint firstItem="3cN-cZ-NSq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WyG-ZJ-X9o"/>
-                <constraint firstAttribute="bottom" secondItem="rNB-yQ-8he" secondAttribute="bottom" id="ZWp-pL-NND"/>
                 <constraint firstItem="RRw-FM-anr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cca-E8-4QO"/>
-                <constraint firstAttribute="trailing" secondItem="rNB-yQ-8he" secondAttribute="trailing" id="oUa-Om-nbf"/>
-                <constraint firstItem="rNB-yQ-8he" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yAg-mS-fUr"/>
+                <constraint firstAttribute="bottom" secondItem="7t8-lH-dwF" secondAttribute="bottom" id="fhN-af-BsP"/>
+                <constraint firstItem="7t8-lH-dwF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gUQ-Gh-qfC"/>
+                <constraint firstAttribute="trailing" secondItem="7t8-lH-dwF" secondAttribute="trailing" id="m5b-ON-kLT"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="thA-S6-PyA">
+        <panGestureRecognizer minimumNumberOfTouches="1" id="BGt-dI-eec">
             <connections>
-                <action selector="onCaptionTextViewPan:" destination="-1" id="G8L-vx-0Hk"/>
+                <action selector="onCaptionTablePan:" destination="-1" id="WXd-LK-2qq"/>
             </connections>
         </panGestureRecognizer>
-        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="yaC-9w-B2u">
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="jS1-2O-pne">
             <connections>
-                <action selector="onCaptionTextViewHold:" destination="-1" id="di7-bd-dJX"/>
+                <action selector="onCaptionTableLongPress:" destination="-1" id="Wmx-80-ICj"/>
             </connections>
         </pongPressGestureRecognizer>
     </objects>

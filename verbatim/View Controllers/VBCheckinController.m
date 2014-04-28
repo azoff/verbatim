@@ -57,7 +57,6 @@
     self.tableView.separatorColor = [VBColor separatorColor];
     UIView *view = [UIView new]; view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = view;
-    self.tableView.separatorColor = [VBColor separatorColor];
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.alpha = 0;
 
