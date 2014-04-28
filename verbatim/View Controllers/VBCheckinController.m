@@ -31,9 +31,12 @@
             //[VBHUD showWithError:error];
             [self dismissController];
         } else {
-            [UIView animateWithDuration:0.5 animations:^{
-                self.tableView.alpha = 1.0;
-            }];
+            // only animate if we are coming for alpha 0 for the table view
+            if (self.tableView.alpha < 0.5) {
+                [UIView animateWithDuration:0.5 animations:^{
+                    self.tableView.alpha = 1.0;
+                }];
+            }
             //[VBHUD hide];
             [self.tableView reloadSections:[[NSIndexSet alloc] initWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
@@ -102,16 +105,22 @@
     [super viewDidLoad];
     [self setupTableView];
     [self addObservers];
+    
+    // add pull to refresh
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
 }
 
-- (void)onRootViewDidLoad
+- (void)refresh:(UIRefreshControl *)refreshControl
 {
+    [refreshControl endRefreshing];
     [self fetchVenuesIfAuthenticated];
 }
 
-- (void)onRootMadeActive
+
+- (void)onRootViewDidLoad
 {
-    // refetch data each time we come back to the venue list
     [self fetchVenuesIfAuthenticated];
 }
 
