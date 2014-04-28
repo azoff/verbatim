@@ -48,12 +48,12 @@
     self.sourceNameLabel.textColor = [VBColor activeColor];
     
     // colors
-    self.sourceTableView.backgroundColor = [UIColor clearColor];
-    self.sourceTableView.separatorColor = [VBColor separatorColor];
-    UIView *view = [UIView new]; view.backgroundColor = [UIColor clearColor];
+    UIView *view = [UIView new];
+    view.backgroundColor = [VBColor clearColor];
+    self.sourceTableView.backgroundColor = [VBColor clearColor];
     self.sourceTableView.backgroundView = view;
-    self.sourceTableView.separatorColor = [VBColor separatorColor];
     self.sourceTableView.separatorInset = UIEdgeInsetsZero;
+    self.sourceTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.sourceTableView.alpha = 0;
     
     id venue = [[VBUser currentUser] venue];
@@ -67,7 +67,8 @@
     [self.userDataSource observeUpdateWithBlock:^(NSError *error) {
         if (error) [VBHUD showWithError:error];
         else self.sourceTableView.alpha = 1;
-        [self.sourceTableView reloadData];
+        id sections = [[NSIndexSet alloc] initWithIndex:0];
+        [self.sourceTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
     }];
     
     // delegate
@@ -83,47 +84,25 @@
 - (void)addObservers
 {
     id center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(updateTableView) name:VBUserEventSourceChanged object:nil];
-    [center addObserver:self selector:@selector(onUserCheckedIn) name:VBUserEventCheckedIn object:nil];
-    [center addObserver:self selector:@selector(onDeauthorized) name:VBUserEventCurrentUserRemoved object:nil];
+    [center addObserver:self selector:@selector(updateViews) name:VBUserEventSourceChanged object:nil];
+    [center addObserver:self selector:@selector(updateViews) name:VBUserEventCheckedIn object:nil];
+    [center addObserver:self selector:@selector(updateViews) name:VBUserEventCurrentUserRemoved object:nil];
     
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self setupTableView];
     [self addObservers];
+    [self updateViews];
 }
 
--(void)onRootViewDidLoad
-{
-    // prefetch the data as soon as the root view has loaded so we
-    // have it all ready if a user is checked in on startup
-    [self updateTableView];
-}
 
--(void)onRootMadeActive
+-(void)updateViews
 {
-    // refresh data whenever we switch back to this view
     [self updateTableView];
     [self updateSourceNameLabelText];
-    [self updateContainerViews];
-}
-
--(void)onUserCheckedIn
-{
-    // when user checks in, update our checked in states for views
-    // and fetch new data
-    self.userDataSource.venue = [[VBUser currentUser] venue];
-    [self updateContainerViews];
-    [self updateTableView];
-}
-
--(void)onDeauthorized
-{
-    // when logging out, update login/out state
     [self updateContainerViews];
 }
 
