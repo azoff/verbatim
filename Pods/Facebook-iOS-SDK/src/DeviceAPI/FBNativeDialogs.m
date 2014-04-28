@@ -39,6 +39,12 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 + (FBOSIntegratedShareDialogHandler)handlerFromHandler:(FBShareDialogHandler)handler {
+    if (handler) {
+        FBOSIntegratedShareDialogHandler fancy = ^(FBOSIntegratedShareDialogResult result, NSError *error) {
+//            handler(result, error);
+        };
+        return [[fancy copy] autorelease];
+    }
     return nil;
 }
 #pragma GCC diagnostic pop

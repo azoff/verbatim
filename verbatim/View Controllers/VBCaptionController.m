@@ -1,156 +1,168 @@
 //
-//  VBCaptionScreen.m
+//  VBCaptionController.m
 //  verbatim
 //
-//  Created by Jonathan Azoff on 3/24/14.
+//  Created by Jonathan Azoff on 4/23/14.
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
 #import "VBCaptionController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "VBInputSourceManager.h"
-#import "VBCheckinController.h"
 #import "VBFont.h"
 #import "VBPubSub.h"
-#import <AVFoundation/AVFoundation.h>
 
+@interface VBCaptionController () <UIGestureRecognizerDelegate>
 
-enum VBCaptionControllerPresentationModeType {
-    PM_CAPTION_FULLTEXT,
-    PM_CAPTION_CAMERA
-};
-
-typedef enum VBCaptionControllerPresentationModeType VBCaptionControllerPresentationModeType;
-
-CGFloat const VBCaptionControllerSwipeToSwitchDistance = 100.0f;
-CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
-
-
-@interface VBCaptionController ()
-
-@property (strong,nonatomic) NSString *caption;
-@property (assign,nonatomic) VBCaptionControllerPresentationModeType presentationMode;
-
-@property (assign,nonatomic) CGPoint startPanPoint;
-@property (nonatomic,strong) AVCaptureSession *cameraCaptureSession;
-
-@property (strong,nonatomic) NSMutableArray *captions;
-@property (weak, nonatomic) IBOutlet UILabel *captionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *captionsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *captionsLabelAnimatedOverlay;
-
-@property (weak, nonatomic) IBOutlet UIView *historyView;
-
-@property (nonatomic,assign) BOOL inSimulator;
-@property (weak, nonatomic) IBOutlet UIView *cameraContainer;
+@property (nonatomic) CGFloat lastCaptionPanOffsetY;
+@property (nonatomic) CGFloat lastCaptionContentOffsetY;
+@property (nonatomic) CGFloat captionTextViewMinHeight;
+@property (nonatomic) NSMutableAttributedString *captionHistory;
+@property (nonatomic) BOOL adjustingHeight;
+@property (nonatomic) BOOL monitoringContentSize;
+@property (nonatomic) BOOL captionTextViewCollapsed;
+@property (nonatomic, strong) AVCaptureSession *cameraCaptureSession;
+@property (nonatomic, strong) AVCaptureStillImageOutput *cameraCaptureOutput;
 @property (weak, nonatomic) IBOutlet UIView *cameraView;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraImageView;
-@property (strong,nonatomic) AVCaptureStillImageOutput *stillImageOutput;
+@property (weak, nonatomic) IBOutlet UIView *activeCameraView;
+@property (weak, nonatomic) IBOutlet UITextView *captionTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *captionTextViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIPanGestureRecognizer *captionTextViewPanRecognizer;
+@property (nonatomic) VBUser *lastSource;
+@property (nonatomic) FirebaseHandle userImageSubscription;
 
-@property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *panGestureRecognizer;
-
-@property (strong,nonatomic) NSString *captionHistory;
-
-@property (nonatomic) FirebaseHandle onCameraImageChanged;
-@property (nonatomic,strong) VBUser *previousCameraSource;
-
-- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer;
+- (IBAction)onCaptionTextViewPan:(id)sender;
+- (IBAction)onCaptionTextViewHold:(id)sender;
 
 @end
 
 @implementation VBCaptionController
 
 
-// returns YES if a camera was detected and added, NO if not (for simulator)
-- (BOOL)setupCameraCaptureSession {
-    
-    // if we've already setup the cameraCaptureSession, let's return now as we only want
-    // to do this once. This is also why it wasn't lazy instantiated.
-    if (self.cameraCaptureSession) {
-        return YES;
-    }
-    self.cameraCaptureSession = [[AVCaptureSession alloc] init];
-    
-    //Setup camera input
-    AVCaptureDevice *device = [self frontFacingCameraIfAvailable];
-    if (!device) {
-        self.inSimulator = YES;
-        // when in simulator just display an image.
-        self.cameraImageView.image = [UIImage imageNamed:@"TigerTalk"];
-        self.cameraImageView.hidden = NO;
-        self.cameraView.hidden = YES;
-        return NO;
-    } else {
-        self.inSimulator = NO;
-        // hide the image view
-        self.cameraImageView.hidden = YES;
-    }
-    NSError *error = nil;
-    
-    // create an input and add it to the session
-    AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error]; //Handle errors
-    if (error) {
-        NSLog(@"VBCaptionController:addVideoInput: AVCaptureDeviceInput ERROR %@",error);
-        return NO;
-    }
-    
-    //set the session preset
-    self.cameraCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto; //Or other preset supported by the input device
-    [self.cameraCaptureSession addInput:input];
-    
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.cameraCaptureSession];
-    // Set the preview layer frame
-    previewLayer.frame = self.cameraView.bounds;
-    // make sure camera covers entire view
-    previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    // and add this layer to the camera view
-    [self.cameraView.layer addSublayer:previewLayer];
-    
-    // setup still image capture from camera
-    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
-    [self.stillImageOutput setOutputSettings:outputSettings];
-    [self.cameraCaptureSession addOutput:self.stillImageOutput];
-    
-    [self.cameraCaptureSession startRunning];
-    return YES;
+- (id)init
+{
+    self = [super init];
+    if (self)
+        self.captionHistory = [[NSMutableAttributedString alloc] init];
+    return self;
 }
 
-// Find front camera, return nil if no cameras, or 
--(AVCaptureDevice *) frontFacingCameraIfAvailable{
-    NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    
-    if (videoDevices.count == 0) {
-        return nil;
-    }
-    
-    for (AVCaptureDevice *device in videoDevices){
-        if (device.position == AVCaptureDevicePositionFront){
-            return device;
-        }
-    }
-    //  couldn't find one on the front, so just get the default video device.
-    return [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setupView];
+    [self addObservers];
+    [self setupCameraCaptureSession];
+    [self setupCameraCaptureOutput];
+    [self updateCameraSource];
 }
 
--(void)captureStillImageDataFromCameraOnComplete:(void(^)(NSData *))complete {
-    if (self.inSimulator) {
-        //UIImage *image = self.cameraImageView.image;
-        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-        CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-        CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-        UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-        CGRect rect = CGRectMake(0, 0, 1, 1);
-        // Create a 1 by 1 pixel context
-        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-        [color setFill];
-        UIRectFill(rect);   // Fill it with your color
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.8);
-        return complete(imageData);
+- (void)setupView
+{
+    self.captionTextViewMinHeight = self.captionTextView.frame.size.height;
+    self.captionTextViewCollapsed = YES;
+    self.captionTextViewPanRecognizer.delegate = self;
+    [self renderRandomCameraBackgroundColor];
+}
+
+- (void)addObservers
+{
+    
+    // append captions on input source manager updates
+    id center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:VBInputSourceManagerEventCaptionReceived
+                        object:nil queue:nil usingBlock:^(NSNotification *notification) {
+                            [self appendCaption:notification.userInfo[@"caption"]];
+                        }];
+    
+    // clear out captions on caption source changes
+    [center addObserverForName:VBUserEventSourceChanged
+                        object:nil queue:nil usingBlock:^(NSNotification *notification) {
+                            [self clearCaptionHistory];
+                            [self updateCameraSource];
+                        }];
+    
+    // when sending captions, also send image captures
+    [center addObserverForName:VBInputSourceManagerEventCaptionProcessing
+                        object:nil queue:nil usingBlock:^(NSNotification *notification) {
+                             [self captureAndPublishUserImage];
+                        }];
+    
+}
+
+- (void)updateCameraSource
+{
+    if (self.lastSource)
+        [VBPubSub unsubscribeFromUserImage:self.lastSource
+                                    handle:self.userImageSubscription];
+    
+    // check for local sourcing
+    self.lastSource = nil;
+    VBUser *current = [VBUser currentUser];
+    if (![current isNotListeningToSelf]) {
+        self.activeCameraView = self.cameraView;
+        return;
     }
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
+    
+    // otherwise, we're sourcing from another user
+    self.lastSource = current.source;
+    self.activeCameraView = self.cameraImageView;
+    self.userImageSubscription = [VBPubSub subscribeToUserImageData:current.source success:^(NSData *imageData) {
+        [self updateCameraImage:[[UIImage alloc] initWithData:imageData]];
+    } failure:^(NSError *error) {
+        [VBHUD showWithError:error];
+    }];
+    
+}
+
+- (void)updateCameraImage:(UIImage *)image
+{
+    [UIView transitionWithView:self.cameraImageView
+                      duration:1.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        self.cameraImageView.image = image;
+                    } completion:nil];
+}
+
+- (void)setActiveCameraView:(UIView *)activeCameraView
+{
+    UIView *inactiveCameraView;
+    if ([activeCameraView isEqual:self.cameraView])
+        inactiveCameraView = self.cameraImageView;
+    else
+        inactiveCameraView = self.cameraView;
+    _activeCameraView = activeCameraView;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self updateActiveCameraViewAlpha];
+        inactiveCameraView.alpha = 0;
+    }];
+}
+
+- (void)captureAndPublishUserImage
+{
+    // don't publish image unless checked in
+    VBUser *current = [VBUser currentUser];
+    if (![current isCheckedIn]) return;
+
+    [self captureUserImageWithCompletion:^(NSData *data) {
+        [VBPubSub publishImageData:data user:current success:nil failure:^(NSError * error) {
+            [VBHUD showWithError:error];
+        }];
+    }];
+}
+
+- (void)captureUserImageWithCompletion:(void(^)(NSData*))complete
+{
+    if (!self.cameraCaptureOutput) {
+        complete([self synthesizeUserImageDataFromBackgroundColor]);
+        return;
+    }
+    
+    // get a handle to the connection from the video stream
+    AVCaptureConnection *videoConnection;
+    for (AVCaptureConnection *connection in self.cameraCaptureOutput.connections) {
         for (AVCaptureInputPort *port in [connection inputPorts]) {
             if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
                 videoConnection = connection;
@@ -160,297 +172,269 @@ CGFloat const VBCaptionControllerTransitionDistance = 50.0f;
         if (videoConnection) { break; }
     }
     
-    NSLog(@"about to request a capture from: %@", self.stillImageOutput);
-    
-    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-        
-        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+    // capture the image from the video stream
+    [self.cameraCaptureOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        // convert the buffer into data in memory
+        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         complete(imageData);
     }];
+    
 }
 
-
--(void)onCameraSourceChangedToUser:(VBUser *)user withAnimationFrame:(CGRect)frame andImage:(UIImage *)image
+- (NSData *)synthesizeUserImageDataFromBackgroundColor
 {
-    NSLog(@"Setting still image camera subscription to user %@",user);
-    self.cameraImageView.hidden = NO;
-    self.cameraView.hidden = YES;
-    
-    if (self.previousCameraSource) {
-        [VBPubSub unsubscribeFromUserImage:self.previousCameraSource handle:self.onCameraImageChanged];
-    }
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    [self.cameraView.backgroundColor setFill];
+    UIRectFill(rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return UIImageJPEGRepresentation(image, 1);
+}
 
-    // perform animation...
-    [self.rootController animateNewCameraSourceWithAnimationFrame:frame andImage:image complete:^{
-        self.cameraImageView.image = image;
-        self.onCameraImageChanged = [VBPubSub subscribeToUserImageData:user success:^(NSData *imageData) {
-            self.cameraImageView.image = [[UIImage alloc] initWithData:imageData];
-            self.previousCameraSource = user;
-        } failure:^(NSError *error) {
-            [VBHUD showWithError:error];
-        }];
-    }];
+- (void)setupCameraCaptureOutput
+{
+    if (self.cameraCaptureOutput)
+        return;
     
+    if (!self.cameraCaptureSession)
+        return;
+    
+    
+    // setup still image capture from camera
+    self.cameraCaptureOutput = [[AVCaptureStillImageOutput alloc] init];
+    [self.cameraCaptureOutput setOutputSettings:@{AVVideoCodecKey: AVVideoCodecJPEG}];
+    [self.cameraCaptureSession addOutput:self.cameraCaptureOutput];
     
 }
 
-- (void)onProcessingCaption {
-    NSLog(@"onProcessing caption - should get a screen grab of front facing camera");
-    [self captureStillImageDataFromCameraOnComplete:^(NSData *imageData) {
-        NSLog(@"Got image data");
-        // processing...
-        
-        VBUser *current = [VBUser currentUser];
-        if ([current isCheckedIn]) {
-            NSLog(@"onProcessingCaption: User checked in so publishing image data");
-            [VBPubSub publishImageData:imageData user:[VBUser currentUser] success:nil failure:^(NSError * error) {
-                [VBHUD showWithError:error];
-            }];
-        } else {
-            NSLog(@"onProcessingCaption: User not checked in so not publishing data");
+- (void)setupCameraCaptureSession
+{
+    if (self.cameraCaptureSession)
+        return;
+    
+    // see if we have any cameras
+    AVCaptureDevice *videoDevice;
+    NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    if (videoDevices.count > 0) {
+        // if so, see if we can get a front facing camera
+        for (AVCaptureDevice *device in videoDevices){
+            if (!device.position == AVCaptureDevicePositionFront) continue;
+            videoDevice = device;
         }
-        
+        // if not, just settle for any camera
+        if (!videoDevice)
+            videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    }
+    
+    // if no video device, just return
+    if (!videoDevice)
+        return;
+    
+    // if we have a device, try to get a handle for it
+    NSError *error = nil;
+    AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
+    
+    // return on error
+    if (error) {
+        [VBHUD showWithError:error];
+        return;
+    }
+    
+    // now we can create our session object
+    self.cameraCaptureSession = [[AVCaptureSession alloc] init];
+    self.cameraCaptureSession.sessionPreset = AVCaptureSessionPresetPhoto;
+    [self.cameraCaptureSession addInput:input];
+    
+    // and use it to add a camera preview to the controller
+    AVCaptureVideoPreviewLayer *preview =
+        [AVCaptureVideoPreviewLayer layerWithSession:self.cameraCaptureSession];
+    preview.frame = self.cameraView.bounds;
+    preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self.cameraView.layer addSublayer:preview];
+    
+    // finally, we start the show
+    [self.cameraCaptureSession startRunning];
+    
+}
+
+- (void)renderRandomCameraBackgroundColor
+{
+    [UIView animateWithDuration:1.5 animations:^{
+        self.cameraView.backgroundColor = [VBColor randomLightColor];
     }];
 }
 
--(NSArray *)captions
+- (void)setMonitoringContentSize:(BOOL)monitoringContentSize
 {
-    if (!_captions) {
-        _captions = [NSMutableArray array];
-    }
-    return _captions;
-}
-
--(void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.caption = @"";
-    self.captionHistory = @"";
-    self.captionLabel.text = @"Talk or select someone to listen to";
-    self.captionsLabel.text = @"No history of captions yet!";
-    
-    [self setupCameraCaptureSession];
-    
-    // subscribe to channel for debug listening
-    [[NSNotificationCenter defaultCenter]
-     addObserverForName:VBInputSourceManagerEventCaptionReceived
-     object:nil
-     queue:nil
-     usingBlock:^(NSNotification *notification) {
-         NSLog(@"Caption controller received notification: %@",notification.userInfo[@"caption"]);
-         self.caption = notification.userInfo[@"caption"];
-     }];
-    // subscribe to channel for debug listening
-    [[NSNotificationCenter defaultCenter]
-     addObserverForName:VBInputSourceManagerEventCaptionProcessing
-     object:nil
-     queue:nil
-     usingBlock:^(NSNotification *notification) {
-         NSLog(@"Caption controller received processing notification: %@",notification.userInfo[@"caption"]);
-         [self onProcessingCaption];
-     }];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserverForName:VBUserEventCameraSourceChanged
-     object:nil
-     queue:nil
-     usingBlock:^(NSNotification *notification) {
-         NSLog(@"User camera source changed: %@",notification.userInfo[@"cameraSource"]);
-         CGRect frame;
-         if (notification.userInfo[@"animationFrame"]) {
-             frame = [notification.userInfo[@"animationFrame"] CGRectValue];
-         }
-         [self onCameraSourceChangedToUser:notification.userInfo[@"cameraSource"] withAnimationFrame:frame andImage:notification.userInfo[@"image"]];
-     }];
-    
-        
-    self.view.backgroundColor = [UIColor blackColor];
-    self.presentationMode = PM_CAPTION_CAMERA;
-    
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
--(void)setPresentationMode:(VBCaptionControllerPresentationModeType)presentationMode
-{
-    _presentationMode = presentationMode;
-    
-    if (self.presentationMode == PM_CAPTION_FULLTEXT) {
-        self.cameraContainer.layer.opacity = 0;
-        self.captionLabel.layer.opacity = 0;
-        self.historyView.layer.opacity = 1;
-        
-        self.captionsLabelAnimatedOverlay.transform = CGAffineTransformIdentity;
-        self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-VBCaptionControllerTransitionDistance);
-        
-        //[self.cameraCaptureSession stopRunning];
+    if (monitoringContentSize == _monitoringContentSize) return;
+    id keyPath = NSStringFromSelector(@selector(contentSize));
+    if ((_monitoringContentSize = monitoringContentSize)) {
+        [self.captionTextView addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
     } else {
-        self.historyView.layer.opacity = 0;
-        self.captionLabel.layer.opacity = 1;
-        
-        // give a shadow to the caption for readability.
-        CALayer *layer = self.captionLabel.layer;
-        layer.shadowOpacity = 0.50;
-        layer.shadowRadius = 5.0;
-        layer.shadowOffset = (CGSize){.width=0.0,.height=0.0};
-        
-        self.cameraContainer.layer.opacity = 1;
-        
-        self.captionLabel.transform = CGAffineTransformIdentity;
-        self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,-VBCaptionControllerTransitionDistance);
-        
-        //[self.cameraCaptureSession startRunning];
+        [self.captionTextView removeObserver:self forKeyPath:keyPath];
     }
 }
 
--(NSString *)captionHistory
+- (void)clearCaptionHistory
 {
-    if (!_captionHistory) {
-        _captionHistory = @"";
-    }
-    return _captionHistory;
+    [self.captionHistory deleteCharactersInRange:NSMakeRange(0, self.captionHistory.length)];
+    [self renderCaptionHistory];
 }
 
--(void)setCaption:(NSString *)caption
+-(void)setCaptionTextViewCollapsed:(BOOL)captionTextViewCollapsed
 {
-    _caption = caption;
-    self.captionLabel.text = caption;
-    self.captionLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    [self.captions addObject:caption];
-    
-    NSInteger previousLength=[self.captionHistory length];
-    NSInteger addToLength = [caption length]+1;
-    
-    self.captionHistory = [self.captionHistory stringByAppendingString:[NSString stringWithFormat:@"%@ ",caption]];
-    NSInteger totalLength = [self.captionHistory length];
-    
-    NSMutableAttributedString *display = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
-    NSMutableAttributedString *olddisplay = [[NSMutableAttributedString alloc] initWithString:self.captionHistory];
-    
-    UIColor *activeColor  = [VBColor activeColor];
-    UIColor *regularColor = [VBColor translucsentTextColor];
-    UIColor *hiddenColor  = [UIColor clearColor];
-    UIFont *font          = [VBFont defaultFontWithSize:16];
-    NSShadow *shadow      = [[NSShadow alloc] init];
-    
-    [shadow setShadowBlurRadius:5.0];
-    [shadow setShadowColor:[UIColor grayColor]];
-    [shadow setShadowOffset:CGSizeMake(0, 3)];
-    
-    [display addAttribute:NSFontAttributeName
-                    value:font
-                    range:NSMakeRange(0, totalLength)];
-    
-    [display addAttribute:NSForegroundColorAttributeName
-                    value:activeColor
-                    range:NSMakeRange(previousLength, addToLength)];
-    
-    [display addAttribute:NSShadowAttributeName
-                    value:shadow
-                    range:NSMakeRange(previousLength,addToLength)];
-    
-    [display addAttribute:NSForegroundColorAttributeName
-                    value:regularColor
-                    range:NSMakeRange(previousLength, addToLength)];
-    
-    [display addAttribute:NSForegroundColorAttributeName
-                    value:hiddenColor
-                    range:NSMakeRange(0, previousLength)];
-    
-    [olddisplay addAttribute:NSFontAttributeName
-                       value:font
-                       range:NSMakeRange(0, totalLength)];
-    
-    [olddisplay addAttribute:NSForegroundColorAttributeName
-                       value:activeColor
-                       range:NSMakeRange(previousLength, addToLength)];
-    
-    [olddisplay addAttribute:NSShadowAttributeName
-                       value:shadow range:NSMakeRange(previousLength, addToLength)];
-    
-    [olddisplay addAttribute:NSForegroundColorAttributeName
-                       value:hiddenColor
-                       range:NSMakeRange(previousLength, addToLength)];
-    
-    [olddisplay addAttribute:NSForegroundColorAttributeName
-                       value:regularColor
-                       range:NSMakeRange(0, previousLength)];
-    
-    self.captionsLabel.attributedText = olddisplay;
-    
-    // put text to animate to into the captions overlay text
-    //self.captionsLabelAnimatedOverlay.frame = self.captionsLabel.frame;
-    self.captionsLabelAnimatedOverlay.attributedText = display;
-    self.captionsLabelAnimatedOverlay.layer.opacity = 0;
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        self.captionsLabelAnimatedOverlay.layer.opacity = 1;
-    } completion:nil];
+    [self setCaptionTextViewCollapsed:captionTextViewCollapsed animatedWithDuration:0 velocity:0];
 }
 
-- (void)didReceiveMemoryWarning
+-(void)setCaptionTextViewCollapsed:(BOOL)captionTextViewCollapsed animatedWithDuration:(CGFloat)duration velocity:(CGFloat)velocity
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.captionTextViewHeightConstraint.constant = (_captionTextViewCollapsed = captionTextViewCollapsed) ?
+        self.captionTextViewMinHeight : self.view.frame.size.height;
+    self.adjustingHeight = NO;
+    [UIView animateWithDuration:duration
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:velocity
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                         [self updateActiveCameraViewAlpha];
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             self.monitoringContentSize = self.captionTextViewCollapsed;
+                             self.captionTextView.scrollEnabled = YES;
+                             self.adjustingHeight = NO;
+                             [self updateActiveCameraViewAlpha];
+                         }
+                     }];
 }
 
-- (IBAction)onPan:(UIPanGestureRecognizer *)panGestureRecognizer {
-    CGPoint point = [panGestureRecognizer locationInView:self.view];
+- (void)appendCaption:(NSString *)caption
+{
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    id attributes = @{
+      NSFontAttributeName: [VBFont defaultFontWithSize:17],
+      NSForegroundColorAttributeName: [VBColor translucsentTextColor],
+      NSParagraphStyleAttributeName: paragraphStyle
+    };
+    NSString *string = [NSString stringWithFormat:@"\n\n%@\n", caption];
+    NSAttributedString *text = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+    [self.captionHistory appendAttributedString:text];
+    [self renderCaptionHistory];
+}
+
+- (void)setAdjustingHeight:(BOOL)adjustingHeight
+{
+    void(^animation)(void);
+    if ((_adjustingHeight = adjustingHeight))
+        animation = ^{ self.captionTextView.backgroundColor = [VBColor separatorColor]; };
+    else
+        animation = ^{ self.captionTextView.backgroundColor = [VBColor captionBarColor]; };
+    [UIView animateWithDuration:0.3 delay:0
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:animation
+                     completion:nil];
+}
+
+- (void)renderCaptionHistory
+{
+    self.lastCaptionContentOffsetY = self.captionTextView.contentOffset.y;
+    self.captionTextView.attributedText = self.captionHistory;
+    [self pegCaptionContentOffset];
+}
+
+- (void)pegCaptionContentOffset
+{
+    CGPoint currentOffset = self.captionTextView.contentOffset;
+    self.captionTextView.contentOffset = CGPointMake(currentOffset.x, self.lastCaptionContentOffsetY);
+}
+
+- (CGFloat)captionTextViewBottomOffsetY
+{
+    CGSize containerSize = self.captionTextView.bounds.size;
+    CGSize contentSize   = self.captionTextView.contentSize;
+    return contentSize.height - containerSize.height;
+}
+
+- (void)scrollToLastCaptionWithAnimation:(BOOL)animation
+{
+    if (animation) [self pegCaptionContentOffset];
+    CGPoint currentOffset = self.captionTextView.contentOffset;
+    CGFloat offsetY = self.captionTextViewBottomOffsetY;
+    [self.captionTextView setContentOffset:CGPointMake(currentOffset.x, offsetY) animated:animation];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))])
+        [self scrollToLastCaptionWithAnimation:YES];
+}
+
+- (void)updateCaptionTextViewHeight:(CGFloat)heightDelta
+{
+    CGFloat requestedHeight = self.captionTextViewHeightConstraint.constant + heightDelta;
+    CGFloat allowedHeight   = MIN(MAX(self.captionTextViewMinHeight, requestedHeight), self.view.frame.size.height);
+    self.captionTextViewHeightConstraint.constant = allowedHeight;
+    [self.view layoutIfNeeded];
+}
+
+- (IBAction)onCaptionTextViewHold:(UILongPressGestureRecognizer *)sender {
+    switch (sender.state) {
+        default: break;
+        case UIGestureRecognizerStateBegan:
+            self.adjustingHeight = YES;
+            break;
+        case UIGestureRecognizerStateEnded:
+            self.adjustingHeight = NO;
+            break;
+    }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (IBAction)onCaptionTextViewPan:(UIPanGestureRecognizer *)sender {
     
-    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"Start point: %f",point.y);
-        self.startPanPoint = point;
+    if (!self.adjustingHeight && self.captionTextView.scrollEnabled)
+        return;
+    
+    CGPoint p;
+    
+    switch (sender.state) {
+        default: break;
+        case UIGestureRecognizerStateBegan:
+            self.monitoringContentSize = NO;
+            self.captionTextView.scrollEnabled = NO;
+            break;
+        case UIGestureRecognizerStateChanged:
+            p = [sender translationInView:self.view];
+            [self updateCaptionTextViewHeight:self.lastCaptionContentOffsetY - p.y];
+            [self updateActiveCameraViewAlpha];
+            break;
+        case UIGestureRecognizerStateEnded:
+            p = [sender velocityInView:self.view];
+            CGFloat duration = MIN(ABS(1500.0 / p.y), 1);
+            CGFloat velocity = MIN(ABS(self.view.frame.size.height / p.y), 0.3);
+            [self setCaptionTextViewCollapsed:(p.y > 0) animatedWithDuration:duration velocity:velocity];
+            break;
     }
-    else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-        
-        // if we want to transition smoothly as we swipe, we can animate
-        // the partial transitions here.
-        CGFloat travelled = point.y - self.startPanPoint.y;
-        CGFloat dest_perc = MIN(1.0,0.0 + ABS(travelled/VBCaptionControllerSwipeToSwitchDistance));
-        NSLog(@"travelled: %f perc: %f",travelled,dest_perc);
-        
-        if (self.presentationMode == PM_CAPTION_CAMERA) {
-            if (travelled > 0) {
-                dest_perc = 0.0;
-            }
-            // fade the camera...
-            self.cameraContainer.layer.opacity = 1 - dest_perc;
-            self.captionLabel.layer.opacity = 1 - dest_perc;
-            self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-dest_perc * VBCaptionControllerTransitionDistance);
-            self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(1-dest_perc) * VBCaptionControllerTransitionDistance);
-            self.historyView.layer.opacity = dest_perc;
-        } else {
-            if (travelled < 0) {
-                dest_perc = 0.0;
-            }
-            self.cameraContainer.layer.opacity = dest_perc;
-            self.captionLabel.layer.opacity = dest_perc;
-            self.captionLabel.transform = CGAffineTransformMakeTranslation(0,-(1-dest_perc) * VBCaptionControllerTransitionDistance);
-            self.captionsLabelAnimatedOverlay.transform = CGAffineTransformMakeTranslation(0,(dest_perc) * VBCaptionControllerTransitionDistance);
-            
-            self.historyView.layer.opacity = 1 - dest_perc;
-        }
-        
-        //self.menuView.transform = CGAffineTransformMakeTranslation(point.x - self.startPanPoint.x, 0);
-    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-        
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            NSLog(@"animate transition to presentation mode");
-            if (velocity.y<0) {
-                self.presentationMode = PM_CAPTION_FULLTEXT;
-            } else {
-                self.presentationMode = PM_CAPTION_CAMERA;
-            }
-
-        } completion:^(BOOL finished) {
-            NSLog(@"done");
-        }];
-    }
-
+    
+    self.lastCaptionContentOffsetY = p.y;
+    
 }
+
+- (void)updateActiveCameraViewAlpha
+{
+    CGFloat range    = self.view.frame.size.height - self.captionTextViewMinHeight;
+    CGFloat distance = self.captionTextViewHeightConstraint.constant - self.captionTextViewMinHeight;
+    CGFloat percent  = distance / range;
+    CGFloat alpha    = 1 - 0.5*percent;
+    self.activeCameraView.alpha = alpha;
+}
+
 @end

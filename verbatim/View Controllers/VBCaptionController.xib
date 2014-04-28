@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VBCaptionController">
             <connections>
-                <outlet property="cameraContainer" destination="CM8-ij-Ba2" id="0cz-4Z-a8U"/>
-                <outlet property="cameraImageView" destination="HPa-IH-ooJ" id="Air-04-nIN"/>
-                <outlet property="cameraView" destination="Mh2-pV-pfO" id="c3u-jg-UMQ"/>
-                <outlet property="captionLabel" destination="HhB-VD-WDU" id="ZjB-y0-zhw"/>
-                <outlet property="captionsLabel" destination="U0r-iE-D4C" id="9oG-nc-pX8"/>
-                <outlet property="captionsLabelAnimatedOverlay" destination="MoT-cQ-Ow2" id="nSt-SP-uG9"/>
-                <outlet property="historyView" destination="ChQ-hJ-MUQ" id="VmV-6k-Pgi"/>
-                <outlet property="panGestureRecognizer" destination="DXt-c1-K3u" id="eZ7-BB-922"/>
+                <outlet property="cameraImageView" destination="RRw-FM-anr" id="cUk-V0-KEd"/>
+                <outlet property="cameraView" destination="3cN-cZ-NSq" id="HFy-IX-gFR"/>
+                <outlet property="captionTextView" destination="rNB-yQ-8he" id="BRA-OD-azY"/>
+                <outlet property="captionTextViewHeightConstraint" destination="B7H-5S-LeN" id="pEd-2j-s5A"/>
+                <outlet property="captionTextViewPanRecognizer" destination="thA-S6-PyA" id="Yf4-9A-J5h"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,101 +19,55 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CM8-ij-Ba2" userLabel="CameraContainer">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mh2-pV-pfO" userLabel="CameraView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HPa-IH-ooJ" userLabel="StillCameraView">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        </imageView>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="300" translatesAutoresizingMaskIntoConstraints="NO" id="HhB-VD-WDU" customClass="VBLabel">
-                    <rect key="frame" x="10" y="526" width="300" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                    <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ChQ-hJ-MUQ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RRw-FM-anr" userLabel="Camera Image">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="U0r-iE-D4C" userLabel="CaptionsLabel" customClass="VBLabel">
-                            <rect key="frame" x="20" y="356" width="280" height="92"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <attributedString key="attributedText">
-                                <fragment content="This is the history of captions that should just scroll up. The text can actually be quite long.">
-                                    <attributes>
-                                        <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="MoT-cQ-Ow2" userLabel="CaptionsLabelAnimatedOverlay" customClass="VBLabel">
-                            <rect key="frame" x="20" y="356" width="280" height="92"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <attributedString key="attributedText">
-                                <fragment content="This is the history of captions that should just scroll up. The text can actually be quite long.">
-                                    <attributes>
-                                        <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5"/>
-                                    </attributes>
-                                </fragment>
-                            </attributedString>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-cZ-NSq" userLabel="Camera View">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" directionalLockEnabled="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNB-yQ-8he">
+                    <rect key="frame" x="0.0" y="498" width="320" height="70"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstItem="U0r-iE-D4C" firstAttribute="leading" secondItem="ChQ-hJ-MUQ" secondAttribute="leading" constant="20" id="32q-mP-Mt4"/>
-                        <constraint firstAttribute="width" constant="320" id="6LX-X7-bab"/>
-                        <constraint firstAttribute="bottom" secondItem="U0r-iE-D4C" secondAttribute="bottom" constant="120" id="FUF-kH-IUp"/>
-                        <constraint firstAttribute="trailing" secondItem="MoT-cQ-Ow2" secondAttribute="trailing" constant="20" id="GLl-X0-Gbe"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="NPg-Y0-p4f"/>
-                        <constraint firstAttribute="bottom" secondItem="MoT-cQ-Ow2" secondAttribute="bottom" constant="120" id="iVb-fB-mlZ"/>
-                        <constraint firstItem="MoT-cQ-Ow2" firstAttribute="leading" secondItem="ChQ-hJ-MUQ" secondAttribute="leading" constant="20" id="l0d-Ld-LMy"/>
-                        <constraint firstAttribute="trailing" secondItem="U0r-iE-D4C" secondAttribute="trailing" constant="20" id="oZw-Qt-Xze"/>
+                        <constraint firstAttribute="height" constant="70" id="B7H-5S-LeN"/>
                     </constraints>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                     <connections>
-                        <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="ekX-SI-OTO"/>
+                        <outletCollection property="gestureRecognizers" destination="thA-S6-PyA" appends="YES" id="Csb-xO-q3g"/>
+                        <outletCollection property="gestureRecognizers" destination="yaC-9w-B2u" appends="YES" id="0oT-mp-q4s"/>
                     </connections>
-                </view>
+                </textView>
             </subviews>
-            <color key="backgroundColor" red="0.270588249" green="0.84313732389999996" blue="0.392156899" alpha="1" colorSpace="deviceRGB"/>
-            <gestureRecognizers/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ChQ-hJ-MUQ" secondAttribute="bottom" id="2KL-W8-fnh"/>
-                <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Ec-VW-xCt"/>
-                <constraint firstItem="ChQ-hJ-MUQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7Ju-Wv-dLw"/>
-                <constraint firstAttribute="trailing" secondItem="ChQ-hJ-MUQ" secondAttribute="trailing" id="QRV-7x-Z9Y"/>
-                <constraint firstItem="HhB-VD-WDU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="f3J-1t-gL1"/>
-                <constraint firstAttribute="trailing" secondItem="HhB-VD-WDU" secondAttribute="trailing" constant="10" id="sd8-JI-Jig"/>
-                <constraint firstAttribute="bottom" secondItem="HhB-VD-WDU" secondAttribute="bottom" constant="20" id="zaE-XS-aNc"/>
+                <constraint firstAttribute="trailing" secondItem="3cN-cZ-NSq" secondAttribute="trailing" id="0gJ-Jd-SaV"/>
+                <constraint firstAttribute="bottom" secondItem="3cN-cZ-NSq" secondAttribute="bottom" id="4Tm-8z-MYT"/>
+                <constraint firstItem="3cN-cZ-NSq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5gT-rf-tnB"/>
+                <constraint firstAttribute="trailing" secondItem="RRw-FM-anr" secondAttribute="trailing" id="9jo-iG-UZm"/>
+                <constraint firstItem="RRw-FM-anr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9tQ-5g-xDn"/>
+                <constraint firstAttribute="bottom" secondItem="RRw-FM-anr" secondAttribute="bottom" id="Ks9-ba-fvh"/>
+                <constraint firstItem="3cN-cZ-NSq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WyG-ZJ-X9o"/>
+                <constraint firstAttribute="bottom" secondItem="rNB-yQ-8he" secondAttribute="bottom" id="ZWp-pL-NND"/>
+                <constraint firstItem="RRw-FM-anr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cca-E8-4QO"/>
+                <constraint firstAttribute="trailing" secondItem="rNB-yQ-8he" secondAttribute="trailing" id="oUa-Om-nbf"/>
+                <constraint firstItem="rNB-yQ-8he" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yAg-mS-fUr"/>
             </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="uFY-lT-FKw"/>
-                <outletCollection property="gestureRecognizers" destination="DXt-c1-K3u" appends="YES" id="AgS-Ep-rUw"/>
-            </connections>
         </view>
-        <panGestureRecognizer minimumNumberOfTouches="1" id="DXt-c1-K3u">
+        <panGestureRecognizer minimumNumberOfTouches="1" id="thA-S6-PyA">
             <connections>
-                <action selector="onPan:" destination="-1" id="VbL-lh-Xl3"/>
+                <action selector="onCaptionTextViewPan:" destination="-1" id="G8L-vx-0Hk"/>
             </connections>
         </panGestureRecognizer>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="yaC-9w-B2u">
+            <connections>
+                <action selector="onCaptionTextViewHold:" destination="-1" id="di7-bd-dJX"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
 </document>

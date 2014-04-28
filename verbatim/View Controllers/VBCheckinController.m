@@ -18,9 +18,6 @@
 @property (nonatomic) VBVenueDataSource *venueDataSource;
 @property (nonatomic) VBVenueDelegate *venueDelegate;
 
-@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
-- (IBAction)onLogout:(id)sender;
-
 @end
 
 @implementation VBCheckinController
@@ -55,6 +52,7 @@
 - (void)setupTableView
 {
     // colors
+    self.view.backgroundColor = [VBColor separatorColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [VBColor separatorColor];
     UIView *view = [UIView new]; view.backgroundColor = [UIColor clearColor];
@@ -77,10 +75,10 @@
 {
     [VBHUD showIndeterminateProgressWithText:@"Checkin' in..."];
     [[VBUser currentUser] checkInWithVenue:venue success:^(VBUser *user) {
-        [VBHUD showDoneWithText:@"Checked In!" hideAfterDelay:2];
+        [VBHUD showDoneWithText:@"Checked In!" hideAfterDelay:1];
         
         // transition to inputSource view
-        [self.rootController switchToAppState:APP_STATE_INPUTSOURCE animate:YES];
+        [self.rootController setAppState:APP_STATE_INPUTSOURCE animate:YES];
     } failure:^(NSError *error) {
         [VBHUD showWithError:error];
     }];
@@ -120,10 +118,7 @@
 
 - (void)dismissController
 {
-    [self.rootController switchToAppState:APP_STATE_CAPTION animate:YES];
+    [self.rootController setAppState:APP_STATE_CAPTION animate:YES];
 }
 
-- (IBAction)onLogout:(id)sender {
-    [VBFoursquare deauthorize];
-}
 @end

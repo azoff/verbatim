@@ -20,9 +20,7 @@ typedef enum VBAppState VBAppState;
 
 @interface VBRootController : UIViewController
 
-- (void)switchToAppState:(VBAppState)appState animate:(BOOL)animate;
-- (void)switchToAppState:(VBAppState)appState removeWelcomeSplash:(BOOL)remove animate:(BOOL)animate;
-
-- (void)animateNewCameraSourceWithAnimationFrame:(CGRect)frame andImage:(UIImage *)image complete:(void(^)())complete;
+@property (assign,nonatomic) VBAppState appState;
+- (void)setAppState:(VBAppState)appState animate:(BOOL)animate;
 
 @end

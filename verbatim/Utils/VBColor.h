@@ -14,8 +14,9 @@
 +(UIColor*)translucsentTextColor;
 +(UIColor*)opaqueTextColor;
 +(UIColor*)activeColor;
-+(UIColor*)navigationBarColor;
++(UIColor*)captionBarColor;
 +(UIColor*)separatorColor;
++(UIColor*)randomLightColor;
 
 @end
 

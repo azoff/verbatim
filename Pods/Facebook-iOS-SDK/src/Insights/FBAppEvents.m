@@ -283,7 +283,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
     // are relatively rare and relatively high value and worth getting across on wire right away.
 
     if (!pixelID) {
-        [FBAppEvents logAndNotify:@"Conversion Pixel ID cannot be nil"];
         return;
     }
 
@@ -428,8 +427,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 - (BOOL)validateIdentifier:(NSString *)identifier {
 
     if (identifier == nil || identifier.length == 0 || identifier.length > MAX_IDENTIFIER_LENGTH || ![self regexValidateIdentifier:identifier]) {
-        [FBAppEvents logAndNotify:[NSString stringWithFormat:@"Invalid identifier: '%@'.  Must be between 1 and %d characters, and must be contain only alphanumerics, _, - or spaces, starting with alphanumeric or _.",
-                                  identifier, MAX_IDENTIFIER_LENGTH]];
         return NO;
     }
 
@@ -461,7 +458,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
     [parameters enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
 
         if (![key isKindOfClass:[NSString class]]) {
-            [FBAppEvents logAndNotify:[NSString stringWithFormat:@"The keys in the parameters must be NSStrings, '%@' is not.", key]];
             failed = YES;
         }
 
@@ -470,7 +466,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
         }
 
         if (![obj isKindOfClass:[NSString class]] && ![obj isKindOfClass:[NSNumber class]]) {
-            [FBAppEvents logAndNotify:[NSString stringWithFormat:@"The values in the parameters dictionary must be NSStrings or NSNumbers, '%@' is not.", obj]];
             failed = YES;
         }
 
@@ -828,6 +823,60 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 - (void)handleActivitiesPostCompletion:(NSError *)error
                           loggingEntry:(NSString *)loggingEntry
                                session:(FBSession *)session {
+
+    typedef enum {
+        FlushResultSuccess,
+        FlushResultServerError,
+        FlushResultNoConnectivity
+    } FlushResult;
+
+    [FBAppEvents ensureOnMainThread];
+
+    FlushResult flushResult = FlushResultSuccess;
+    if (error) {
+
+        NSInteger errorCode = [[[error userInfo] objectForKey:FBErrorHTTPStatusCodeKey] integerValue];
+
+        // We interpret a 400 coming back from FBRequestConnection as a server error due to improper data being
+        // sent down.  Otherwise we assume no connectivity, or another condition where we could treat it as no connectivity.
+        flushResult = errorCode == 400 ? FlushResultServerError : FlushResultNoConnectivity;
+    }
+
+    FBSessionAppEventsState *appEventsState = session.appEventsState;
+    BOOL allEventsAreImplicit = YES;
+    @synchronized (appEventsState) {
+        if (flushResult != FlushResultNoConnectivity) {
+            for (NSDictionary *eventAndImplicitFlag in appEventsState.inFlightEvents) {
+                if (![eventAndImplicitFlag[kFBAppEventIsImplicit] boolValue]) {
+                    allEventsAreImplicit = NO;
+                    break;
+                }
+            }
+
+            // Either success or a real server error.  Either way, no more in flight events.
+            [appEventsState clearInFlightAndStats];
+        }
+
+        appEventsState.requestInFlight = NO;
+    }
+
+    NSString *resultString = @"<unknown>";
+    switch (flushResult) {
+        case FlushResultSuccess:
+            resultString = @"Success";
+            break;
+
+        case FlushResultNoConnectivity:
+            resultString = @"No Connectivity";
+            break;
+
+        case FlushResultServerError:
+            resultString = [NSString stringWithFormat:@"Server Error - %@", [error description]];
+            break;
+    }
+
+    [FBLogger singleShotLogEntry:FBLoggingBehaviorAppEvents
+                    formatString:@"%@\nFlush Result : %@", loggingEntry, resultString];
 }
 
 
@@ -946,10 +995,6 @@ const int MAX_IDENTIFIER_LENGTH                      = 40;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:FBAppEventsLoggingResultNotification
                                                         object:err];
-}
-
-+ (void)logAndNotify:(NSString *)msg {
-
 }
 
 #pragma mark - event log persistence

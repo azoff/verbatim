@@ -1,13 +1,12 @@
 //
-//  VBCaptionScreen.h
+//  VBCaptionController.h
 //  verbatim
 //
-//  Created by Jonathan Azoff on 3/24/14.
+//  Created by Jonathan Azoff on 4/23/14.
 //  Copyright (c) 2014 Verbatim. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewController+Factory.h"
 
 @interface VBCaptionController : VBViewController
 

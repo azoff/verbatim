@@ -10,6 +10,8 @@
 		00AE92D95A8F4E27B046B3B1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 257F18DBD9954D91A56D7EA7 /* libPods.a */; };
 		C900E78219060D31005933BA /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C900E78119060D31005933BA /* libicucore.dylib */; };
 		C900E78419060D3B005933BA /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C900E78319060D3B005933BA /* libc++.dylib */; };
+		C900E78D1908E5DD005933BA /* VBCaptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C900E78B1908E5DD005933BA /* VBCaptionController.m */; };
+		C900E78E1908E5DD005933BA /* VBCaptionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C900E78C1908E5DD005933BA /* VBCaptionController.xib */; };
 		C90F1E2818ED483B00F7503A /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2718ED483B00F7503A /* Parse.framework */; };
 		C90F1E2A18ED485700F7503A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2918ED485700F7503A /* CoreLocation.framework */; };
 		C90F1E2C18ED486200F7503A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C90F1E2B18ED486200F7503A /* libz.dylib */; };
@@ -32,8 +34,6 @@
 		C95E2DA618FFA89600BD365F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D7418FFA89600BD365F /* main.m */; };
 		C95E2DA818FFA89600BD365F /* VBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D7918FFA89600BD365F /* VBColor.m */; };
 		C95E2DA918FFA89600BD365F /* VBHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D7B18FFA89600BD365F /* VBHUD.m */; };
-		C95E2DAA18FFA89600BD365F /* VBCaptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D7E18FFA89600BD365F /* VBCaptionController.m */; };
-		C95E2DAB18FFA89600BD365F /* VBCaptionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95E2D7F18FFA89600BD365F /* VBCaptionController.xib */; };
 		C95E2DAC18FFA89600BD365F /* VBCheckinController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D8118FFA89600BD365F /* VBCheckinController.m */; };
 		C95E2DAD18FFA89600BD365F /* VBCheckinController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C95E2D8218FFA89600BD365F /* VBCheckinController.xib */; };
 		C95E2DAE18FFA89600BD365F /* VBInputSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C95E2D8418FFA89600BD365F /* VBInputSourceController.m */; };
@@ -95,6 +95,9 @@
 		C900E78119060D31005933BA /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		C900E78319060D3B005933BA /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		C900E78819063C71005933BA /* libPods-Firebase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Firebase.a"; path = "Pods/build/Release-iphoneos/libPods-Firebase.a"; sourceTree = "<group>"; };
+		C900E78A1908E5DD005933BA /* VBCaptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBCaptionController.h; sourceTree = "<group>"; };
+		C900E78B1908E5DD005933BA /* VBCaptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBCaptionController.m; sourceTree = "<group>"; };
+		C900E78C1908E5DD005933BA /* VBCaptionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBCaptionController.xib; sourceTree = "<group>"; };
 		C90F1E2718ED483B00F7503A /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		C90F1E2918ED485700F7503A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C90F1E2B18ED486200F7503A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -132,9 +135,6 @@
 		C95E2D7918FFA89600BD365F /* VBColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBColor.m; sourceTree = "<group>"; };
 		C95E2D7A18FFA89600BD365F /* VBHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBHUD.h; sourceTree = "<group>"; };
 		C95E2D7B18FFA89600BD365F /* VBHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBHUD.m; sourceTree = "<group>"; };
-		C95E2D7D18FFA89600BD365F /* VBCaptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBCaptionController.h; sourceTree = "<group>"; };
-		C95E2D7E18FFA89600BD365F /* VBCaptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBCaptionController.m; sourceTree = "<group>"; };
-		C95E2D7F18FFA89600BD365F /* VBCaptionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBCaptionController.xib; sourceTree = "<group>"; };
 		C95E2D8018FFA89600BD365F /* VBCheckinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VBCheckinController.h; sourceTree = "<group>"; };
 		C95E2D8118FFA89600BD365F /* VBCheckinController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VBCheckinController.m; sourceTree = "<group>"; };
 		C95E2D8218FFA89600BD365F /* VBCheckinController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VBCheckinController.xib; sourceTree = "<group>"; };
@@ -309,9 +309,6 @@
 		C95E2D7C18FFA89600BD365F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C95E2D7D18FFA89600BD365F /* VBCaptionController.h */,
-				C95E2D7E18FFA89600BD365F /* VBCaptionController.m */,
-				C95E2D7F18FFA89600BD365F /* VBCaptionController.xib */,
 				C95E2D8018FFA89600BD365F /* VBCheckinController.h */,
 				C95E2D8118FFA89600BD365F /* VBCheckinController.m */,
 				C95E2D8218FFA89600BD365F /* VBCheckinController.xib */,
@@ -326,6 +323,9 @@
 				C9635CF31902F7FC0020569C /* VBRootController.h */,
 				C9635CF41902F7FC0020569C /* VBRootController.m */,
 				C9635CF51902F7FC0020569C /* VBRootController.xib */,
+				C900E78A1908E5DD005933BA /* VBCaptionController.h */,
+				C900E78B1908E5DD005933BA /* VBCaptionController.m */,
+				C900E78C1908E5DD005933BA /* VBCaptionController.xib */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -544,9 +544,9 @@
 			files = (
 				C9635D081904E8DA0020569C /* NanumGothic-Bold.ttf in Resources */,
 				C9635D091904E8DA0020569C /* NanumGothic-Regular.ttf in Resources */,
+				C900E78E1908E5DD005933BA /* VBCaptionController.xib in Resources */,
 				C95E2DB418FFA89600BD365F /* VBWelcomeController.xib in Resources */,
 				C9671B5818EA1BF0003E8450 /* Images.xcassets in Resources */,
-				C95E2DAB18FFA89600BD365F /* VBCaptionController.xib in Resources */,
 				C95E2DAF18FFA89600BD365F /* VBInputSourceController.xib in Resources */,
 				C95E2DA518FFA89600BD365F /* InfoPlist.strings in Resources */,
 				C9635CF71902F7FC0020569C /* VBRootController.xib in Resources */,
@@ -627,10 +627,10 @@
 				C9635D07190444720020569C /* VBAppDelegate.m in Sources */,
 				C9635CFF19038D5E0020569C /* VBVenueTableViewCell.m in Sources */,
 				C95E2D9D18FFA89600BD365F /* VBFoursquare.m in Sources */,
-				C95E2DAA18FFA89600BD365F /* VBCaptionController.m in Sources */,
 				C9635D17190517B40020569C /* VBTableViewCell.m in Sources */,
 				C95E2DA418FFA89600BD365F /* VBVenue.m in Sources */,
 				C92AD1D318FFEDFD0028D55C /* VBNibView.m in Sources */,
+				C900E78D1908E5DD005933BA /* VBCaptionController.m in Sources */,
 				C95E2DA618FFA89600BD365F /* main.m in Sources */,
 				C9635CF61902F7FC0020569C /* VBRootController.m in Sources */,
 				C9635D1A190520840020569C /* VBUserDelegate.m in Sources */,

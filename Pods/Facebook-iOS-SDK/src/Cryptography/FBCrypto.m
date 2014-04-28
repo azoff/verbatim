@@ -32,6 +32,7 @@ static void FBWriteIntBigEndian(uint8_t *buffer, uint32_t value)
     buffer[0] = (uint8_t)((value >> 24) & 0xff);
 }
 
+
 static void blankData(NSData *data)
 {
     if (!data) {

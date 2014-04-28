@@ -69,8 +69,8 @@ NSString *const VBInputSourceManagerEventCaptionProcessing = @"VBInputSourceMana
     
     VBUser *user = [VBUser currentUser];
     if ([user isNotListeningToSelf]) {
+        self.lastSource = user.source;
         self.pubSubHandle = [VBPubSub subscribeToUserCaptionAdditions:user.source success:^(NSString *caption) {
-            self.lastSource = user.source;
             [self postCaption:caption];
         } failure:^(NSError *error) {
             [VBHUD showWithError:error];
